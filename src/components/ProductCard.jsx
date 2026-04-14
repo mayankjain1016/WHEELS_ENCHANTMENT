@@ -11,11 +11,8 @@ const ProductCard = ({ product }) => {
         sx={{ objectFit: 'cover' }}
       />
       <CardContent>
-        <Typography variant="h6" sx={{ fontWeight: 600, mb: 1 }}>
+        <Typography variant="h6" sx={{ fontWeight: 600 }}>
           {product.name}
-        </Typography>
-        <Typography variant="body2" color="text.secondary" sx={{ fontSize: '0.875rem' }}>
-          {product.description}
         </Typography>
       </CardContent>
     </Card>

@@ -98,7 +98,7 @@ const Navbar = () => {
                     component={Link}
                     to={item.path}
                     sx={{
-                      color: isScrolled ? 'text.primary' : '#ffffff',
+                      color: 'secondary.main',
                       fontWeight: 600,
                       fontSize: '0.9rem',
                       letterSpacing: '0.1em',
@@ -106,6 +106,7 @@ const Navbar = () => {
                       position: 'relative',
                       px: 1,
                       minWidth: 'auto',
+                      transition: `all 0.3s ${luxuryEasing}`,
                       '&::after': {
                         content: '""',
                         position: 'absolute',
@@ -114,12 +115,15 @@ const Navbar = () => {
                         bottom: 6,
                         left: '50%',
                         transform: 'translateX(-50%)',
-                        bgcolor: isScrolled ? 'secondary.main' : '#ffffff',
+                        bgcolor: 'secondary.main',
                         transition: `width 0.3s ${luxuryEasing}`,
                       },
                       '&:hover': {
                         bgcolor: 'transparent',
-                        color: isScrolled ? 'secondary.main' : alpha('#ffffff', 0.8),
+                        color: (location.pathname === '/gallery' || location.pathname === '/admission')
+                          ? '#000000'
+                          : (isScrolled ? 'primary.main' : '#ffffff'),
+                        transform: 'translateY(-2px)',
                         '&::after': { width: '100%' }
                       },
                     }}

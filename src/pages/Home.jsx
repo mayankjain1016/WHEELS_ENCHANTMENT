@@ -22,6 +22,8 @@ import GroupsIcon from "@mui/icons-material/Groups";
 import backgroundImg from "../assets/Background_imgs/backgroundimg.jpeg";
 import backgroundImg2 from "../assets/Background_imgs/backgroundimg2.jpeg";
 import backgroundImg3 from "../assets/Background_imgs/backgroundimg3.jpeg";
+import backgroundImg4 from "../assets/Background_imgs/backgroundimg4.jpeg";
+import backgroundImg5 from "../assets/Background_imgs/backgroundimg5.jpeg";
 
 const Home = () => {
   const theme = useTheme();
@@ -55,25 +57,25 @@ const Home = () => {
 
   const coaches = [
     {
-      name: "Sarah Mitchell",
+      name: "Priya Sharma",
       role: "Head Coach",
       exp: "12+ Years",
       specialty: "Youth Skating Specialist",
-      img: "https://i.pravatar.cc/300?img=1",
+      img: "https://randomuser.me/api/portraits/women/44.jpg",
     },
     {
-      name: "Michael Chen",
+      name: "Rajesh Kumar",
       role: "Senior Coach",
       exp: "10+ Years",
       specialty: "Speed & Technique Training",
-      img: "https://i.pravatar.cc/300?img=13",
+      img: "https://randomuser.me/api/portraits/men/32.jpg",
     },
     {
-      name: "Emily Rodriguez",
+      name: "Anita Desai",
       role: "Safety Coach",
       exp: "8+ Years",
       specialty: "Balance, Form & Safety",
-      img: "https://i.pravatar.cc/300?img=5",
+      img: "https://randomuser.me/api/portraits/women/68.jpg",
     },
   ];
 
@@ -85,7 +87,7 @@ const Home = () => {
       <Box
         sx={{
           position: "relative",
-          minHeight: { xs: "88vh", md: "95vh" },
+          minHeight: { xs: "70vh", sm: "80vh", md: "95vh" },
           display: "flex",
           alignItems: "center",
           backgroundImage:
@@ -188,32 +190,6 @@ const Home = () => {
                 >
                   Join the Academy
                 </Button>
-
-                <Button
-                  variant="outlined"
-                  size="large"
-                  component={Link}
-                  to="/about"
-                  sx={{
-                    px: 4.5,
-                    py: 1.8,
-                    borderRadius: "999px",
-                    fontWeight: 700,
-                    fontSize: "1rem",
-                    textTransform: "none",
-                    color: "white",
-                    borderColor: alpha("#fff", 0.75),
-                    borderWidth: 1.6,
-                    transition: "all 0.3s ease",
-                    "&:hover": {
-                      borderColor: "secondary.main",
-                      color: "secondary.main",
-                      bgcolor: alpha("#fff", 0.04),
-                    },
-                  }}
-                >
-                  Explore Programs
-                </Button>
               </Stack>
             </Grid>
           </Grid>
@@ -283,14 +259,14 @@ const Home = () => {
           </Grid>
 
           <Grid item xs={12} md={6}>
-            <Box sx={{ position: "relative" }}>
+            <Box sx={{ position: "relative", mb: { xs: 8, md: 0 } }}>
               <Box
                 component="img"
-                src={backgroundImg2}
+                src={backgroundImg4}
                 alt="Kids skating practice"
                 sx={{
                   width: "100%",
-                  height: { xs: 360, md: 500 },
+                  height: { xs: 280, sm: 350, md: 500 },
                   objectFit: "cover",
                   borderRadius: "28px",
                   boxShadow: "0 30px 60px rgba(0,0,0,0.14)",
@@ -300,36 +276,39 @@ const Home = () => {
               <Box
                 sx={{
                   position: "absolute",
-                  bottom: { xs: -25, md: -35 },
-                  left: { xs: 20, md: -35 },
+                  bottom: { xs: -60, sm: -70, md: -35 },
+                  left: { xs: "50%", md: -35 },
+                  transform: { xs: "translateX(-50%)", md: "none" },
                   display: "flex",
                   alignItems: "stretch",
                   bgcolor: "background.paper",
                   borderRadius: "22px",
                   overflow: "hidden",
                   boxShadow: "0 20px 45px rgba(0,0,0,0.16)",
-                  maxWidth: 310,
+                  maxWidth: { xs: 280, sm: 310 },
+                  width: { xs: "90%", sm: "auto" },
                   border: `1px solid ${alpha(theme.palette.divider, 0.08)}`,
                 }}
               >
                 <Box
                   component="img"
-                  src={backgroundImg3}
+                  src={backgroundImg5}
                   alt="Coach teaching students skating"
                   sx={{
-                    width: 110,
-                    minHeight: 120,
+                    width: { xs: 90, sm: 110 },
+                    minHeight: { xs: 100, sm: 120 },
                     objectFit: "cover",
                   }}
                 />
 
-                <Box sx={{ p: 2.2 }}>
+                <Box sx={{ p: { xs: 1.8, sm: 2.2 } }}>
                   <Typography
                     variant="h4"
                     sx={{
                       fontWeight: 900,
                       lineHeight: 1,
                       color: "primary.main",
+                      fontSize: { xs: "1.8rem", sm: "2.125rem" },
                     }}
                   >
                     150+
@@ -339,6 +318,7 @@ const Home = () => {
                     sx={{
                       fontWeight: 700,
                       mt: 0.7,
+                      fontSize: { xs: "0.9rem", sm: "1rem" },
                     }}
                   >
                     Active Students
@@ -349,6 +329,7 @@ const Home = () => {
                       color: "text.secondary",
                       mt: 0.8,
                       lineHeight: 1.6,
+                      fontSize: { xs: "0.8rem", sm: "0.875rem" },
                     }}
                   >
                     Growing under expert guidance in a safe and inspiring

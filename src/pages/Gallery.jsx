@@ -26,7 +26,7 @@ const Gallery = () => {
   };
 
   return (
-    <Box sx={{ py: 8, bgcolor: '#F8F9FB' }}>
+    <Box sx={{ py: { xs: 10, md: 12 }, bgcolor: '#F8F9FB', minHeight: '100vh' }}>
       <Container maxWidth="lg">
         <SectionHeader 
           title="Gallery" 
@@ -90,12 +90,13 @@ const Gallery = () => {
               >
                 <CardMedia
                   component="img"
-                  height="300"
+                  height="280"
                   image={image.url}
                   alt={`${image.category} - Gallery ${image.id}`}
                   sx={{ 
                     objectFit: 'cover',
                     transition: 'transform 0.5s ease',
+                    height: { xs: 220, sm: 260, md: 280 },
                     '&:hover': {
                       transform: 'scale(1.1)',
                     }

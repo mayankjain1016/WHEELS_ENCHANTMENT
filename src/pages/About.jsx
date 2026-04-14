@@ -256,16 +256,6 @@ const About = () => {
         <Grid container spacing={{ xs: 6, md: 10 }} alignItems="center">
           <Grid item xs={12} md={6}>
             <Typography
-              variant="overline"
-              sx={{
-                color: "secondary.main",
-                fontWeight: 800,
-                letterSpacing: 3,
-              }}
-            >
-              OUR STORY
-            </Typography>
-            <Typography
               variant="h2"
               sx={{
                 fontWeight: 900,
@@ -335,7 +325,7 @@ const About = () => {
                 alt="Kids skating training"
                 sx={{
                   width: "100%",
-                  height: { xs: 400, md: 550 },
+                  height: { xs: 320, sm: 400, md: 550 },
                   objectFit: "cover",
                 }}
               />
@@ -353,16 +343,6 @@ const About = () => {
       >
         <Container maxWidth="lg">
           <Box sx={{ textAlign: "center", mb: 8 }}>
-            <Typography
-              variant="overline"
-              sx={{
-                color: "secondary.main",
-                fontWeight: 800,
-                letterSpacing: 3,
-              }}
-            >
-              WHY CHOOSE US
-            </Typography>
             <Typography
               variant="h2"
               sx={{
@@ -477,7 +457,7 @@ const About = () => {
                   alt="Student experience"
                   sx={{
                     width: "100%",
-                    height: { xs: 400, md: 500 },
+                    height: { xs: 320, sm: 400, md: 500 },
                     objectFit: "cover",
                   }}
                 />

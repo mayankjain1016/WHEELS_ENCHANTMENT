@@ -6,7 +6,7 @@ import SectionHeader from '../components/SectionHeader';
 
 const Contact = () => {
   return (
-    <Box sx={{ py: 8 }}>
+    <Box sx={{ py: { xs: 10, md: 12 }, minHeight: '100vh' }}>
       <Container maxWidth="lg">
         <SectionHeader 
           title="Get In Touch" 
@@ -112,7 +112,13 @@ const Contact = () => {
 
               {/* Map Placeholder */}
               <Card>
-                <Box sx={{ height: 200, bgcolor: 'background.paper', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <Box sx={{ 
+                  height: { xs: 180, sm: 200 }, 
+                  bgcolor: 'background.paper', 
+                  display: 'flex', 
+                  alignItems: 'center', 
+                  justifyContent: 'center' 
+                }}>
                   <Typography color="text.secondary">
                     Map Placeholder
                   </Typography>

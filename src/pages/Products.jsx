@@ -36,12 +36,13 @@ const Products = () => {
       <Box sx={{ 
         bgcolor: 'primary.main', 
         color: 'white', 
-        pt: { xs: 12, md: 15 }, 
-        pb: { xs: 8, md: 10 },
+        pt: { xs: 14, md: 16 }, 
+        pb: { xs: 10, md: 12 },
         textAlign: 'center',
         background: `linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1551698618-1dfe5d97d256?w=1600&q=80')`,
         backgroundSize: 'cover',
-        backgroundPosition: 'center'
+        backgroundPosition: 'center',
+        backgroundAttachment: { xs: 'scroll', md: 'fixed' }
       }}>
         <Container maxWidth="md">
           <Typography variant="overline" sx={{ letterSpacing: 4, color: 'secondary.main', fontWeight: 700 }}>
