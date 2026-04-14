@@ -59,7 +59,7 @@ const Footer = () => {
 
         <Box sx={{ borderTop: '1px solid rgba(255,255,255,0.1)', mt: 4, pt: 3, textAlign: 'center' }}>
           <Typography variant="body2" sx={{ color: 'rgba(255,255,255,0.6)' }}>
-            © 2024 Wheels Enchantment. All rights reserved.
+            © 2026 Wheels Enchantment. All rights reserved.
           </Typography>
         </Box>
       </Container>

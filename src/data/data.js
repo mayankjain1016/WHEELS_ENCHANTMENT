@@ -47,56 +47,15 @@ import img46 from '../assets/products_imgs/IMG_2398.PNG';
 import img47 from '../assets/products_imgs/IMG_2399.PNG';
 import img48 from '../assets/products_imgs/IMG_2400.PNG';
 
-export const products = [
-  { id: 1, name: 'Pro Speed Wheels', price: 89.99, category: 'Wheels', image: img1 },
-  { id: 2, name: 'Elite Skate Deck', price: 129.99, category: 'Decks', image: img2 },
-  { id: 3, name: 'Carbon Fiber Trucks', price: 149.99, category: 'Trucks', image: img3 },
-  { id: 4, name: 'Precision Bearings', price: 49.99, category: 'Bearings', image: img4 },
-  { id: 5, name: 'Street Performance Wheels', price: 79.99, category: 'Wheels', image: img5 },
-  { id: 6, name: 'Urban Cruiser Deck', price: 109.99, category: 'Decks', image: img6 },
-  { id: 7, name: 'Titanium Trucks', price: 169.99, category: 'Trucks', image: img7 },
-  { id: 8, name: 'Speed Bearings Pro', price: 59.99, category: 'Bearings', image: img8 },
-  { id: 9, name: 'All-Terrain Wheels', price: 94.99, category: 'Wheels', image: img9 },
-  { id: 10, name: 'Professional Deck', price: 139.99, category: 'Decks', image: img10 },
-  { id: 11, name: 'Aluminum Trucks', price: 119.99, category: 'Trucks', image: img11 },
-  { id: 12, name: 'Ceramic Bearings', price: 69.99, category: 'Bearings', image: img12 },
-  { id: 13, name: 'Racing Wheels', price: 99.99, category: 'Wheels', image: img13 },
-  { id: 14, name: 'Bamboo Deck', price: 119.99, category: 'Decks', image: img14 },
-  { id: 15, name: 'Steel Trucks', price: 89.99, category: 'Trucks', image: img15 },
-  { id: 16, name: 'ABEC-9 Bearings', price: 54.99, category: 'Bearings', image: img16 },
-  { id: 17, name: 'Cruiser Wheels', price: 74.99, category: 'Wheels', image: img17 },
-  { id: 18, name: 'Maple Deck', price: 124.99, category: 'Decks', image: img18 },
-  { id: 19, name: 'Lightweight Trucks', price: 134.99, category: 'Trucks', image: img19 },
-  { id: 20, name: 'Swiss Bearings', price: 79.99, category: 'Bearings', image: img20 },
-  { id: 21, name: 'Soft Wheels', price: 69.99, category: 'Wheels', image: img21 },
-  { id: 22, name: 'Longboard Deck', price: 149.99, category: 'Decks', image: img22 },
-  { id: 23, name: 'Heavy Duty Trucks', price: 159.99, category: 'Trucks', image: img23 },
-  { id: 24, name: 'Premium Bearings', price: 84.99, category: 'Bearings', image: img24 },
-  { id: 25, name: 'Hard Wheels', price: 84.99, category: 'Wheels', image: img25 },
-  { id: 26, name: 'Carbon Deck', price: 179.99, category: 'Decks', image: img26 },
-  { id: 27, name: 'Pro Trucks', price: 144.99, category: 'Trucks', image: img27 },
-  { id: 28, name: 'Speed Bearings', price: 64.99, category: 'Bearings', image: img28 },
-  { id: 29, name: 'Glow Wheels', price: 94.99, category: 'Wheels', image: img29 },
-  { id: 30, name: 'Fiberglass Deck', price: 159.99, category: 'Decks', image: img30 },
-  { id: 31, name: 'Adjustable Trucks', price: 124.99, category: 'Trucks', image: img31 },
-  { id: 32, name: 'Titanium Bearings', price: 89.99, category: 'Bearings', image: img32 },
-  { id: 33, name: 'LED Wheels', price: 109.99, category: 'Wheels', image: img33 },
-  { id: 34, name: 'Composite Deck', price: 134.99, category: 'Decks', image: img34 },
-  { id: 35, name: 'Precision Trucks', price: 154.99, category: 'Trucks', image: img35 },
-  { id: 36, name: 'Hybrid Bearings', price: 74.99, category: 'Bearings', image: img36 },
-  { id: 37, name: 'Outdoor Wheels', price: 79.99, category: 'Wheels', image: img37 },
-  { id: 38, name: 'Street Deck', price: 114.99, category: 'Decks', image: img38 },
-  { id: 39, name: 'Standard Trucks', price: 99.99, category: 'Trucks', image: img39 },
-  { id: 40, name: 'Classic Bearings', price: 44.99, category: 'Bearings', image: img40 },
-  { id: 41, name: 'Indoor Wheels', price: 84.99, category: 'Wheels', image: img41 },
-  { id: 42, name: 'Mini Deck', price: 99.99, category: 'Decks', image: img42 },
-  { id: 43, name: 'Wide Trucks', price: 129.99, category: 'Trucks', image: img43 },
-  { id: 44, name: 'Smooth Bearings', price: 59.99, category: 'Bearings', image: img44 },
-  { id: 45, name: 'Grip Wheels', price: 89.99, category: 'Wheels', image: img45 },
-  { id: 46, name: 'Custom Deck', price: 169.99, category: 'Decks', image: img46 },
-  { id: 47, name: 'Narrow Trucks', price: 114.99, category: 'Trucks', image: img47 },
-  { id: 48, name: 'Ultra Bearings', price: 94.99, category: 'Bearings', image: img48 },
-];
+const productImages = [img1, img2, img3, img4, img5, img6, img7, img8, img9, img10, img11, img12, img13, img14, img15, img16, img17, img18, img19, img20, img21, img22, img23, img24, img25, img26, img27, img28, img29, img30, img31, img32, img33, img34, img35, img36, img37, img38, img39, img40, img41, img42, img43, img44, img45, img46, img47, img48];
+
+export const products = productImages.map((image, index) => ({
+  id: index + 1,
+  name: `Product ${index + 1}`,
+  description: `Premium skating product - Item ${2353 + index}`,
+  category: 'Skates',
+  image: image,
+}));
 
 import gimg1 from '../assets/products_imgs/IMG_2401.PNG';
 import gimg2 from '../assets/products_imgs/IMG_2402.PNG';
@@ -156,32 +115,5 @@ export const features = [
     title: 'Expert Support',
     description: '24/7 customer support from skating enthusiasts',
     icon: 'support_agent',
-  },
-];
-
-export const coaches = [
-  {
-    id: 1,
-    name: 'Sarah Mitchell',
-    title: 'Head Coach',
-    experience: '15+ years',
-    specialty: 'Speed Skating & Competition Training',
-    description: 'Former Olympic qualifier with expertise in advanced techniques and competitive strategy.',
-  },
-  {
-    id: 2,
-    name: 'Marcus Chen',
-    title: 'Technical Coach',
-    experience: '12+ years',
-    specialty: 'Freestyle & Trick Development',
-    description: 'Professional skater and choreographer specializing in creative movement and skill progression.',
-  },
-  {
-    id: 3,
-    name: 'Elena Rodriguez',
-    title: 'Youth Coach',
-    experience: '10+ years',
-    specialty: 'Beginner & Youth Programs',
-    description: 'Certified instructor focused on building confidence and foundational skills for all ages.',
   },
 ];

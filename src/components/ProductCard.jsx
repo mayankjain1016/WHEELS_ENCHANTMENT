@@ -1,4 +1,4 @@
-import { Card, CardMedia, CardContent, Typography, Button, Box } from '@mui/material';
+import { Card, CardMedia, CardContent, Typography, Box } from '@mui/material';
 
 const ProductCard = ({ product }) => {
   return (
@@ -11,20 +11,12 @@ const ProductCard = ({ product }) => {
         sx={{ objectFit: 'cover' }}
       />
       <CardContent>
-        <Typography variant="body2" color="text.secondary" sx={{ mb: 1 }}>
-          {product.category}
-        </Typography>
         <Typography variant="h6" sx={{ fontWeight: 600, mb: 1 }}>
           {product.name}
         </Typography>
-        <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mt: 2 }}>
-          <Typography variant="h6" color="primary" sx={{ fontWeight: 700 }}>
-            ${product.price}
-          </Typography>
-          <Button variant="contained" color="secondary" size="small">
-            Add to Cart
-          </Button>
-        </Box>
+        <Typography variant="body2" color="text.secondary" sx={{ fontSize: '0.875rem' }}>
+          {product.description}
+        </Typography>
       </CardContent>
     </Card>
   );

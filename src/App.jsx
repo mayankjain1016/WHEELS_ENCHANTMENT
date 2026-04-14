@@ -9,7 +9,7 @@ import Home from './pages/Home';
 import Products from './pages/Products';
 import Gallery from './pages/Gallery';
 import About from './pages/About';
-import AdmissionForm from './pages/AdmissionForm';
+import Admission from './pages/Admission';
 
 function App() {
   return (
@@ -24,7 +24,7 @@ function App() {
               <Route path="/products" element={<Products />} />
               <Route path="/gallery" element={<Gallery />} />
               <Route path="/about" element={<About />} />
-              <Route path="/admission" element={<AdmissionForm />} />
+              <Route path="/admission" element={<Admission />} />
             </Routes>
           </Box>
           <Footer />

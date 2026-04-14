@@ -1,20 +1,29 @@
 import { Box, Container, Typography, TextField, Button, Grid, MenuItem } from '@mui/material';
 import { useState } from 'react';
+import UploadFileIcon from '@mui/icons-material/UploadFile';
 import SectionHeader from '../components/SectionHeader';
 
 const AdmissionForm = () => {
   const [formData, setFormData] = useState({
-    fullName: '',
+    studentName: '',
+    dateOfBirth: '',
+    school: '',
+    fatherName: '',
+    fatherMobile: '',
+    motherName: '',
+    motherMobile: '',
+    address: '',
     email: '',
-    phone: '',
-    age: '',
-    experience: '',
-    program: '',
-    message: '',
+    photo: null,
+    aadhaar: null,
   });
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleFileChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.files[0] });
   };
 
   const handleSubmit = (e) => {
@@ -36,9 +45,9 @@ const AdmissionForm = () => {
             <Grid item xs={12}>
               <TextField
                 fullWidth
-                label="Full Name"
-                name="fullName"
-                value={formData.fullName}
+                label="Student's Name"
+                name="studentName"
+                value={formData.studentName}
                 onChange={handleChange}
                 required
               />
@@ -47,7 +56,88 @@ const AdmissionForm = () => {
             <Grid item xs={12} sm={6}>
               <TextField
                 fullWidth
-                label="Email"
+                label="Date of Birth"
+                name="dateOfBirth"
+                type="date"
+                value={formData.dateOfBirth}
+                onChange={handleChange}
+                InputLabelProps={{ shrink: true }}
+                required
+              />
+            </Grid>
+
+            <Grid item xs={12} sm={6}>
+              <TextField
+                fullWidth
+                label="School"
+                name="school"
+                value={formData.school}
+                onChange={handleChange}
+                required
+              />
+            </Grid>
+
+            <Grid item xs={12} sm={6}>
+              <TextField
+                fullWidth
+                label="Father's Name"
+                name="fatherName"
+                value={formData.fatherName}
+                onChange={handleChange}
+                required
+              />
+            </Grid>
+
+            <Grid item xs={12} sm={6}>
+              <TextField
+                fullWidth
+                label="Father's Mobile Number"
+                name="fatherMobile"
+                value={formData.fatherMobile}
+                onChange={handleChange}
+                required
+              />
+            </Grid>
+
+            <Grid item xs={12} sm={6}>
+              <TextField
+                fullWidth
+                label="Mother's Name"
+                name="motherName"
+                value={formData.motherName}
+                onChange={handleChange}
+                required
+              />
+            </Grid>
+
+            <Grid item xs={12} sm={6}>
+              <TextField
+                fullWidth
+                label="Mother's Mobile Number"
+                name="motherMobile"
+                value={formData.motherMobile}
+                onChange={handleChange}
+                required
+              />
+            </Grid>
+
+            <Grid item xs={12}>
+              <TextField
+                fullWidth
+                label="Address"
+                name="address"
+                multiline
+                rows={3}
+                value={formData.address}
+                onChange={handleChange}
+                required
+              />
+            </Grid>
+
+            <Grid item xs={12}>
+              <TextField
+                fullWidth
+                label="Email ID"
                 name="email"
                 type="email"
                 value={formData.email}
@@ -57,73 +147,52 @@ const AdmissionForm = () => {
             </Grid>
 
             <Grid item xs={12} sm={6}>
-              <TextField
+              <Button
+                variant="outlined"
+                component="label"
                 fullWidth
-                label="Phone Number"
-                name="phone"
-                value={formData.phone}
-                onChange={handleChange}
-                required
-              />
+                startIcon={<UploadFileIcon />}
+                sx={{ py: 1.5 }}
+              >
+                Upload Passport Size Photo *
+                <input
+                  type="file"
+                  name="photo"
+                  hidden
+                  accept="image/*"
+                  onChange={handleFileChange}
+                  required
+                />
+              </Button>
+              {formData.photo && (
+                <Typography variant="caption" sx={{ mt: 1, display: 'block' }}>
+                  {formData.photo.name}
+                </Typography>
+              )}
             </Grid>
 
             <Grid item xs={12} sm={6}>
-              <TextField
+              <Button
+                variant="outlined"
+                component="label"
                 fullWidth
-                label="Age"
-                name="age"
-                type="number"
-                value={formData.age}
-                onChange={handleChange}
-                required
-              />
-            </Grid>
-
-            <Grid item xs={12} sm={6}>
-              <TextField
-                fullWidth
-                select
-                label="Experience Level"
-                name="experience"
-                value={formData.experience}
-                onChange={handleChange}
-                required
+                startIcon={<UploadFileIcon />}
+                sx={{ py: 1.5 }}
               >
-                <MenuItem value="beginner">Beginner</MenuItem>
-                <MenuItem value="intermediate">Intermediate</MenuItem>
-                <MenuItem value="advanced">Advanced</MenuItem>
-                <MenuItem value="professional">Professional</MenuItem>
-              </TextField>
-            </Grid>
-
-            <Grid item xs={12}>
-              <TextField
-                fullWidth
-                select
-                label="Program"
-                name="program"
-                value={formData.program}
-                onChange={handleChange}
-                required
-              >
-                <MenuItem value="speed">Speed Skating & Competition Training</MenuItem>
-                <MenuItem value="freestyle">Freestyle & Trick Development</MenuItem>
-                <MenuItem value="youth">Youth Programs</MenuItem>
-                <MenuItem value="general">General Skating</MenuItem>
-              </TextField>
-            </Grid>
-
-            <Grid item xs={12}>
-              <TextField
-                fullWidth
-                label="Additional Message"
-                name="message"
-                multiline
-                rows={4}
-                value={formData.message}
-                onChange={handleChange}
-                placeholder="Tell us about your skating goals and any questions you have..."
-              />
+                Upload Aadhaar Card (Optional)
+                <input
+                  type="file"
+                  name="aadhaar"
+                  hidden
+                  accept="image/*,application/pdf"
+                  onChange={handleFileChange}
+                />
+              </Button>
+              {formData.aadhaar && (
+                <Typography variant="caption" sx={{ mt: 1, display: 'block' }}>
+                  {formData.aadhaar.name}
+                </Typography>
+              )}
             </Grid>
 
             <Grid item xs={12}>
