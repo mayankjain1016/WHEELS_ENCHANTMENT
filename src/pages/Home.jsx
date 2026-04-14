@@ -57,18 +57,18 @@ const Home = () => {
 
   const coaches = [
     {
-      name: "Priya Sharma",
+      name: "Rajat Sharma",
       role: "Head Coach",
       exp: "12+ Years",
       specialty: "Youth Skating Specialist",
-      img: "https://randomuser.me/api/portraits/women/44.jpg",
+      img: "https://media.istockphoto.com/id/1216426542/photo/portrait-of-happy-man-at-white-background-stock-photo.webp?a=1&b=1&s=612x612&w=0&k=20&c=EgxUJNnRMUmyCuVLrnMWcQMPq9EGqdjHNZEBGgAa3hg=",
     },
     {
       name: "Rajesh Kumar",
       role: "Senior Coach",
       exp: "10+ Years",
       specialty: "Speed & Technique Training",
-      img: "https://randomuser.me/api/portraits/men/32.jpg",
+      img: "https://media.istockphoto.com/id/1587315781/photo/happy-laughing-guy-posing-with-arms-folded.webp?a=1&b=1&s=612x612&w=0&k=20&c=pQjzvhpF0m66H5O9YMIgM6tAjtP1BUoAP4ChXnIpJTA=",
     },
     {
       name: "Anita Desai",
