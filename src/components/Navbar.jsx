@@ -140,7 +140,11 @@ const Navbar = () => {
             {isMobile && (
               <IconButton 
                 onClick={() => setDrawerOpen(true)} 
-                sx={{ color: isScrolled ? 'primary.main' : '#ffffff' }}
+                sx={{ 
+                  color: (location.pathname === '/gallery' || location.pathname === '/admission')
+                    ? 'secondary.main'
+                    : (isScrolled ? 'primary.main' : '#ffffff')
+                }}
               >
                 <MenuIcon fontSize="large" />
               </IconButton>
