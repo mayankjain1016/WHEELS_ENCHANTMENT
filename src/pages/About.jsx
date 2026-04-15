@@ -162,9 +162,9 @@ const About = () => {
 
   const stats = [
     { number: "250+", label: "Active Students" },
-    { number: "10+", label: "Years Experience" },
+    { number: "13+", label: "Years Experience" },
     { number: "100%", label: "Safety Focus" },
-    { number: "15+", label: "Certified Coaches" },
+    { number: "10+", label: "Certified Coaches" },
   ];
 
   const testimonials = [
@@ -234,7 +234,7 @@ const About = () => {
               lineHeight: 1.1,
             }}
           >
-            Wheels Enchantment
+            Wheels Enchntment
           </Typography>
           <Typography
             variant="h6"

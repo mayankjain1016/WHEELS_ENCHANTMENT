@@ -6,6 +6,7 @@ import {
 import { useState, useMemo } from 'react';
 import ProductCard from '../components/ProductCard';
 import { products } from '../data/data';
+import backgroundImg7 from '../assets/Background_imgs/backgroundimg7.jpeg';
 
 const Products = () => {
   const theme = useTheme();
@@ -39,7 +40,7 @@ const Products = () => {
         pt: { xs: 14, md: 16 }, 
         pb: { xs: 10, md: 12 },
         textAlign: 'center',
-        background: `linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1551698618-1dfe5d97d256?w=1600&q=80')`,
+        background: `linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url(${backgroundImg7})`,
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         backgroundAttachment: { xs: 'scroll', md: 'fixed' }

@@ -1,7 +1,7 @@
 import { 
   AppBar, Toolbar, Button, Box, IconButton, Drawer, 
   List, ListItem, ListItemButton, ListItemText, 
-  useMediaQuery, useTheme, alpha, Container 
+  useMediaQuery, useTheme, alpha, Container, Typography 
 } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import CloseIcon from '@mui/icons-material/Close';
@@ -153,55 +153,58 @@ const Navbar = () => {
         </Toolbar>
       </Container>
 
-      {/* MOBILE DRAWER - Boutique Style */}
+      {/* MOBILE DRAWER */}
       <Drawer 
         anchor="right" 
         open={drawerOpen} 
         onClose={() => setDrawerOpen(false)}
         PaperProps={{
           sx: { 
-            width: '100%', 
-            maxWidth: 350, 
+            width: 280,
             bgcolor: 'primary.dark', 
             color: '#ffffff',
-            display: 'flex',
-            flexDirection: 'column'
+            backdropFilter: 'blur(10px)'
           }
         }}
       >
-        <Box sx={{ p: 3, display: 'flex', justifyContent: 'flex-end' }}>
+        <Box sx={{ display: 'flex', justifyContent: 'flex-end', p: 2, pb: 1 }}>
           <IconButton onClick={() => setDrawerOpen(false)} sx={{ color: '#ffffff' }}>
-            <CloseIcon fontSize="large" />
+            <CloseIcon />
           </IconButton>
         </Box>
-
-        <Box sx={{ flexGrow: 1, display: 'flex', alignItems: 'center', px: 4 }}>
-          <List sx={{ width: '100%' }}>
-            {menuItems.map((item) => (
-              <ListItem key={item.path} disablePadding sx={{ mb: 3 }}>
-                <ListItemButton 
-                  component={Link} 
-                  to={item.path} 
-                  onClick={() => setDrawerOpen(false)}
-                  sx={{ 
-                    textAlign: 'center',
-                    borderBottom: location.pathname === item.path ? '1px solid white' : 'none'
-                  }}
-                >
-                  <ListItemText 
-                    primary={item.label} 
-                    primaryTypographyProps={{ 
-                      fontSize: '1.8rem', 
-                      fontWeight: 300, 
-                      letterSpacing: '0.1em',
-                      textTransform: 'uppercase'
-                    }} 
-                  />
-                </ListItemButton>
-              </ListItem>
-            ))}
-          </List>
-        </Box>
+        <List sx={{ pt: 0, px: 2 }}>
+          {menuItems.map((item) => (
+            <ListItem key={item.path} disablePadding>
+              <ListItemButton 
+                component={Link} 
+                to={item.path} 
+                onClick={() => setDrawerOpen(false)}
+                sx={{ 
+                  py: 1.5,
+                  px: 2,
+                  borderRadius: 1.5,
+                  mb: 0.5,
+                  bgcolor: location.pathname === item.path ? alpha('#fff', 0.1) : 'transparent',
+                  transition: 'all 0.2s ease',
+                  '&:hover': { 
+                    bgcolor: alpha('#fff', 0.08),
+                    transform: 'translateX(4px)'
+                  }
+                }}
+              >
+                <ListItemText 
+                  primary={item.label} 
+                  primaryTypographyProps={{ 
+                    fontSize: '1.05rem', 
+                    fontWeight: location.pathname === item.path ? 600 : 500,
+                    letterSpacing: '0.3px',
+                    color: location.pathname === item.path ? 'secondary.main' : '#ffffff'
+                  }} 
+                />
+              </ListItemButton>
+            </ListItem>
+          ))}
+        </List>
       </Drawer>
     </AppBar>
   );

@@ -52,14 +52,14 @@ const Footer = () => {
             </Box>
             <Typography variant="body2" sx={{ color: 'rgba(255,255,255,0.8)', mt: 2 }}>
               Email: info@wheelsenchantment.com<br />
-              Phone: +1 (555) 123-4567
+              Phone: +91 9674242870
             </Typography>
           </Grid>
         </Grid>
 
         <Box sx={{ borderTop: '1px solid rgba(255,255,255,0.1)', mt: 4, pt: 3, textAlign: 'center' }}>
           <Typography variant="body2" sx={{ color: 'rgba(255,255,255,0.6)' }}>
-            © 2026 Wheels Enchantment. All rights reserved.
+            © 2021-2026 Wheels Enchantment. All rights reserved. | Established in 2021
           </Typography>
         </Box>
       </Container>
