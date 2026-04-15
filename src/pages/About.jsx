@@ -21,6 +21,7 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import FormatQuoteIcon from "@mui/icons-material/FormatQuote";
 import backgroundImg2 from "../assets/Background_imgs/backgroundimg2.jpeg";
 import backgroundImg3 from "../assets/Background_imgs/backgroundimg3.jpeg";
+import backgroundImg6 from "../assets/Background_imgs/backgroundimg6.jpeg";
 
 const CountUpNumber = ({ value, label }) => {
   const [count, setCount] = useState(0);
@@ -160,7 +161,7 @@ const About = () => {
   ];
 
   const stats = [
-    { number: "150+", label: "Active Students" },
+    { number: "250+", label: "Active Students" },
     { number: "10+", label: "Years Experience" },
     { number: "100%", label: "Safety Focus" },
     { number: "15+", label: "Certified Coaches" },
@@ -194,7 +195,7 @@ const About = () => {
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          backgroundImage: `url(https://images.unsplash.com/photo-1547447134-cd3f5c716030?auto=format&fit=crop&w=1800&q=80)`,
+          backgroundImage: `url(${backgroundImg6})`,
           backgroundSize: "cover",
           backgroundPosition: "center",
           "&::before": {

@@ -320,14 +320,14 @@ const Admission = () => {
                     color="text.secondary"
                     sx={{ mb: 1 }}
                   >
-                    <strong>Weekdays:</strong> 4:00 PM - 7:00 PM
+                    <strong>Weekdays:</strong> 3:00 PM - 9:00 PM
                   </Typography>
                   <Typography
                     variant="body2"
                     color="text.secondary"
                     sx={{ mb: 1 }}
                   >
-                    <strong>Weekends:</strong> 9:00 AM - 5:00 PM
+                    <strong>Weekends:</strong> 3:00 AM - 9:00 PM
                   </Typography>
                   <Typography variant="body2" color="text.secondary">
                     <strong>Duration:</strong> 1-hour sessions

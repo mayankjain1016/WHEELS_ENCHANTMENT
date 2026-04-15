@@ -13,6 +13,7 @@ import {
   Chip,
 } from "@mui/material";
 import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import SchoolIcon from "@mui/icons-material/School";
 import SecurityIcon from "@mui/icons-material/Security";
@@ -20,6 +21,10 @@ import EmojiEventsIcon from "@mui/icons-material/EmojiEvents";
 import VerifiedIcon from "@mui/icons-material/Verified";
 import GroupsIcon from "@mui/icons-material/Groups";
 import backgroundImg from "../assets/Background_imgs/backgroundimg.jpeg";
+import backgroundImg_2 from "../assets/Background_imgs/backgroundimg_2.jpeg";
+import backgroundImg_3 from "../assets/Background_imgs/backgroundimg_3.jpeg";
+import backgroundImg_4 from "../assets/Background_imgs/backgroundimg_4.jpeg";
+import backgroundImg_5 from "../assets/Background_imgs/backgroundimg_5.jpeg";
 import backgroundImg2 from "../assets/Background_imgs/backgroundimg2.jpeg";
 import backgroundImg3 from "../assets/Background_imgs/backgroundimg3.jpeg";
 import backgroundImg4 from "../assets/Background_imgs/backgroundimg4.jpeg";
@@ -27,6 +32,23 @@ import backgroundImg5 from "../assets/Background_imgs/backgroundimg5.jpeg";
 
 const Home = () => {
   const theme = useTheme();
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+  const heroImages = [
+    backgroundImg,
+    backgroundImg_2,
+    backgroundImg_3,
+    backgroundImg_4,
+    backgroundImg_5,
+  ];
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentImageIndex((prevIndex) => (prevIndex + 1) % heroImages.length);
+    }, 5000);
+
+    return () => clearInterval(interval);
+  }, [heroImages.length]);
 
   const programs = [
     {
@@ -54,7 +76,6 @@ const Home = () => {
       icon: <SecurityIcon fontSize="large" />,
     },
   ];
-
   const coaches = [
     {
       name: "Rajat Sharma",
@@ -64,6 +85,7 @@ const Home = () => {
       img: "https://media.istockphoto.com/id/1216426542/photo/portrait-of-happy-man-at-white-background-stock-photo.webp?a=1&b=1&s=612x612&w=0&k=20&c=EgxUJNnRMUmyCuVLrnMWcQMPq9EGqdjHNZEBGgAa3hg=",
     },
     {
+  
       name: "Rajesh Kumar",
       role: "Senior Coach",
       exp: "10+ Years",
@@ -90,30 +112,37 @@ const Home = () => {
           minHeight: { xs: "70vh", sm: "80vh", md: "95vh" },
           display: "flex",
           alignItems: "center",
-          backgroundImage:
-            `url(${backgroundImg})`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          animation: "heroZoom 18s ease-in-out infinite alternate",
-          "@keyframes heroZoom": {
-            from: {
-              backgroundSize: "100%",
-            },
-            to: {
-              backgroundSize: "108%",
-            },
-          },
+          overflow: "hidden",
           "&::before": {
             content: '""',
             position: "absolute",
             inset: 0,
             background:
               "linear-gradient(to right, rgba(7,16,33,0.82), rgba(7,16,33,0.48))",
-            zIndex: 1,
+            zIndex: 2,
           },
         }}
       >
-        <Container maxWidth="lg" sx={{ position: "relative", zIndex: 2 }}>
+        {/* Background Image Slider */}
+        {heroImages.map((image, index) => (
+          <Box
+            key={index}
+            sx={{
+              position: "absolute",
+              top: 0,
+              left: 0,
+              width: "100%",
+              height: "100%",
+              backgroundImage: `url(${image})`,
+              backgroundSize: "cover",
+              backgroundPosition: "center",
+              opacity: currentImageIndex === index ? 1 : 0,
+              transition: "opacity 2s ease-in-out",
+              zIndex: 1,
+            }}
+          />
+        ))}
+        <Container maxWidth="lg" sx={{ position: "relative", zIndex: 3 }}>
           <Grid container alignItems="center">
             <Grid item xs={12} md={8} lg={7}>
               <Typography
@@ -311,7 +340,7 @@ const Home = () => {
                       fontSize: { xs: "1.8rem", sm: "2.125rem" },
                     }}
                   >
-                    150+
+                    250+
                   </Typography>
                   <Typography
                     variant="subtitle1"
