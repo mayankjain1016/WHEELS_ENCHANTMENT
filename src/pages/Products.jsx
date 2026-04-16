@@ -16,7 +16,7 @@ const Products = () => {
   const [category, setCategory] = useState('All');
   const [visibleCount, setVisibleCount] = useState(productsPerPage);
 
-  const categories = ['All', 'Skates', 'Accessories', 'Protection'];
+  const categories = ['All', 'Skates', 'Helmets', 'Wheels', 'Protection'];
 
   const processedProducts = useMemo(() => {
     let result = category === 'All' 

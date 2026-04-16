@@ -1,6 +1,7 @@
 import { Box, Container, Grid, Card, CardMedia, Chip, Dialog, IconButton, Typography, alpha, useTheme } from '@mui/material';
 import { useState } from 'react';
 import CloseIcon from '@mui/icons-material/Close';
+import backgroundImg8 from '../assets/Background_imgs/backgroundimg8.jpeg';
 
 // Import all gallery images
 import img1 from '../assets/Gallery_img/67542B2D-A14E-4594-B781-78064ECC6CFC.JPG.jpeg';
@@ -133,14 +134,24 @@ const Gallery = () => {
     <Box sx={{ bgcolor: '#F8F9FB', minHeight: '100vh' }}>
       {/* Hero Section */}
       <Box sx={{ 
-        bgcolor: 'primary.main', 
+        position: 'relative',
         color: 'white', 
         pt: { xs: 14, md: 16 }, 
         pb: { xs: 8, md: 10 },
         textAlign: 'center',
-        background: `linear-gradient(135deg, ${theme.palette.primary.main} 0%, ${theme.palette.primary.dark} 100%)`
+        backgroundImage: `url(${backgroundImg8})`,
+        backgroundSize: 'cover',
+        backgroundPosition: { xs: 'center 30%', md: 'center center' },
+        backgroundRepeat: 'no-repeat',
+        '&::before': {
+          content: '""',
+          position: 'absolute',
+          inset: 0,
+          background: `linear-gradient(135deg, ${alpha(theme.palette.primary.main, 0.85)} 0%, ${alpha(theme.palette.primary.dark, 0.9)} 100%)`,
+          zIndex: 1,
+        }
       }}>
-        <Container maxWidth="md">
+        <Container maxWidth="md" sx={{ position: 'relative', zIndex: 2 }}>
           <Typography variant="overline" sx={{ letterSpacing: 4, color: 'secondary.main', fontWeight: 700 }}>
             Our Academy
           </Typography>

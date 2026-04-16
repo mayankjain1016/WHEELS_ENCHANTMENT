@@ -16,6 +16,9 @@ import ScheduleIcon from "@mui/icons-material/Schedule";
 import InfoIcon from "@mui/icons-material/Info";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 
+const SCRIPT_URL =
+  "https://script.google.com/macros/s/AKfycby0XFSHIPm7LenMEoEJyJA1r5krVDPdG2pSZ2bnvLmpL5Dfd08SArvacHqAdtoF-IVI/exec";
+
 const Admission = () => {
   const [formData, setFormData] = useState({
     studentName: "",
@@ -30,6 +33,7 @@ const Admission = () => {
     passportPhoto: null,
     aadhaarCard: null,
   });
+
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
@@ -41,29 +45,45 @@ const Admission = () => {
     }));
   };
 
-  const convertToBase64 = (file) => {
-    return new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onload = () => resolve(reader.result.split(',')[1]);
-      reader.onerror = (error) => reject(error);
+  const resetForm = () => {
+    setFormData({
+      studentName: "",
+      dob: "",
+      school: "",
+      fatherName: "",
+      fatherMobile: "",
+      motherName: "",
+      motherMobile: "",
+      address: "",
+      email: "",
+      passportPhoto: null,
+      aadhaarCard: null,
     });
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     setLoading(true);
     setError("");
 
     try {
-      const passportPhotoBase64 = formData.passportPhoto
-        ? await convertToBase64(formData.passportPhoto)
-        : "";
-      const aadhaarCardBase64 = formData.aadhaarCard
-        ? await convertToBase64(formData.aadhaarCard)
-        : "";
+      const iframeName = "hidden_iframe_submission";
 
-      const payload = {
+      const oldIframe = document.getElementsByName(iframeName)[0];
+      if (oldIframe) oldIframe.remove();
+
+      const iframe = document.createElement("iframe");
+      iframe.name = iframeName;
+      iframe.style.display = "none";
+      document.body.appendChild(iframe);
+
+      const form = document.createElement("form");
+      form.method = "POST";
+      form.action = SCRIPT_URL;
+      form.target = iframeName;
+      form.style.display = "none";
+
+      const fields = {
         studentName: formData.studentName,
         dateOfBirth: formData.dob,
         school: formData.school,
@@ -73,50 +93,34 @@ const Admission = () => {
         motherMobile: formData.motherMobile,
         address: formData.address,
         email: formData.email,
-        passportPhoto: {
-          base64: passportPhotoBase64,
-          type: formData.passportPhoto?.type || "",
-          name: formData.passportPhoto?.name || "",
-        },
-        aadhaarCard: {
-          base64: aadhaarCardBase64,
-          type: formData.aadhaarCard?.type || "",
-          name: formData.aadhaarCard?.name || "",
-        },
       };
 
-      const response = await fetch(
-        "https://script.google.com/macros/s/AKfycbxVTOiP9TNAQoW0dxhr9G8idYOyvaq16RJDwjciY_VNr0y1a0ac4SqNOFCXbJtdR4a/exec",
-        {
-          method: "POST",
-          body: JSON.stringify(payload),
-        }
-      );
+      Object.entries(fields).forEach(([key, value]) => {
+        const input = document.createElement("input");
+        input.type = "hidden";
+        input.name = key;
+        input.value = value || "";
+        form.appendChild(input);
+      });
 
-      const result = await response.json();
+      document.body.appendChild(form);
 
-      if (result.status === "success") {
+      iframe.onload = () => {
         alert("Thank you! We will contact you soon.");
-        setFormData({
-          studentName: "",
-          dob: "",
-          school: "",
-          fatherName: "",
-          fatherMobile: "",
-          motherName: "",
-          motherMobile: "",
-          address: "",
-          email: "",
-          passportPhoto: null,
-          aadhaarCard: null,
-        });
-      } else {
-        setError("Submission failed. Please try again.");
-      }
+        resetForm();
+        setLoading(false);
+        setError("");
+
+        form.remove();
+        setTimeout(() => {
+          iframe.remove();
+        }, 300);
+      };
+
+      form.submit();
     } catch (err) {
-      setError("An error occurred. Please try again.");
       console.error("Submission error:", err);
-    } finally {
+      setError("Form submit nahi ho paya. Please try again.");
       setLoading(false);
     }
   };
@@ -130,7 +134,6 @@ const Admission = () => {
         />
 
         <Grid container spacing={6}>
-          {/* Admission Form */}
           <Grid item xs={12} md={7}>
             <Card
               sx={{
@@ -257,7 +260,6 @@ const Admission = () => {
                     />
                   </Grid>
 
-                  {/* Passport Photo Upload */}
                   <Grid item xs={12}>
                     <Box sx={{ display: "flex", justifyContent: "center" }}>
                       <Box sx={{ width: { xs: "100%", sm: "80%", md: "70%" } }}>
@@ -287,27 +289,23 @@ const Admission = () => {
                             name="passportPhoto"
                             accept="image/*"
                             onChange={handleChange}
-                            required
                           />
                         </Button>
 
-                        {formData.passportPhoto && (
-                          <Typography
-                            variant="body2"
-                            sx={{
-                              mt: 1,
-                              textAlign: "center",
-                              color: "text.secondary",
-                            }}
-                          >
-                            {formData.passportPhoto.name}
-                          </Typography>
-                        )}
+                        <Typography
+                          variant="body2"
+                          sx={{
+                            mt: 1,
+                            textAlign: "center",
+                            color: "text.secondary",
+                          }}
+                        >
+                          Photo upload temporarily disabled
+                        </Typography>
                       </Box>
                     </Box>
                   </Grid>
 
-                  {/* Aadhaar Upload */}
                   <Grid item xs={12}>
                     <Box sx={{ display: "flex", justifyContent: "center" }}>
                       <Box sx={{ width: { xs: "100%", sm: "80%", md: "70%" } }}>
@@ -340,18 +338,16 @@ const Admission = () => {
                           />
                         </Button>
 
-                        {formData.aadhaarCard && (
-                          <Typography
-                            variant="body2"
-                            sx={{
-                              mt: 1,
-                              textAlign: "center",
-                              color: "text.secondary",
-                            }}
-                          >
-                            {formData.aadhaarCard.name}
-                          </Typography>
-                        )}
+                        <Typography
+                          variant="body2"
+                          sx={{
+                            mt: 1,
+                            textAlign: "center",
+                            color: "text.secondary",
+                          }}
+                        >
+                          Aadhaar upload temporarily disabled
+                        </Typography>
                       </Box>
                     </Box>
                   </Grid>
@@ -395,7 +391,6 @@ const Admission = () => {
             </Card>
           </Grid>
 
-          {/* Information Section */}
           <Grid item xs={12} md={5}>
             <Box sx={{ display: "flex", flexDirection: "column", gap: 3 }}>
               <Card sx={{ borderRadius: "18px" }}>
@@ -408,18 +403,10 @@ const Admission = () => {
                       Training Schedule
                     </Typography>
                   </Box>
-                  <Typography
-                    variant="body2"
-                    color="text.secondary"
-                    sx={{ mb: 1 }}
-                  >
+                  <Typography variant="body2" color="text.secondary" sx={{ mb: 1 }}>
                     <strong>Weekdays:</strong> 3:00 PM - 9:00 PM
                   </Typography>
-                  <Typography
-                    variant="body2"
-                    color="text.secondary"
-                    sx={{ mb: 1 }}
-                  >
+                  <Typography variant="body2" color="text.secondary" sx={{ mb: 1 }}>
                     <strong>Weekends:</strong> 3:00 AM - 9:00 PM
                   </Typography>
                   <Typography variant="body2" color="text.secondary">
@@ -446,10 +433,7 @@ const Admission = () => {
                       "Progress tracking",
                       "Certificate upon completion",
                     ].map((item, index) => (
-                      <Box
-                        key={index}
-                        sx={{ display: "flex", alignItems: "center" }}
-                      >
+                      <Box key={index} sx={{ display: "flex", alignItems: "center" }}>
                         <Box
                           sx={{
                             width: 6,
@@ -478,15 +462,10 @@ const Admission = () => {
                       Guidelines
                     </Typography>
                   </Box>
-                  <Typography
-                    variant="body2"
-                    color="text.secondary"
-                    sx={{ lineHeight: 1.8 }}
-                  >
-                    Please fill all required details carefully. Passport size
-                    photo is required. Aadhaar card can be uploaded if
-                    available. Parents are requested to provide correct contact
-                    details for communication.
+                  <Typography variant="body2" color="text.secondary" sx={{ lineHeight: 1.8 }}>
+                    Please fill all required details carefully. Photo and Aadhaar upload
+                    options are currently visible for future use, but submissions are
+                    currently processed with text details only.
                   </Typography>
                 </CardContent>
               </Card>
