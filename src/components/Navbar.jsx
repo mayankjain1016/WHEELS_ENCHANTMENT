@@ -78,7 +78,7 @@ const Navbar = () => {
           >
             <img 
               src={logo} 
-              alt="Wheels Enchantment" 
+              alt="Wheels Enchntment" 
               style={{ 
                 height: isMobile ? '45px' : '55px', 
                 borderRadius: '50%',

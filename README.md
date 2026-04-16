@@ -1,4 +1,4 @@
-# Wheels Enchantment - Premium Skating Products
+# Wheels Enchntment - Premium Skating Products
 
 A modern, minimal, and scalable static frontend website built with React, Vite, and Material UI.
 

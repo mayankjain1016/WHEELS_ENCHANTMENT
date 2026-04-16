@@ -237,7 +237,7 @@ const Home = () => {
                 letterSpacing: 3,
               }}
             >
-              WHEELS ENCHANTMENT
+              WHEELS ENCHNTMENT
             </Typography>
 
             <Typography
@@ -263,7 +263,7 @@ const Home = () => {
                 maxWidth: "95%",
               }}
             >
-              At Wheels Enchantment, we combine skilled coaching, structured
+              At Wheels Enchntment, we combine skilled coaching, structured
               learning, safety-focused practice, and a motivating environment so
               every child can enjoy skating while building confidence and strong
               fundamentals.

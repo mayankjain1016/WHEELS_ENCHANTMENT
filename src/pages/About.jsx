@@ -4,11 +4,10 @@ import {
   Typography,
   Grid,
   Card,
-  CardContent,
   Avatar,
   useTheme,
   alpha,
-  Stack,
+  Button,
 } from "@mui/material";
 import { Link } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
@@ -19,6 +18,9 @@ import EmojiEventsIcon from "@mui/icons-material/EmojiEvents";
 import VerifiedIcon from "@mui/icons-material/Verified";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import FormatQuoteIcon from "@mui/icons-material/FormatQuote";
+import GroupsIcon from "@mui/icons-material/Groups";
+import TrackChangesIcon from "@mui/icons-material/TrackChanges";
+import VisibilityIcon from "@mui/icons-material/Visibility";
 import backgroundImg2 from "../assets/Background_imgs/backgroundimg2.jpeg";
 import backgroundImg3 from "../assets/Background_imgs/backgroundimg3.jpeg";
 import backgroundImg6 from "../assets/Background_imgs/backgroundimg6.jpeg";
@@ -169,7 +171,7 @@ const About = () => {
 
   const testimonials = [
     {
-      text: "My daughter has grown so much in confidence since joining Wheels Enchantment. The coaches are patient, professional, and truly care about each child's progress.",
+      text: "My daughter has grown so much in confidence since joining Wheels Enchntment. The coaches are patient, professional, and truly care about each child's progress.",
       author: "Priya Sharma",
       role: "Parent",
     },
@@ -247,7 +249,7 @@ const About = () => {
               fontSize: { xs: "1rem", md: "1.2rem" },
             }}
           >
-            Where passion meets professional skating training
+            Empowering skaters of all ages through expert coaching, structured training, and a supportive community
           </Typography>
         </Container>
       </Box>
@@ -277,7 +279,7 @@ const About = () => {
                 fontSize: "1.05rem",
               }}
             >
-              Wheels Enchantment was founded with a simple yet powerful vision:
+              Wheels Enchntment was founded with a simple yet powerful vision:
               to create a safe, inspiring space where children can discover the
               joy of skating while building confidence, discipline, and lifelong
               skills.
@@ -335,15 +337,145 @@ const About = () => {
         </Grid>
       </Container>
 
-      {/* WHY CHOOSE US SECTION */}
+      {/* MISSION SECTION */}
+      <Box sx={{ py: { xs: 10, md: 16 } }}>
+        <Container maxWidth="lg">
+          <Grid container spacing={{ xs: 6, md: 10 }} alignItems="center">
+            <Grid item xs={12} md={6}>
+              <Box
+                sx={{
+                  width: 80,
+                  height: 80,
+                  borderRadius: "20px",
+                  bgcolor: alpha(theme.palette.secondary.main, 0.1),
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  color: "secondary.main",
+                  mb: 4,
+                }}
+              >
+                <TrackChangesIcon sx={{ fontSize: 40 }} />
+              </Box>
+              <Typography
+                variant="overline"
+                sx={{
+                  color: "secondary.main",
+                  fontWeight: 800,
+                  letterSpacing: 3,
+                }}
+              >
+                OUR MISSION
+              </Typography>
+              <Typography
+                variant="h2"
+                sx={{
+                  fontWeight: 900,
+                  mt: 1,
+                  mb: 3,
+                  fontSize: { xs: "2rem", md: "3rem" },
+                  lineHeight: 1.2,
+                }}
+              >
+                Mission
+              </Typography>
+            </Grid>
+            <Grid item xs={12} md={6}>
+              <Typography
+                variant="body1"
+                sx={{
+                  color: "text.secondary",
+                  lineHeight: 2,
+                  fontSize: "1.1rem",
+                  fontWeight: 400,
+                }}
+              >
+                At Wheels Enchntment, we're passionate about empowering skaters of all ages and skill levels. Our expert coaches, supportive community, and holistic training approach help you achieve your personal best. We foster a love for skating, promote fitness, and build essential life skills like discipline and teamwork. Join us for a joyful, enriching experience!
+              </Typography>
+            </Grid>
+          </Grid>
+        </Container>
+      </Box>
+
+      {/* VISION SECTION */}
       <Box
         sx={{
           bgcolor: alpha(theme.palette.primary.main, 0.03),
-          py: { xs: 10, md: 14 },
+          py: { xs: 10, md: 16 },
         }}
       >
         <Container maxWidth="lg">
+          <Grid container spacing={{ xs: 6, md: 10 }} alignItems="center" direction="row-reverse">
+            <Grid item xs={12} md={6}>
+              <Box
+                sx={{
+                  width: 80,
+                  height: 80,
+                  borderRadius: "20px",
+                  bgcolor: alpha(theme.palette.secondary.main, 0.1),
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  color: "secondary.main",
+                  mb: 4,
+                }}
+              >
+                <VisibilityIcon sx={{ fontSize: 40 }} />
+              </Box>
+              <Typography
+                variant="overline"
+                sx={{
+                  color: "secondary.main",
+                  fontWeight: 800,
+                  letterSpacing: 3,
+                }}
+              >
+                OUR VISION
+              </Typography>
+              <Typography
+                variant="h2"
+                sx={{
+                  fontWeight: 900,
+                  mt: 1,
+                  mb: 3,
+                  fontSize: { xs: "2rem", md: "3rem" },
+                  lineHeight: 1.2,
+                }}
+              >
+                Vision
+              </Typography>
+            </Grid>
+            <Grid item xs={12} md={6}>
+              <Typography
+                variant="body1"
+                sx={{
+                  color: "text.secondary",
+                  lineHeight: 2,
+                  fontSize: "1.1rem",
+                  fontWeight: 400,
+                }}
+              >
+                Wheels Enchntment: Where passion meets excellence. We envision a vibrant community inspiring skaters of all ages and backgrounds to achieve their fullest potential. Through world-class coaching, inclusivity, and innovative programs, we cultivate life skills and a love for skating. Join us in shaping the future of skating!
+              </Typography>
+            </Grid>
+          </Grid>
+        </Container>
+      </Box>
+
+      {/* WHY CHOOSE US SECTION */}
+      <Box sx={{ py: { xs: 10, md: 14 } }}>
+        <Container maxWidth="lg">
           <Box sx={{ textAlign: "center", mb: 8 }}>
+            <Typography
+              variant="overline"
+              sx={{
+                color: "secondary.main",
+                fontWeight: 800,
+                letterSpacing: 3,
+              }}
+            >
+              WHY CHOOSE US
+            </Typography>
             <Typography
               variant="h2"
               sx={{
@@ -379,17 +511,16 @@ const About = () => {
                     height: "100%",
                     p: 4,
                     borderRadius: "20px",
-                    bgcolor: alpha("#fff", 0.8),
-                    backdropFilter: "blur(10px)",
+                    bgcolor: "white",
                     border: `1px solid ${alpha(
                       theme.palette.divider,
                       0.1
                     )}`,
+                    boxShadow: "0 10px 30px rgba(0,0,0,0.06)",
                     transition: "all 0.4s ease",
                     "&:hover": {
                       transform: "translateY(-12px)",
-                      boxShadow: "0 20px 50px rgba(0,0,0,0.1)",
-                      bgcolor: "white",
+                      boxShadow: "0 20px 50px rgba(0,0,0,0.12)",
                     },
                   }}
                 >
@@ -435,13 +566,139 @@ const About = () => {
         </Container>
       </Box>
 
-      {/* STUDENT EXPERIENCE SECTION */}
+      {/* COACHES SECTION */}
       <Box
         sx={{
           bgcolor: alpha(theme.palette.primary.main, 0.03),
           py: { xs: 10, md: 14 },
         }}
       >
+        <Container maxWidth="lg">
+          <Box sx={{ textAlign: "center", mb: 8 }}>
+            <Typography
+              variant="overline"
+              sx={{
+                color: "secondary.main",
+                fontWeight: 800,
+                letterSpacing: 3,
+              }}
+            >
+              OUR TEAM
+            </Typography>
+            <Typography
+              variant="h2"
+              sx={{
+                fontWeight: 900,
+                mt: 1,
+                mb: 2,
+                fontSize: { xs: "2rem", md: "3rem" },
+              }}
+            >
+              Expert Coaches
+            </Typography>
+            <Typography
+              variant="body1"
+              sx={{
+                color: "text.secondary",
+                maxWidth: 700,
+                mx: "auto",
+                lineHeight: 1.8,
+                fontSize: "1.05rem",
+              }}
+            >
+              Our certified coaches bring years of experience, passion, and dedication to help every student reach their full potential.
+            </Typography>
+          </Box>
+
+          <Grid container spacing={4}>
+            {coaches.map((coach, index) => (
+              <Grid item xs={12} sm={6} md={4} key={index}>
+                <Card
+                  elevation={0}
+                  sx={{
+                    borderRadius: "20px",
+                    overflow: "hidden",
+                    bgcolor: "white",
+                    border: `1px solid ${alpha(theme.palette.divider, 0.1)}`,
+                    boxShadow: "0 10px 30px rgba(0,0,0,0.08)",
+                    transition: "all 0.4s ease",
+                    "&:hover": {
+                      transform: "translateY(-8px)",
+                      boxShadow: "0 20px 50px rgba(0,0,0,0.12)",
+                    },
+                  }}
+                >
+                  <Box
+                    sx={{
+                      position: "relative",
+                      paddingTop: "100%",
+                      overflow: "hidden",
+                    }}
+                  >
+                    <Box
+                      component="img"
+                      src={coach.image}
+                      alt={coach.name}
+                      sx={{
+                        position: "absolute",
+                        top: 0,
+                        left: 0,
+                        width: "100%",
+                        height: "100%",
+                        objectFit: "cover",
+                      }}
+                    />
+                  </Box>
+                  <Box sx={{ p: 3 }}>
+                    <Typography
+                      variant="h6"
+                      sx={{
+                        fontWeight: 800,
+                        mb: 0.5,
+                      }}
+                    >
+                      {coach.name}
+                    </Typography>
+                    <Typography
+                      variant="body2"
+                      sx={{
+                        color: "secondary.main",
+                        fontWeight: 700,
+                        mb: 2,
+                      }}
+                    >
+                      {coach.role}
+                    </Typography>
+                    <Box
+                      sx={{
+                        display: "flex",
+                        flexDirection: "column",
+                        gap: 0.5,
+                      }}
+                    >
+                      <Typography
+                        variant="body2"
+                        sx={{ color: "text.secondary" }}
+                      >
+                        <strong>Experience:</strong> {coach.experience}
+                      </Typography>
+                      <Typography
+                        variant="body2"
+                        sx={{ color: "text.secondary" }}
+                      >
+                        <strong>Specialty:</strong> {coach.specialty}
+                      </Typography>
+                    </Box>
+                  </Box>
+                </Card>
+              </Grid>
+            ))}
+          </Grid>
+        </Container>
+      </Box>
+
+      {/* STUDENT EXPERIENCE SECTION */}
+      <Box sx={{ py: { xs: 10, md: 14 } }}>
         <Container maxWidth="lg">
           <Grid container spacing={{ xs: 6, md: 10 }} alignItems="center">
             <Grid item xs={12} md={6}>
@@ -497,7 +754,7 @@ const About = () => {
                   fontSize: "1.05rem",
                 }}
               >
-                At Wheels Enchantment, we create an environment where children
+                At Wheels Enchntment, we create an environment where children
                 feel excited to learn, safe to explore, and motivated to
                 improve. Our approach balances structured training with playful
                 engagement.
@@ -534,23 +791,47 @@ const About = () => {
       </Box>
 
       {/* STATS SECTION */}
-      <Container maxWidth="lg" sx={{ py: { xs: 10, md: 14 } }}>
-        <Grid container spacing={4}>
-          {stats.map((stat, index) => (
-            <Grid item xs={6} md={3} key={index}>
-              <CountUpNumber value={stat.number} label={stat.label} />
-            </Grid>
-          ))}
-        </Grid>
-      </Container>
-
-      {/* TESTIMONIALS SECTION */}
       <Box
         sx={{
           bgcolor: alpha(theme.palette.primary.main, 0.03),
           py: { xs: 10, md: 14 },
         }}
       >
+        <Container maxWidth="lg">
+          <Box sx={{ textAlign: "center", mb: 8 }}>
+            <Typography
+              variant="overline"
+              sx={{
+                color: "secondary.main",
+                fontWeight: 800,
+                letterSpacing: 3,
+              }}
+            >
+              OUR IMPACT
+            </Typography>
+            <Typography
+              variant="h2"
+              sx={{
+                fontWeight: 900,
+                mt: 1,
+                fontSize: { xs: "2rem", md: "3rem" },
+              }}
+            >
+              Numbers That Speak
+            </Typography>
+          </Box>
+          <Grid container spacing={4}>
+            {stats.map((stat, index) => (
+              <Grid item xs={6} md={3} key={index}>
+                <CountUpNumber value={stat.number} label={stat.label} />
+              </Grid>
+            ))}
+          </Grid>
+        </Container>
+      </Box>
+
+      {/* TESTIMONIALS SECTION */}
+      <Box sx={{ py: { xs: 10, md: 14 } }}>
         <Container maxWidth="lg">
           <Box sx={{ textAlign: "center", mb: 8 }}>
             <Typography
@@ -629,6 +910,81 @@ const About = () => {
               </Grid>
             ))}
           </Grid>
+        </Container>
+      </Box>
+
+      {/* FINAL CTA SECTION */}
+      <Box
+        sx={{
+          bgcolor: "primary.main",
+          py: { xs: 10, md: 14 },
+          position: "relative",
+          overflow: "hidden",
+        }}
+      >
+        <Container maxWidth="md" sx={{ position: "relative", zIndex: 2 }}>
+          <Box sx={{ textAlign: "center" }}>
+            <Typography
+              variant="overline"
+              sx={{
+                color: "secondary.main",
+                fontWeight: 800,
+                letterSpacing: 3,
+              }}
+            >
+              JOIN US TODAY
+            </Typography>
+            <Typography
+              variant="h2"
+              sx={{
+                color: "white",
+                fontWeight: 900,
+                mt: 1,
+                mb: 3,
+                fontSize: { xs: "2rem", md: "3rem" },
+                lineHeight: 1.2,
+              }}
+            >
+              Start Your Skating Journey
+            </Typography>
+            <Typography
+              variant="body1"
+              sx={{
+                color: alpha("#fff", 0.9),
+                mb: 5,
+                lineHeight: 1.8,
+                fontSize: "1.1rem",
+                maxWidth: 600,
+                mx: "auto",
+              }}
+            >
+              Become part of the Wheels Enchntment family. Experience world-class coaching, a supportive community, and a transformative skating journey.
+            </Typography>
+            <Button
+              component={Link}
+              to="/admission"
+              variant="contained"
+              color="secondary"
+              size="large"
+              endIcon={<ArrowForwardIcon />}
+              sx={{
+                py: 2,
+                px: 5,
+                fontSize: "1rem",
+                fontWeight: 700,
+                borderRadius: "12px",
+                textTransform: "none",
+                boxShadow: "0 8px 24px rgba(233, 30, 99, 0.4)",
+                transition: "all 0.3s ease",
+                "&:hover": {
+                  transform: "translateY(-4px)",
+                  boxShadow: "0 12px 32px rgba(233, 30, 99, 0.5)",
+                },
+              }}
+            >
+              Apply for Admission
+            </Button>
+          </Box>
         </Container>
       </Box>
     </Box>

@@ -12,7 +12,7 @@ const Footer = () => {
         <Grid container spacing={4}>
           <Grid item xs={12} md={4}>
             <Box sx={{ mb: 2 }}>
-              <img src={logo} alt="Wheels Enchantment" style={{ height: '40px' }} />
+              <img src={logo} alt="Wheels Enchntment" style={{ height: '40px' }} />
             </Box>
             <Typography variant="body2" sx={{ color: 'rgba(255,255,255,0.8)' }}>
               Premium skating products for riders who demand excellence.
@@ -37,10 +37,22 @@ const Footer = () => {
               Connect With Us
             </Typography>
             <Box sx={{ display: 'flex', gap: 1 }}>
-              <IconButton sx={{ color: 'white', '&:hover': { color: 'secondary.main' } }}>
+              <IconButton 
+                component="a" 
+                href="https://www.facebook.com/share/1GKmNGQDjj/?mibextid=wwXIfr" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                sx={{ color: 'white', '&:hover': { color: 'secondary.main' } }}
+              >
                 <FacebookIcon />
               </IconButton>
-              <IconButton sx={{ color: 'white', '&:hover': { color: 'secondary.main' } }}>
+              <IconButton 
+                component="a" 
+                href="https://www.instagram.com/victoriamemorial_skatingclub?igsh=MTVxcjJ6dmxjNzl0dw%3D%3D&utm_source=qr" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                sx={{ color: 'white', '&:hover': { color: 'secondary.main' } }}
+              >
                 <InstagramIcon />
               </IconButton>
               <IconButton sx={{ color: 'white', '&:hover': { color: 'secondary.main' } }}>
@@ -51,7 +63,7 @@ const Footer = () => {
               </IconButton>
             </Box>
             <Typography variant="body2" sx={{ color: 'rgba(255,255,255,0.8)', mt: 2 }}>
-              Email: info@wheelsenchantment.com<br />
+              Email: Wheelsenchntment27@gmail.com<br />
               Phone: +91 9674242870
             </Typography>
           </Grid>
@@ -59,7 +71,7 @@ const Footer = () => {
 
         <Box sx={{ borderTop: '1px solid rgba(255,255,255,0.1)', mt: 4, pt: 3, textAlign: 'center' }}>
           <Typography variant="body2" sx={{ color: 'rgba(255,255,255,0.6)' }}>
-            © 2021-2026 Wheels Enchantment. All rights reserved. | Established in 2021
+            © 2021-2026 Wheels Enchntment. All rights reserved. | Established in 2021
           </Typography>
         </Box>
       </Container>

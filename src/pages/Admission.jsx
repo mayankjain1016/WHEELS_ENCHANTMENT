@@ -9,6 +9,7 @@ import {
   CardContent,
 } from "@mui/material";
 import { useState } from "react";
+import CircularProgress from "@mui/material/CircularProgress";
 import SectionHeader from "../components/SectionHeader";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import ScheduleIcon from "@mui/icons-material/Schedule";
@@ -29,6 +30,8 @@ const Admission = () => {
     passportPhoto: null,
     aadhaarCard: null,
   });
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
   const handleChange = (e) => {
     const { name, value, files } = e.target;
@@ -38,17 +41,91 @@ const Admission = () => {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const convertToBase64 = (file) => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => resolve(reader.result.split(',')[1]);
+      reader.onerror = (error) => reject(error);
+    });
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Form submitted:", formData);
-    alert("Thank you! We will contact you soon.");
+    setLoading(true);
+    setError("");
+
+    try {
+      const passportPhotoBase64 = formData.passportPhoto
+        ? await convertToBase64(formData.passportPhoto)
+        : "";
+      const aadhaarCardBase64 = formData.aadhaarCard
+        ? await convertToBase64(formData.aadhaarCard)
+        : "";
+
+      const payload = {
+        studentName: formData.studentName,
+        dateOfBirth: formData.dob,
+        school: formData.school,
+        fatherName: formData.fatherName,
+        fatherMobile: formData.fatherMobile,
+        motherName: formData.motherName,
+        motherMobile: formData.motherMobile,
+        address: formData.address,
+        email: formData.email,
+        passportPhoto: {
+          base64: passportPhotoBase64,
+          type: formData.passportPhoto?.type || "",
+          name: formData.passportPhoto?.name || "",
+        },
+        aadhaarCard: {
+          base64: aadhaarCardBase64,
+          type: formData.aadhaarCard?.type || "",
+          name: formData.aadhaarCard?.name || "",
+        },
+      };
+
+      const response = await fetch(
+        "https://script.google.com/macros/s/AKfycbxVTOiP9TNAQoW0dxhr9G8idYOyvaq16RJDwjciY_VNr0y1a0ac4SqNOFCXbJtdR4a/exec",
+        {
+          method: "POST",
+          body: JSON.stringify(payload),
+        }
+      );
+
+      const result = await response.json();
+
+      if (result.status === "success") {
+        alert("Thank you! We will contact you soon.");
+        setFormData({
+          studentName: "",
+          dob: "",
+          school: "",
+          fatherName: "",
+          fatherMobile: "",
+          motherName: "",
+          motherMobile: "",
+          address: "",
+          email: "",
+          passportPhoto: null,
+          aadhaarCard: null,
+        });
+      } else {
+        setError("Submission failed. Please try again.");
+      }
+    } catch (err) {
+      setError("An error occurred. Please try again.");
+      console.error("Submission error:", err);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
     <Box sx={{ py: { xs: 6, md: 8 }, bgcolor: "#f8f9fb" }}>
       <Container maxWidth="lg">
         <SectionHeader
-          title="Join Wheels Enchantment"
+          title="Join Wheels Enchntment"
           subtitle="Start your skating journey with us"
         />
 
@@ -279,6 +356,17 @@ const Admission = () => {
                     </Box>
                   </Grid>
 
+                  {error && (
+                    <Grid item xs={12}>
+                      <Typography
+                        variant="body2"
+                        sx={{ color: "error.main", textAlign: "center" }}
+                      >
+                        {error}
+                      </Typography>
+                    </Grid>
+                  )}
+
                   <Grid item xs={12}>
                     <Button
                       type="submit"
@@ -286,6 +374,7 @@ const Admission = () => {
                       color="secondary"
                       size="large"
                       fullWidth
+                      disabled={loading}
                       sx={{
                         py: 1.6,
                         fontWeight: 700,
@@ -294,7 +383,11 @@ const Admission = () => {
                         mt: 1,
                       }}
                     >
-                      Submit Application
+                      {loading ? (
+                        <CircularProgress size={24} sx={{ color: "white" }} />
+                      ) : (
+                        "Submit Application"
+                      )}
                     </Button>
                   </Grid>
                 </Grid>
