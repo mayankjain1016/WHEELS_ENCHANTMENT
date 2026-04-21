@@ -11,17 +11,7 @@ import {
 } from "@mui/material";
 import { Link } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
-import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
-import SchoolIcon from "@mui/icons-material/School";
-import SecurityIcon from "@mui/icons-material/Security";
-import EmojiEventsIcon from "@mui/icons-material/EmojiEvents";
-import VerifiedIcon from "@mui/icons-material/Verified";
-import FavoriteIcon from "@mui/icons-material/Favorite";
-import FormatQuoteIcon from "@mui/icons-material/FormatQuote";
-import GroupsIcon from "@mui/icons-material/Groups";
-import TrackChangesIcon from "@mui/icons-material/TrackChanges";
-import VisibilityIcon from "@mui/icons-material/Visibility";
-import LocationOnIcon from "@mui/icons-material/LocationOn";
+import { ArrowRight, GraduationCap, Shield, Trophy, BadgeCheck, Heart, Quote, Target, Eye, MapPin } from 'lucide-react';
 import backgroundImg2 from "../assets/Background_imgs/backgroundimg2.jpeg";
 import backgroundImg3 from "../assets/Background_imgs/backgroundimg3.jpeg";
 import backgroundImg6 from "../assets/Background_imgs/backgroundimg6.jpeg";
@@ -112,31 +102,31 @@ const About = () => {
 
   const whyChooseUs = [
     {
-      icon: <SchoolIcon fontSize="large" />,
+      icon: <GraduationCap size={36} strokeWidth={2} />,
       title: "Expert Coaches",
       description:
         "Certified professionals with years of skating expertise and teaching experience.",
     },
     {
-      icon: <SecurityIcon fontSize="large" />,
+      icon: <Shield size={36} strokeWidth={2} />,
       title: "Safe Environment",
       description:
         "Child-safe facilities with proper safety equipment and supervised training.",
     },
     {
-      icon: <EmojiEventsIcon fontSize="large" />,
+      icon: <Trophy size={36} strokeWidth={2} />,
       title: "Structured Learning",
       description:
         "Progressive curriculum designed for skill development at every level.",
     },
     {
-      icon: <VerifiedIcon fontSize="large" />,
+      icon: <BadgeCheck size={36} strokeWidth={2} />,
       title: "Child-Friendly Training",
       description:
         "Age-appropriate methods that make learning fun, engaging, and effective.",
     },
     {
-      icon: <FavoriteIcon fontSize="large" />,
+      icon: <Heart size={36} strokeWidth={2} />,
       title: "Skill Development",
       description:
         "Focus on building confidence, balance, coordination, and discipline.",
@@ -409,18 +399,8 @@ const About = () => {
                   mb: 4,
                 }}
               >
-                <TrackChangesIcon sx={{ fontSize: 40 }} />
+                <Target size={40} strokeWidth={2} />
               </Box>
-              <Typography
-                variant="overline"
-                sx={{
-                  color: "secondary.main",
-                  fontWeight: 800,
-                  letterSpacing: 3,
-                }}
-              >
-                OUR MISSION
-              </Typography>
               <Typography
                 variant="h2"
                 sx={{
@@ -474,18 +454,8 @@ const About = () => {
                   mb: 4,
                 }}
               >
-                <VisibilityIcon sx={{ fontSize: 40 }} />
+                <Eye size={40} strokeWidth={2} />
               </Box>
-              <Typography
-                variant="overline"
-                sx={{
-                  color: "secondary.main",
-                  fontWeight: 800,
-                  letterSpacing: 3,
-                }}
-              >
-                OUR VISION
-              </Typography>
               <Typography
                 variant="h2"
                 sx={{
@@ -520,16 +490,6 @@ const About = () => {
       <Box sx={{ py: { xs: 10, md: 14 } }}>
         <Container maxWidth="lg">
           <Box sx={{ textAlign: "center", mb: 8 }}>
-            <Typography
-              variant="overline"
-              sx={{
-                color: "secondary.main",
-                fontWeight: 800,
-                letterSpacing: 3,
-              }}
-            >
-              WHY CHOOSE US
-            </Typography>
             <Typography
               variant="h2"
               sx={{
@@ -621,18 +581,8 @@ const About = () => {
       </Box>
 
       {/* LOCATIONS SECTION */}
-      <Container maxWidth="lg" sx={{ py: { xs: 10, md: 14 } }}>
+      <Container maxWidth="lg" sx={{ py: { xs: 10, md: 14 } }} id="locations">
         <Box sx={{ textAlign: "center", mb: 8 }}>
-          <Typography
-            variant="overline"
-            sx={{
-              color: "secondary.main",
-              fontWeight: 800,
-              letterSpacing: 3,
-            }}
-          >
-            OUR LOCATIONS
-          </Typography>
           <Typography
             variant="h2"
             sx={{
@@ -699,7 +649,7 @@ const About = () => {
                       color: "secondary.main",
                     }}
                   >
-                    <LocationOnIcon />
+                    <MapPin size={20} strokeWidth={2.5} />
                   </Box>
                   <Typography
                     variant="h6"
@@ -750,16 +700,6 @@ const About = () => {
       >
         <Container maxWidth="lg">
           <Box sx={{ textAlign: "center", mb: 8 }}>
-            <Typography
-              variant="overline"
-              sx={{
-                color: "secondary.main",
-                fontWeight: 800,
-                letterSpacing: 3,
-              }}
-            >
-              OUR TEAM
-            </Typography>
             <Typography
               variant="h2"
               sx={{
@@ -887,16 +827,6 @@ const About = () => {
 
             <Grid item xs={12} md={6}>
               <Typography
-                variant="overline"
-                sx={{
-                  color: "secondary.main",
-                  fontWeight: 800,
-                  letterSpacing: 3,
-                }}
-              >
-                STUDENT EXPERIENCE
-              </Typography>
-              <Typography
                 variant="h2"
                 sx={{
                   fontWeight: 900,
@@ -963,16 +893,6 @@ const About = () => {
         <Container maxWidth="lg">
           <Box sx={{ textAlign: "center", mb: 8 }}>
             <Typography
-              variant="overline"
-              sx={{
-                color: "secondary.main",
-                fontWeight: 800,
-                letterSpacing: 3,
-              }}
-            >
-              OUR IMPACT
-            </Typography>
-            <Typography
               variant="h2"
               sx={{
                 fontWeight: 900,
@@ -997,16 +917,6 @@ const About = () => {
       <Box sx={{ py: { xs: 10, md: 14 } }}>
         <Container maxWidth="lg">
           <Box sx={{ textAlign: "center", mb: 8 }}>
-            <Typography
-              variant="overline"
-              sx={{
-                color: "secondary.main",
-                fontWeight: 800,
-                letterSpacing: 3,
-              }}
-            >
-              TESTIMONIALS
-            </Typography>
             <Typography
               variant="h2"
               sx={{
@@ -1033,12 +943,13 @@ const About = () => {
                     boxShadow: "0 10px 30px rgba(0,0,0,0.08)",
                   }}
                 >
-                  <FormatQuoteIcon
-                    sx={{
-                      fontSize: 40,
-                      color: "secondary.main",
+                  <Quote
+                    size={40}
+                    strokeWidth={1.5}
+                    style={{
+                      color: theme.palette.secondary.main,
                       opacity: 0.3,
-                      mb: 2,
+                      marginBottom: 16,
                     }}
                   />
                   <Typography
@@ -1129,7 +1040,7 @@ const About = () => {
               variant="contained"
               color="secondary"
               size="large"
-              endIcon={<ArrowForwardIcon />}
+              endIcon={<ArrowRight size={20} strokeWidth={2.5} />}
               sx={{
                 py: 2,
                 px: 5,

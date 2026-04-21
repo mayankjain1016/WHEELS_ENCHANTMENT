@@ -14,13 +14,7 @@ import {
 } from "@mui/material";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
-import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
-import SchoolIcon from "@mui/icons-material/School";
-import SecurityIcon from "@mui/icons-material/Security";
-import EmojiEventsIcon from "@mui/icons-material/EmojiEvents";
-import VerifiedIcon from "@mui/icons-material/Verified";
-import GroupsIcon from "@mui/icons-material/Groups";
-import LocationOnIcon from "@mui/icons-material/LocationOn";
+import { ArrowRight, GraduationCap, Shield, Trophy, BadgeCheck, MapPin } from 'lucide-react';
 import coachImg1 from "../assets/Coachs/Coach1.jpeg";
 import coachImg2 from "../assets/Coachs/Coach2.jpeg";
 import coachImg3 from "../assets/Coachs/Coach3.jpeg";
@@ -62,25 +56,25 @@ const Home = () => {
       title: "Beginner Training",
       description:
         "A safe and encouraging start for young learners with a focus on balance, posture, and confidence.",
-      icon: <SchoolIcon fontSize="large" />,
+      icon: <GraduationCap size={36} strokeWidth={2} />,
     },
     {
       title: "Intermediate Level",
       description:
         "Build speed, control, and rhythm through guided practice and structured skating drills.",
-      icon: <EmojiEventsIcon fontSize="large" />,
+      icon: <Trophy size={36} strokeWidth={2} />,
     },
     {
       title: "Advanced Training",
       description:
         "Performance-oriented coaching for students ready to master advanced techniques and competitive skills.",
-      icon: <VerifiedIcon fontSize="large" />,
+      icon: <BadgeCheck size={36} strokeWidth={2} />,
     },
     {
       title: "Safety Practice",
       description:
         "Dedicated sessions for protective movement, falling techniques, awareness, and safe skating habits.",
-      icon: <SecurityIcon fontSize="large" />,
+      icon: <Shield size={36} strokeWidth={2} />,
     },
   ];
   const coaches = [
@@ -118,15 +112,10 @@ const Home = () => {
   const highlights = [];
 
   const locationAreas = [
-    "Salt Lake",
-    "New Town",
-    "Rajarhat",
-    "EM Bypass",
-    "Gariahat",
-    "Ballygunge",
-    "Tollygunge",
-    "Behala",
-    "Park Street",
+    "East Kolkata",
+    "North Kolkata",
+    "South Kolkata",
+    "Central Kolkata",
     "Howrah",
   ];
 
@@ -169,7 +158,7 @@ const Home = () => {
             }}
           />
         ))}
-        <Container maxWidth="lg" sx={{ position: "relative", zIndex: 3 }}>
+        <Container maxWidth="lg" sx={{ position: "relative", zIndex: 3, mt: { xs: 8, md: 14 } }}>
           <Grid container alignItems="center">
             <Grid item xs={12} md={8} lg={7}>
               <Typography
@@ -222,7 +211,7 @@ const Home = () => {
                   size="large"
                   component={Link}
                   to="/admission"
-                  endIcon={<ArrowForwardIcon />}
+                  endIcon={<ArrowRight size={20} strokeWidth={2.5} />}
                   sx={{
                     px: 4.5,
                     py: 1.8,
@@ -247,6 +236,87 @@ const Home = () => {
                   Join the Academy
                 </Button>
               </Stack>
+
+              {/* COMPACT LOCATIONS BAR */}
+              <Box
+                sx={{
+                  mt: 11,
+                  p: 2.5,
+                }}
+              >
+                <Box
+                  sx={{
+                    display: "flex",
+                    flexDirection: { xs: "column", md: "row" },
+                    gap: 1,
+                    alignItems: { xs: "flex-start", md: "center" },
+                    justifyContent: "flex-start",
+                  }}
+                >
+                  {locationAreas.map((area, i) => (
+                    <Chip
+                      key={i}
+                      icon={
+                        <MapPin 
+                          size={16} 
+                          strokeWidth={2.5} 
+                          style={{ 
+                            color: 'white',
+                            filter: 'drop-shadow(0 1px 3px rgba(0,0,0,0.3))'
+                          }} 
+                        />
+                      }
+                      label={area}
+                      size="small"
+                      sx={{
+                        bgcolor: "transparent",
+                        color: "white",
+                        fontWeight: 600,
+                        fontSize: "0.8rem",
+                        border: `1.5px solid ${alpha("#fff", 0.3)}`,
+                        backdropFilter: "blur(4px)",
+                        textShadow: '0 1px 4px rgba(0,0,0,0.3)',
+                        transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+                        whiteSpace: 'nowrap',
+                        '& .MuiChip-icon': {
+                          marginLeft: '8px',
+                          marginRight: '-4px',
+                        },
+                        "&:hover": {
+                          bgcolor: alpha("#fff", 0.15),
+                          borderColor: theme.palette.secondary.main,
+                          transform: 'scale(1.05)',
+                          boxShadow: `0 4px 12px ${alpha(theme.palette.secondary.main, 0.3)}`,
+                        },
+                      }}
+                    />
+                  ))}
+                  <Chip
+                    component={Link}
+                    to="/about#locations"
+                    label="View More"
+                    size="small"
+                    clickable
+                    sx={{
+                      bgcolor: alpha(theme.palette.secondary.main, 0.15),
+                      color: "white",
+                      fontWeight: 700,
+                      fontSize: "0.8rem",
+                      border: `1.5px solid ${theme.palette.secondary.main}`,
+                      backdropFilter: "blur(4px)",
+                      textShadow: '0 1px 4px rgba(0,0,0,0.3)',
+                      transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+                      cursor: 'pointer',
+                      whiteSpace: 'nowrap',
+                      "&:hover": {
+                        bgcolor: theme.palette.secondary.main,
+                        transform: 'scale(1.08)',
+                        boxShadow: `0 6px 16px ${alpha(theme.palette.secondary.main, 0.4)}`,
+                      },
+                    }}
+                  />
+                </Box>
+              </Box>
             </Grid>
           </Grid>
         </Container>
@@ -300,7 +370,7 @@ const Home = () => {
               component={Link}
               to="/about"
               color="primary"
-              endIcon={<ArrowForwardIcon />}
+              endIcon={<ArrowRight size={18} strokeWidth={2.5} />}
               sx={{
                 fontWeight: 800,
                 textTransform: "none",
@@ -620,90 +690,6 @@ const Home = () => {
         </Grid>
       </Container>
 
-      {/* LOCATIONS SECTION */}
-      <Box
-        sx={{
-          py: { xs: 8, md: 10 },
-          bgcolor: alpha(theme.palette.primary.main, 0.02),
-        }}
-      >
-        <Container maxWidth="lg">
-          <Box sx={{ textAlign: "center", mb: 6 }}>
-            <Typography
-              variant="overline"
-              sx={{
-                color: "secondary.main",
-                fontWeight: 800,
-                letterSpacing: 3,
-              }}
-            >
-              WHERE WE SERVE
-            </Typography>
-            <Typography
-              variant="h2"
-              sx={{
-                fontWeight: 900,
-                mt: 1,
-                mb: 2,
-                fontSize: { xs: "1.8rem", md: "2.5rem" },
-              }}
-            >
-              Conveniently Located Across Kolkata
-            </Typography>
-            <Typography
-              variant="body1"
-              sx={{
-                color: "text.secondary",
-                maxWidth: 650,
-                mx: "auto",
-                lineHeight: 1.7,
-              }}
-            >
-              Professional skating training available in multiple neighborhoods
-              for your convenience.
-            </Typography>
-          </Box>
-
-          <Box
-            sx={{
-              display: "flex",
-              flexWrap: "wrap",
-              gap: 2,
-              justifyContent: "center",
-              maxWidth: 900,
-              mx: "auto",
-            }}
-          >
-            {locationAreas.map((area, i) => (
-              <Chip
-                key={i}
-                icon={<LocationOnIcon />}
-                label={area}
-                sx={{
-                  px: 2,
-                  py: 2.5,
-                  fontSize: "0.95rem",
-                  fontWeight: 600,
-                  bgcolor: "white",
-                  border: `1px solid ${alpha(theme.palette.divider, 0.1)}`,
-                  boxShadow: "0 4px 12px rgba(0,0,0,0.04)",
-                  transition: "all 0.3s ease",
-                  "& .MuiChip-icon": {
-                    color: "secondary.main",
-                  },
-                  "&:hover": {
-                    transform: "translateY(-4px)",
-                    boxShadow: "0 8px 20px rgba(0,0,0,0.08)",
-                    bgcolor: alpha(theme.palette.secondary.main, 0.05),
-                    borderColor: alpha(theme.palette.secondary.main, 0.3),
-                  },
-                }}
-              />
-            ))}
-          </Box>
-        </Container>
-      </Box>
-
       {/* FINAL CTA */}
       <Box
         sx={{
@@ -743,7 +729,7 @@ const Home = () => {
             color="secondary"
             component={Link}
             to="/admission"
-            endIcon={<ArrowForwardIcon />}
+            endIcon={<ArrowRight size={20} strokeWidth={2.5} />}
             sx={{
               px: 4.5,
               py: 1.7,

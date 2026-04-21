@@ -3,8 +3,7 @@ import {
   List, ListItem, ListItemButton, ListItemText, 
   useMediaQuery, useTheme, alpha, Container, Typography 
 } from '@mui/material';
-import MenuIcon from '@mui/icons-material/Menu';
-import CloseIcon from '@mui/icons-material/Close';
+import { Menu, X } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import logo from '../assets/logo.jpeg';
@@ -146,7 +145,7 @@ const Navbar = () => {
                     : (isScrolled ? 'primary.main' : '#ffffff')
                 }}
               >
-                <MenuIcon fontSize="large" />
+                <Menu size={28} strokeWidth={2.5} />
               </IconButton>
             )}
           </Box>
@@ -169,7 +168,7 @@ const Navbar = () => {
       >
         <Box sx={{ display: 'flex', justifyContent: 'flex-end', p: 2, pb: 1 }}>
           <IconButton onClick={() => setDrawerOpen(false)} sx={{ color: '#ffffff' }}>
-            <CloseIcon />
+            <X size={24} strokeWidth={2.5} />
           </IconButton>
         </Box>
         <List sx={{ pt: 0, px: 2 }}>

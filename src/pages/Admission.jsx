@@ -7,19 +7,19 @@ import {
   Button,
   Card,
   CardContent,
+  useTheme,
+  alpha,
 } from "@mui/material";
 import { useState } from "react";
 import CircularProgress from "@mui/material/CircularProgress";
 import SectionHeader from "../components/SectionHeader";
-import CheckCircleIcon from "@mui/icons-material/CheckCircle";
-import ScheduleIcon from "@mui/icons-material/Schedule";
-import InfoIcon from "@mui/icons-material/Info";
-import CloudUploadIcon from "@mui/icons-material/CloudUpload";
+import { CheckCircle, Clock, Info, Upload } from 'lucide-react';
 
 const SCRIPT_URL =
   "https://script.google.com/macros/s/AKfycby0XFSHIPm7LenMEoEJyJA1r5krVDPdG2pSZ2bnvLmpL5Dfd08SArvacHqAdtoF-IVI/exec";
 
 const Admission = () => {
+  const theme = useTheme();
   const [formData, setFormData] = useState({
     studentName: "",
     dob: "",
@@ -267,7 +267,7 @@ const Admission = () => {
                           variant="outlined"
                           component="label"
                           fullWidth
-                          startIcon={<CloudUploadIcon />}
+                          startIcon={<Upload size={20} strokeWidth={2.5} />}
                           sx={{
                             py: 1.6,
                             textTransform: "none",
@@ -313,7 +313,7 @@ const Admission = () => {
                           variant="outlined"
                           component="label"
                           fullWidth
-                          startIcon={<CloudUploadIcon />}
+                          startIcon={<Upload size={20} strokeWidth={2.5} />}
                           sx={{
                             py: 1.6,
                             textTransform: "none",
@@ -396,9 +396,20 @@ const Admission = () => {
               <Card sx={{ borderRadius: "18px" }}>
                 <CardContent sx={{ p: 3 }}>
                   <Box sx={{ display: "flex", alignItems: "center", mb: 2 }}>
-                    <ScheduleIcon
-                      sx={{ color: "secondary.main", fontSize: 32, mr: 2 }}
-                    />
+                    <Box
+                      sx={{
+                        width: 48,
+                        height: 48,
+                        borderRadius: '12px',
+                        bgcolor: alpha(theme.palette.secondary.main, 0.1),
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        mr: 2,
+                      }}
+                    >
+                      <Clock size={24} strokeWidth={2.5} style={{ color: theme.palette.secondary.main }} />
+                    </Box>
                     <Typography variant="h6" sx={{ fontWeight: 700 }}>
                       Training Schedule
                     </Typography>
@@ -418,9 +429,20 @@ const Admission = () => {
               <Card sx={{ borderRadius: "18px" }}>
                 <CardContent sx={{ p: 3 }}>
                   <Box sx={{ display: "flex", alignItems: "center", mb: 2 }}>
-                    <CheckCircleIcon
-                      sx={{ color: "secondary.main", fontSize: 32, mr: 2 }}
-                    />
+                    <Box
+                      sx={{
+                        width: 48,
+                        height: 48,
+                        borderRadius: '12px',
+                        bgcolor: alpha(theme.palette.secondary.main, 0.1),
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        mr: 2,
+                      }}
+                    >
+                      <CheckCircle size={24} strokeWidth={2.5} style={{ color: theme.palette.secondary.main }} />
+                    </Box>
                     <Typography variant="h6" sx={{ fontWeight: 700 }}>
                       What's Included
                     </Typography>
@@ -455,9 +477,20 @@ const Admission = () => {
               <Card sx={{ borderRadius: "18px" }}>
                 <CardContent sx={{ p: 3 }}>
                   <Box sx={{ display: "flex", alignItems: "center", mb: 2 }}>
-                    <InfoIcon
-                      sx={{ color: "secondary.main", fontSize: 32, mr: 2 }}
-                    />
+                    <Box
+                      sx={{
+                        width: 48,
+                        height: 48,
+                        borderRadius: '12px',
+                        bgcolor: alpha(theme.palette.secondary.main, 0.1),
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        mr: 2,
+                      }}
+                    >
+                      <Info size={24} strokeWidth={2.5} style={{ color: theme.palette.secondary.main }} />
+                    </Box>
                     <Typography variant="h6" sx={{ fontWeight: 700 }}>
                       Guidelines
                     </Typography>

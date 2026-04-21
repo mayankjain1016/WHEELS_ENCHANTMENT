@@ -123,87 +123,14 @@ const protectionProducts = protectionImages.map((image, index) => ({
 // Combine all products
 export const products = [...skatesProducts, ...wheelsProducts, ...helmetsProducts, ...protectionProducts];
 
-import pimg1 from '../assets/products_imgs/IMG_2353.PNG';
-import pimg2 from '../assets/products_imgs/IMG_2354.PNG';
-import pimg3 from '../assets/products_imgs/IMG_2355.PNG';
-import pimg4 from '../assets/products_imgs/IMG_2356.PNG';
-import pimg5 from '../assets/products_imgs/IMG_2357.PNG';
-import pimg6 from '../assets/products_imgs/IMG_2358.PNG';
-import pimg7 from '../assets/products_imgs/IMG_2359.PNG';
-import pimg8 from '../assets/products_imgs/IMG_2360.PNG';
-import pimg9 from '../assets/products_imgs/IMG_2361.PNG';
-import pimg10 from '../assets/products_imgs/IMG_2362.PNG';
-import pimg11 from '../assets/products_imgs/IMG_2363.PNG';
-import pimg12 from '../assets/products_imgs/IMG_2364.PNG';
-import pimg13 from '../assets/products_imgs/IMG_2365.PNG';
-import pimg14 from '../assets/products_imgs/IMG_2366.PNG';
-import pimg15 from '../assets/products_imgs/IMG_2367.PNG';
-import pimg16 from '../assets/products_imgs/IMG_2368.PNG';
-import pimg17 from '../assets/products_imgs/IMG_2369.PNG';
-import pimg18 from '../assets/products_imgs/IMG_2370.PNG';
-import pimg19 from '../assets/products_imgs/IMG_2371.PNG';
-import pimg20 from '../assets/products_imgs/IMG_2372.PNG';
-import pimg21 from '../assets/products_imgs/IMG_2373.PNG';
-import pimg22 from '../assets/products_imgs/IMG_2374.PNG';
-import pimg23 from '../assets/products_imgs/IMG_2375.PNG';
-import pimg24 from '../assets/products_imgs/IMG_2376.PNG';
-import pimg25 from '../assets/products_imgs/IMG_2377.PNG';
-import pimg26 from '../assets/products_imgs/IMG_2378.PNG';
-import pimg27 from '../assets/products_imgs/IMG_2379.PNG';
-import pimg28 from '../assets/products_imgs/IMG_2380.PNG';
-import pimg29 from '../assets/products_imgs/IMG_2381.PNG';
-import pimg30 from '../assets/products_imgs/IMG_2382.PNG';
-import pimg31 from '../assets/products_imgs/IMG_2383.PNG';
-import pimg32 from '../assets/products_imgs/IMG_2384.PNG';
-import pimg33 from '../assets/products_imgs/IMG_2385.PNG';
-import pimg34 from '../assets/products_imgs/IMG_2386.PNG';
-import pimg35 from '../assets/products_imgs/IMG_2387.PNG';
-import pimg36 from '../assets/products_imgs/IMG_2388.PNG';
-import pimg37 from '../assets/products_imgs/IMG_2389.PNG';
-import pimg38 from '../assets/products_imgs/IMG_2390.PNG';
-import pimg39 from '../assets/products_imgs/IMG_2391.PNG';
-import pimg40 from '../assets/products_imgs/IMG_2392.PNG';
-import pimg41 from '../assets/products_imgs/IMG_2393.PNG';
-import pimg42 from '../assets/products_imgs/IMG_2394.PNG';
-import pimg43 from '../assets/products_imgs/IMG_2395.PNG';
-import pimg44 from '../assets/products_imgs/IMG_2396.PNG';
-import pimg45 from '../assets/products_imgs/IMG_2397.PNG';
-import pimg46 from '../assets/products_imgs/IMG_2398.PNG';
-import pimg47 from '../assets/products_imgs/IMG_2399.PNG';
-import pimg48 from '../assets/products_imgs/IMG_2400.PNG';
-import pimg49 from '../assets/products_imgs/IMG_2401.PNG';
-import pimg50 from '../assets/products_imgs/IMG_2402.PNG';
-import pimg51 from '../assets/products_imgs/IMG_2403.PNG';
-import pimg52 from '../assets/products_imgs/IMG_2404.PNG';
-import pimg53 from '../assets/products_imgs/IMG_2405.PNG';
-import pimg54 from '../assets/products_imgs/IMG_2406.PNG';
-import pimg55 from '../assets/products_imgs/IMG_2407.PNG';
-import pimg56 from '../assets/products_imgs/IMG_2408.PNG';
-import pimg57 from '../assets/products_imgs/IMG_2409.PNG';
-import pimg58 from '../assets/products_imgs/IMG_2410.PNG';
-import pimg59 from '../assets/products_imgs/IMG_2411.PNG';
-import pimg60 from '../assets/products_imgs/IMG_2412.PNG';
-import pimg61 from '../assets/products_imgs/IMG_2413.PNG';
-import pimg62 from '../assets/products_imgs/IMG_2414.PNG';
-import pimg63 from '../assets/products_imgs/IMG_2416.PNG';
-import pimg64 from '../assets/products_imgs/IMG_2417.PNG';
-import pimg65 from '../assets/products_imgs/IMG_2418.PNG';
-import pimg66 from '../assets/products_imgs/IMG_2419.PNG';
-import pimg67 from '../assets/products_imgs/IMG_2420.PNG';
-import pimg68 from '../assets/products_imgs/IMG_2421.PNG';
-import pimg69 from '../assets/products_imgs/IMG_2422.PNG';
-import pimg70 from '../assets/products_imgs/IMG_2423.PNG';
-import pimg71 from '../assets/products_imgs/IMG_2424.PNG';
-import pimg72 from '../assets/products_imgs/IMG_2425.PNG';
-import pimg73 from '../assets/products_imgs/IMG_2426.PNG';
-import pimg74 from '../assets/products_imgs/IMG_2428.PNG';
-import pimg75 from '../assets/products_imgs/IMG_2429.PNG';
+// Generate allProducts with dynamic imports (lazy loading)
+const imageNumbers = [2353,2354,2355,2356,2357,2358,2359,2360,2361,2362,2363,2364,2365,2366,2367,2368,2369,2370,2371,2372,2373,2374,2375,2376,2377,2378,2379,2380,2381,2382,2383,2384,2385,2386,2387,2388,2389,2390,2391,2392,2393,2394,2395,2396,2397,2398,2399,2400,2401,2402,2403,2404,2405,2406,2407,2408,2409,2410,2411,2412,2413,2414,2416,2417,2418,2419,2420,2421,2422,2423,2424,2425,2426,2428,2429];
 
-export const allProducts = [pimg1,pimg2,pimg3,pimg4,pimg5,pimg6,pimg7,pimg8,pimg9,pimg10,pimg11,pimg12,pimg13,pimg14,pimg15,pimg16,pimg17,pimg18,pimg19,pimg20,pimg21,pimg22,pimg23,pimg24,pimg25,pimg26,pimg27,pimg28,pimg29,pimg30,pimg31,pimg32,pimg33,pimg34,pimg35,pimg36,pimg37,pimg38,pimg39,pimg40,pimg41,pimg42,pimg43,pimg44,pimg45,pimg46,pimg47,pimg48,pimg49,pimg50,pimg51,pimg52,pimg53,pimg54,pimg55,pimg56,pimg57,pimg58,pimg59,pimg60,pimg61,pimg62,pimg63,pimg64,pimg65,pimg66,pimg67,pimg68,pimg69,pimg70,pimg71,pimg72,pimg73,pimg74,pimg75].map((img, i) => ({
+export const allProducts = imageNumbers.map((num, i) => ({
   id: `all-${i + 1}`,
   name: `Product ${i + 1}`,
   category: 'All',
-  image: img,
+  image: `/src/assets/products_imgs/IMG_${num}.PNG`,
 }));
 
 import gimg1 from '../assets/products_imgs/IMG_2401.PNG';

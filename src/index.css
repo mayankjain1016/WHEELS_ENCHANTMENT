@@ -1,0 +1,76 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  margin: 0;
+  font-family: 'Poppins', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #E91E63 0%, #c2185b 100%);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #c2185b 0%, #ad1457 100%);
+}
+
+/* Selection Color */
+::selection {
+  background-color: #E91E63;
+  color: white;
+}
+
+::-moz-selection {
+  background-color: #E91E63;
+  color: white;
+}
+
+/* Smooth Transitions */
+a {
+  text-decoration: none;
+  color: inherit;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Focus Styles */
+button:focus-visible,
+a:focus-visible {
+  outline: 2px solid #E91E63;
+  outline-offset: 4px;
+}
+
+/* Image Loading */
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Prevent layout shift */
+.MuiContainer-root {
+  transition: padding 0.3s ease;
+}

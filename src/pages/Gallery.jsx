@@ -1,6 +1,6 @@
 import { Box, Container, Grid, Card, CardMedia, Chip, Dialog, IconButton, Typography, alpha, useTheme } from '@mui/material';
 import { useState } from 'react';
-import CloseIcon from '@mui/icons-material/Close';
+import { X } from 'lucide-react';
 import backgroundImg8 from '../assets/Background_imgs/backgroundimg8.jpeg';
 import backgroundImg4_4 from '../assets/Background_imgs/backgroundimg4_4.jpeg';
 
@@ -271,7 +271,7 @@ const Gallery = () => {
       >
         <Box sx={{ position: 'relative', height: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
           {/* Close Button */}
-          <IconButton
+            <IconButton
             onClick={handleClose}
             sx={{
               position: 'absolute',
@@ -281,12 +281,14 @@ const Gallery = () => {
               color: 'white',
               backdropFilter: 'blur(10px)',
               zIndex: 2,
+              transition: 'all 0.3s ease',
               '&:hover': {
                 bgcolor: 'secondary.main',
+                transform: 'scale(1.1)',
               }
             }}
           >
-            <CloseIcon />
+            <X size={24} strokeWidth={2.5} />
           </IconButton>
 
           {/* Image */}
