@@ -20,10 +20,16 @@ import SecurityIcon from "@mui/icons-material/Security";
 import EmojiEventsIcon from "@mui/icons-material/EmojiEvents";
 import VerifiedIcon from "@mui/icons-material/Verified";
 import GroupsIcon from "@mui/icons-material/Groups";
+import LocationOnIcon from "@mui/icons-material/LocationOn";
+import coachImg1 from "../assets/Coachs/Coach1.jpeg";
+import coachImg2 from "../assets/Coachs/Coach2.jpeg";
+import coachImg3 from "../assets/Coachs/Coach3.jpeg";
+import coachImg4 from "../assets/Coachs/Coach4.jpeg";
 import backgroundImg from "../assets/Background_imgs/backgroundimg.jpeg";
 import backgroundImg_2 from "../assets/Background_imgs/backgroundimg_2.jpeg";
 import backgroundImg_3 from "../assets/Background_imgs/backgroundimg_3.jpeg";
 import backgroundImg_4 from "../assets/Background_imgs/backgroundimg_4.jpeg";
+import backgroundImg_4_4 from "../assets/Background_imgs/backgroundimg4_4.jpeg";
 import backgroundImg_5 from "../assets/Background_imgs/backgroundimg_5.jpeg";
 import backgroundImg2 from "../assets/Background_imgs/backgroundimg2.jpeg";
 import backgroundImg3 from "../assets/Background_imgs/backgroundimg3.jpeg";
@@ -39,6 +45,7 @@ const Home = () => {
     backgroundImg_2,
     backgroundImg_3,
     backgroundImg_4,
+    backgroundImg_4_4,
     backgroundImg_5,
   ];
 
@@ -78,30 +85,50 @@ const Home = () => {
   ];
   const coaches = [
     {
-      name: "Rajat Sharma",
+      name: "Riya Majumder",
       role: "Head Coach",
       exp: "12+ Years",
       specialty: "Youth Skating Specialist",
-      img: "https://media.istockphoto.com/id/1216426542/photo/portrait-of-happy-man-at-white-background-stock-photo.webp?a=1&b=1&s=612x612&w=0&k=20&c=EgxUJNnRMUmyCuVLrnMWcQMPq9EGqdjHNZEBGgAa3hg=",
+      img: coachImg1,
     },
     {
   
-      name: "Rajesh Kumar",
+      name: "Suankit China",
       role: "Senior Coach",
       exp: "10+ Years",
       specialty: "Speed & Technique Training",
-      img: "https://media.istockphoto.com/id/1587315781/photo/happy-laughing-guy-posing-with-arms-folded.webp?a=1&b=1&s=612x612&w=0&k=20&c=pQjzvhpF0m66H5O9YMIgM6tAjtP1BUoAP4ChXnIpJTA=",
+      img: coachImg2,
     },
     {
-      name: "Anita Desai",
+      name: "Md Irshad Khan",
       role: "Safety Coach",
       exp: "8+ Years",
       specialty: "Balance, Form & Safety",
-      img: "https://randomuser.me/api/portraits/women/68.jpg",
+      img: coachImg3,
+    },
+    {
+      name: "Suraj Das",
+      role: "Junior Coach",
+      exp: "5+ Years",
+      specialty: "Beginner & Kids Training",
+      img: coachImg4,
     },
   ];
 
   const highlights = [];
+
+  const locationAreas = [
+    "Salt Lake",
+    "New Town",
+    "Rajarhat",
+    "EM Bypass",
+    "Gariahat",
+    "Ballygunge",
+    "Tollygunge",
+    "Behala",
+    "Park Street",
+    "Howrah",
+  ];
 
   return (
     <Box sx={{ bgcolor: "background.default", overflow: "hidden" }}>
@@ -521,7 +548,7 @@ const Home = () => {
 
         <Grid container spacing={4}>
           {coaches.map((coach, i) => (
-            <Grid item xs={12} md={4} key={i}>
+            <Grid item xs={12} sm={6} md={3} key={i}>
               <Card
                 elevation={0}
                 sx={{
@@ -592,6 +619,90 @@ const Home = () => {
           ))}
         </Grid>
       </Container>
+
+      {/* LOCATIONS SECTION */}
+      <Box
+        sx={{
+          py: { xs: 8, md: 10 },
+          bgcolor: alpha(theme.palette.primary.main, 0.02),
+        }}
+      >
+        <Container maxWidth="lg">
+          <Box sx={{ textAlign: "center", mb: 6 }}>
+            <Typography
+              variant="overline"
+              sx={{
+                color: "secondary.main",
+                fontWeight: 800,
+                letterSpacing: 3,
+              }}
+            >
+              WHERE WE SERVE
+            </Typography>
+            <Typography
+              variant="h2"
+              sx={{
+                fontWeight: 900,
+                mt: 1,
+                mb: 2,
+                fontSize: { xs: "1.8rem", md: "2.5rem" },
+              }}
+            >
+              Conveniently Located Across Kolkata
+            </Typography>
+            <Typography
+              variant="body1"
+              sx={{
+                color: "text.secondary",
+                maxWidth: 650,
+                mx: "auto",
+                lineHeight: 1.7,
+              }}
+            >
+              Professional skating training available in multiple neighborhoods
+              for your convenience.
+            </Typography>
+          </Box>
+
+          <Box
+            sx={{
+              display: "flex",
+              flexWrap: "wrap",
+              gap: 2,
+              justifyContent: "center",
+              maxWidth: 900,
+              mx: "auto",
+            }}
+          >
+            {locationAreas.map((area, i) => (
+              <Chip
+                key={i}
+                icon={<LocationOnIcon />}
+                label={area}
+                sx={{
+                  px: 2,
+                  py: 2.5,
+                  fontSize: "0.95rem",
+                  fontWeight: 600,
+                  bgcolor: "white",
+                  border: `1px solid ${alpha(theme.palette.divider, 0.1)}`,
+                  boxShadow: "0 4px 12px rgba(0,0,0,0.04)",
+                  transition: "all 0.3s ease",
+                  "& .MuiChip-icon": {
+                    color: "secondary.main",
+                  },
+                  "&:hover": {
+                    transform: "translateY(-4px)",
+                    boxShadow: "0 8px 20px rgba(0,0,0,0.08)",
+                    bgcolor: alpha(theme.palette.secondary.main, 0.05),
+                    borderColor: alpha(theme.palette.secondary.main, 0.3),
+                  },
+                }}
+              />
+            ))}
+          </Box>
+        </Container>
+      </Box>
 
       {/* FINAL CTA */}
       <Box

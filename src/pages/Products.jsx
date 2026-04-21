@@ -3,24 +3,23 @@ import {
   InputLabel, Chip, Button, useMediaQuery, useTheme, 
   Typography, alpha, Stack, Fade 
 } from '@mui/material';
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import ProductCard from '../components/ProductCard';
-import { products } from '../data/data';
+import { products, allProducts } from '../data/data';
 import backgroundImg7 from '../assets/Background_imgs/backgroundimg7.jpeg';
 
 const Products = () => {
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down('md'));
-  const productsPerPage = isSmallScreen ? 8 : 9;
   
   const [category, setCategory] = useState('All');
-  const [visibleCount, setVisibleCount] = useState(productsPerPage);
+  const [visibleCount, setVisibleCount] = useState(8); // Start with 8 for mobile-first
 
   const categories = ['All', 'Skates', 'Helmets', 'Wheels', 'Protection'];
 
   const processedProducts = useMemo(() => {
-    let result = category === 'All' 
-      ? [...products] 
+    let result = category === 'All'
+      ? allProducts
       : products.filter(p => p.category === category);
     return result;
   }, [category]);
@@ -28,7 +27,20 @@ const Products = () => {
   const displayedProducts = processedProducts.slice(0, visibleCount);
   const hasMore = visibleCount < processedProducts.length;
 
-  const handleViewMore = () => setVisibleCount(prev => prev + productsPerPage);
+  const handleViewMore = () => {
+    const increment = isSmallScreen ? 8 : 9;
+    setVisibleCount(prev => prev + increment);
+  };
+
+  const handleCategoryChange = (cat) => {
+    setCategory(cat);
+    setVisibleCount(isSmallScreen ? 8 : 9);
+  };
+
+  // Update visible count when screen size changes
+  useEffect(() => {
+    setVisibleCount(isSmallScreen ? 8 : 9);
+  }, [isSmallScreen]);
 
   return (
     <Box sx={{ bgcolor: 'background.default', minHeight: '100vh', pb: 10 }}>
@@ -84,7 +96,7 @@ const Products = () => {
               <Chip
                 key={cat}
                 label={cat}
-                onClick={() => { setCategory(cat); setVisibleCount(productsPerPage); }}
+                onClick={() => handleCategoryChange(cat)}
                 sx={{ 
                   cursor: 'pointer',
                   px: 2,

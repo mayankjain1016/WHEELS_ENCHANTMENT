@@ -21,9 +21,14 @@ import FormatQuoteIcon from "@mui/icons-material/FormatQuote";
 import GroupsIcon from "@mui/icons-material/Groups";
 import TrackChangesIcon from "@mui/icons-material/TrackChanges";
 import VisibilityIcon from "@mui/icons-material/Visibility";
+import LocationOnIcon from "@mui/icons-material/LocationOn";
 import backgroundImg2 from "../assets/Background_imgs/backgroundimg2.jpeg";
 import backgroundImg3 from "../assets/Background_imgs/backgroundimg3.jpeg";
 import backgroundImg6 from "../assets/Background_imgs/backgroundimg6.jpeg";
+import coachImg1 from "../assets/Coachs/Coach1.jpeg";
+import coachImg2 from "../assets/Coachs/Coach2.jpeg";
+import coachImg3 from "../assets/Coachs/Coach3.jpeg";
+import coachImg4 from "../assets/Coachs/Coach4.jpeg";
 
 const CountUpNumber = ({ value, label }) => {
   const [count, setCount] = useState(0);
@@ -140,25 +145,74 @@ const About = () => {
 
   const coaches = [
     {
-      name: "Sarah Mitchell",
+      name: "Riya Majumder",
       role: "Head Coach",
-      experience: "12+ Years",
+      exp: "12+ Years",
       specialty: "Youth Skating Specialist",
-      image: "https://i.pravatar.cc/300?img=1",
+      img: coachImg1,
     },
     {
-      name: "Michael Chen",
+      name: "Suankit China",
       role: "Senior Coach",
-      experience: "10+ Years",
+      exp: "10+ Years",
       specialty: "Speed & Technique Training",
-      image: "https://i.pravatar.cc/300?img=13",
+      img: coachImg2,
     },
     {
-      name: "Emily Rodriguez",
+      name: "Md Irshad Khan",
       role: "Safety Coach",
-      experience: "8+ Years",
-      specialty: "Balance & Form & Safety",
-      image: "https://i.pravatar.cc/300?img=5",
+      exp: "8+ Years",
+      specialty: "Balance, Form & Safety",
+      img: coachImg3,
+    },
+    {
+      name: "Suraj Das",
+      role: "Junior Coach",
+      exp: "5+ Years",
+      specialty: "Beginner & Kids Training",
+      img: coachImg4,
+    },
+  ];
+
+  const locations = [
+    {
+      area: "East Kolkata",
+      places: [
+        "Salt Lake (Sector I–V)",
+        "New Town (Action Areas, Eco Park)",
+        "Rajarhat",
+        "EM Bypass (Ruby, Science City)",
+      ],
+    },
+    {
+      area: "North Kolkata",
+      places: ["Sinthee", "Cossipore", "Kakurgachi", "Phoolbagan"],
+    },
+    {
+      area: "South Kolkata",
+      places: [
+        "Gariahat",
+        "Ballygunge",
+        "Tollygunge",
+        "Bhawanipore",
+        "Alipore",
+        "Behala",
+      ],
+    },
+    {
+      area: "Howrah",
+      places: ["Mullick Fatak", "Shibpur"],
+    },
+    {
+      area: "Central Kolkata",
+      places: [
+        "Wood Street",
+        "Park Street",
+        "Burrabazar",
+        "Victoria Memorial",
+        "Rowland Row",
+        "Minto Park",
+      ],
     },
   ];
 
@@ -566,6 +620,127 @@ const About = () => {
         </Container>
       </Box>
 
+      {/* LOCATIONS SECTION */}
+      <Container maxWidth="lg" sx={{ py: { xs: 10, md: 14 } }}>
+        <Box sx={{ textAlign: "center", mb: 8 }}>
+          <Typography
+            variant="overline"
+            sx={{
+              color: "secondary.main",
+              fontWeight: 800,
+              letterSpacing: 3,
+            }}
+          >
+            OUR LOCATIONS
+          </Typography>
+          <Typography
+            variant="h2"
+            sx={{
+              fontWeight: 900,
+              mt: 1,
+              mb: 2,
+              fontSize: { xs: "2rem", md: "3rem" },
+            }}
+          >
+            Serving Kolkata & Beyond
+          </Typography>
+          <Typography
+            variant="body1"
+            sx={{
+              color: "text.secondary",
+              maxWidth: 700,
+              mx: "auto",
+              lineHeight: 1.8,
+              fontSize: "1.05rem",
+            }}
+          >
+            We bring professional skating training to multiple locations across
+            Kolkata, making it convenient for families everywhere.
+          </Typography>
+        </Box>
+
+        <Grid container spacing={3}>
+          {locations.map((location, index) => (
+            <Grid item xs={12} sm={6} md={4} key={index}>
+              <Card
+                elevation={0}
+                sx={{
+                  height: "100%",
+                  p: 3.5,
+                  borderRadius: "20px",
+                  bgcolor: "white",
+                  border: `1px solid ${alpha(theme.palette.divider, 0.1)}`,
+                  boxShadow: "0 10px 30px rgba(0,0,0,0.06)",
+                  transition: "all 0.35s ease",
+                  "&:hover": {
+                    transform: "translateY(-8px)",
+                    boxShadow: "0 20px 45px rgba(0,0,0,0.1)",
+                    borderColor: alpha(theme.palette.secondary.main, 0.3),
+                  },
+                }}
+              >
+                <Box
+                  sx={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: 1.5,
+                    mb: 2.5,
+                  }}
+                >
+                  <Box
+                    sx={{
+                      width: 48,
+                      height: 48,
+                      borderRadius: "12px",
+                      bgcolor: alpha(theme.palette.secondary.main, 0.1),
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      color: "secondary.main",
+                    }}
+                  >
+                    <LocationOnIcon />
+                  </Box>
+                  <Typography
+                    variant="h6"
+                    sx={{
+                      fontWeight: 800,
+                      fontSize: "1.15rem",
+                    }}
+                  >
+                    {location.area}
+                  </Typography>
+                </Box>
+                <Box sx={{ pl: 0.5 }}>
+                  {location.places.map((place, i) => (
+                    <Typography
+                      key={i}
+                      variant="body2"
+                      sx={{
+                        color: "text.secondary",
+                        lineHeight: 2,
+                        fontSize: "0.95rem",
+                        display: "flex",
+                        alignItems: "center",
+                        gap: 1,
+                        "&:before": {
+                          content: '"•"',
+                          color: "secondary.main",
+                          fontWeight: 700,
+                          fontSize: "1.2rem",
+                        },
+                      }}
+                    >
+                      {place}
+                    </Typography>
+                  ))}
+                </Box>
+              </Card>
+            </Grid>
+          ))}
+        </Grid>
+      </Container>
+
       {/* COACHES SECTION */}
       <Box
         sx={{
@@ -590,106 +765,94 @@ const About = () => {
               sx={{
                 fontWeight: 900,
                 mt: 1,
-                mb: 2,
-                fontSize: { xs: "2rem", md: "3rem" },
+                fontSize: { xs: "2rem", md: "2.9rem" },
               }}
             >
-              Expert Coaches
+              Expert guidance from experienced coaches
             </Typography>
             <Typography
               variant="body1"
               sx={{
                 color: "text.secondary",
+                mt: 2,
                 maxWidth: 700,
                 mx: "auto",
                 lineHeight: 1.8,
-                fontSize: "1.05rem",
               }}
             >
-              Our certified coaches bring years of experience, passion, and dedication to help every student reach their full potential.
+              Our coaching team is focused on helping every child learn with the
+              right mix of discipline, encouragement, technique, and safety.
             </Typography>
           </Box>
 
           <Grid container spacing={4}>
-            {coaches.map((coach, index) => (
-              <Grid item xs={12} sm={6} md={4} key={index}>
+            {coaches.map((coach, i) => (
+              <Grid item xs={12} sm={6} md={3} key={i}>
                 <Card
                   elevation={0}
                   sx={{
-                    borderRadius: "20px",
-                    overflow: "hidden",
-                    bgcolor: "white",
-                    border: `1px solid ${alpha(theme.palette.divider, 0.1)}`,
-                    boxShadow: "0 10px 30px rgba(0,0,0,0.08)",
-                    transition: "all 0.4s ease",
+                    height: "100%",
+                    p: 4,
+                    borderRadius: "28px",
+                    textAlign: "center",
+                    border: `1px solid ${alpha(theme.palette.divider, 0.08)}`,
+                    boxShadow: "0 18px 40px rgba(0,0,0,0.05)",
+                    transition: "all 0.35s ease",
                     "&:hover": {
                       transform: "translateY(-8px)",
-                      boxShadow: "0 20px 50px rgba(0,0,0,0.12)",
+                      boxShadow: "0 26px 50px rgba(0,0,0,0.08)",
                     },
                   }}
                 >
-                  <Box
+                  <Avatar
+                    src={coach.img}
+                    alt={coach.name}
                     sx={{
-                      position: "relative",
-                      paddingTop: "100%",
-                      overflow: "hidden",
+                      width: 160,
+                      height: 160,
+                      mx: "auto",
+                      mb: 3,
+                      border: "6px solid white",
+                      boxShadow: "0 15px 35px rgba(0,0,0,0.14)",
+                    }}
+                  />
+
+                  <Typography variant="h5" sx={{ fontWeight: 800 }}>
+                    {coach.name}
+                  </Typography>
+
+                  <Typography
+                    variant="subtitle1"
+                    sx={{
+                      color: "secondary.main",
+                      fontWeight: 700,
+                      mt: 0.8,
                     }}
                   >
-                    <Box
-                      component="img"
-                      src={coach.image}
-                      alt={coach.name}
-                      sx={{
-                        position: "absolute",
-                        top: 0,
-                        left: 0,
-                        width: "100%",
-                        height: "100%",
-                        objectFit: "cover",
-                      }}
-                    />
-                  </Box>
-                  <Box sx={{ p: 3 }}>
-                    <Typography
-                      variant="h6"
-                      sx={{
-                        fontWeight: 800,
-                        mb: 0.5,
-                      }}
-                    >
-                      {coach.name}
-                    </Typography>
-                    <Typography
-                      variant="body2"
-                      sx={{
-                        color: "secondary.main",
-                        fontWeight: 700,
-                        mb: 2,
-                      }}
-                    >
-                      {coach.role}
-                    </Typography>
-                    <Box
-                      sx={{
-                        display: "flex",
-                        flexDirection: "column",
-                        gap: 0.5,
-                      }}
-                    >
-                      <Typography
-                        variant="body2"
-                        sx={{ color: "text.secondary" }}
-                      >
-                        <strong>Experience:</strong> {coach.experience}
-                      </Typography>
-                      <Typography
-                        variant="body2"
-                        sx={{ color: "text.secondary" }}
-                      >
-                        <strong>Specialty:</strong> {coach.specialty}
-                      </Typography>
-                    </Box>
-                  </Box>
+                    {coach.role}
+                  </Typography>
+
+                  <Typography
+                    variant="body2"
+                    sx={{
+                      mt: 1.3,
+                      fontWeight: 800,
+                      color: "primary.main",
+                    }}
+                  >
+                    {coach.exp} Experience
+                  </Typography>
+
+                  <Typography
+                    variant="body2"
+                    sx={{
+                      color: "text.secondary",
+                      mt: 1,
+                      lineHeight: 1.7,
+                    }}
+                  >
+                    Specialization: {coach.specialty}
+                  </Typography>
                 </Card>
               </Grid>
             ))}

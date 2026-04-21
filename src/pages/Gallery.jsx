@@ -2,6 +2,7 @@ import { Box, Container, Grid, Card, CardMedia, Chip, Dialog, IconButton, Typogr
 import { useState } from 'react';
 import CloseIcon from '@mui/icons-material/Close';
 import backgroundImg8 from '../assets/Background_imgs/backgroundimg8.jpeg';
+import backgroundImg4_4 from '../assets/Background_imgs/backgroundimg4_4.jpeg';
 
 // Import all gallery images
 import img1 from '../assets/Gallery_img/67542B2D-A14E-4594-B781-78064ECC6CFC.JPG.jpeg';
@@ -51,6 +52,7 @@ import img44 from '../assets/Gallery_img/IMG_5313.JPG.jpeg';
 import img45 from '../assets/Gallery_img/IMG_8096.JPG.jpeg';
 import img46 from '../assets/Gallery_img/IMG_8782.JPG.jpeg';
 import img47 from '../assets/Gallery_img/IMG_8818.JPG.jpeg';
+import img48 from '../assets/Background_imgs/backgroundimg4_4.jpeg';
 
 const Gallery = () => {
   const theme = useTheme();
@@ -107,6 +109,7 @@ const Gallery = () => {
     { id: 45, url: img45, category: 'Events' },
     { id: 46, url: img46, category: 'Training' },
     { id: 47, url: img47, category: 'Students' },
+    { id: 48, url: img48, category: 'Training' },
   ];
 
   const categories = ['All', 'Training', 'Students', 'Events'];

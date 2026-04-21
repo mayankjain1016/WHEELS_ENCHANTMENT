@@ -1,8 +1,6 @@
 import { Box, Container, Grid, Typography, IconButton, Link } from '@mui/material';
 import FacebookIcon from '@mui/icons-material/Facebook';
 import InstagramIcon from '@mui/icons-material/Instagram';
-import TwitterIcon from '@mui/icons-material/Twitter';
-import YouTubeIcon from '@mui/icons-material/YouTube';
 import logo from '../assets/logo.jpeg';
 
 const Footer = () => {
@@ -54,12 +52,6 @@ const Footer = () => {
                 sx={{ color: 'white', '&:hover': { color: 'secondary.main' } }}
               >
                 <InstagramIcon />
-              </IconButton>
-              <IconButton sx={{ color: 'white', '&:hover': { color: 'secondary.main' } }}>
-                <TwitterIcon />
-              </IconButton>
-              <IconButton sx={{ color: 'white', '&:hover': { color: 'secondary.main' } }}>
-                <YouTubeIcon />
               </IconButton>
             </Box>
             <Typography variant="body2" sx={{ color: 'rgba(255,255,255,0.8)', mt: 2 }}>
