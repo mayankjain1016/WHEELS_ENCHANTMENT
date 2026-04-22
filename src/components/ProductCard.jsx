@@ -49,7 +49,7 @@ const ProductCard = ({ product }) => {
           }}
         />
       </Box>
-      <CardContent sx={{ p: 3 }}>
+      <CardContent sx={{ p: 3, height: 80, display: 'flex', alignItems: 'center' }}>
         <Typography
           variant="h6"
           sx={{
@@ -57,6 +57,11 @@ const ProductCard = ({ product }) => {
             fontSize: '1.1rem',
             color: 'text.primary',
             letterSpacing: '0.01em',
+            overflow: 'hidden',
+            textOverflow: 'ellipsis',
+            display: '-webkit-box',
+            WebkitLineClamp: 2,
+            WebkitBoxOrient: 'vertical',
           }}
         >
           {product.name}

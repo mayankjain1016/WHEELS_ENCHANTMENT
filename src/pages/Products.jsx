@@ -12,17 +12,18 @@ const Products = () => {
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down('md'));
   
-  const [category, setCategory] = useState('All');
-  const [visibleCount, setVisibleCount] = useState(8); // Start with 8 for mobile-first
+  const [category, setCategory] = useState('Skates');
+  const [subcategory, setSubcategory] = useState(null);
+  const [visibleCount, setVisibleCount] = useState(8);
 
-  const categories = ['All', 'Skates', 'Helmets', 'Wheels', 'Protection'];
+  const categories = ['Skates', 'Helmets', 'Wheels', 'Protection'];
 
   const processedProducts = useMemo(() => {
-    let result = category === 'All'
-      ? allProducts
-      : products.filter(p => p.category === category);
-    return result;
-  }, [category]);
+    if (subcategory) {
+      return products.filter(p => p.subcategory === subcategory && !p.isMainCategory);
+    }
+    return products.filter(p => p.category === category && (p.isMainCategory || !p.subcategory));
+  }, [category, subcategory]);
 
   const displayedProducts = processedProducts.slice(0, visibleCount);
   const hasMore = visibleCount < processedProducts.length;
@@ -34,10 +35,17 @@ const Products = () => {
 
   const handleCategoryChange = (cat) => {
     setCategory(cat);
+    setSubcategory(null);
     setVisibleCount(isSmallScreen ? 8 : 9);
   };
 
-  // Update visible count when screen size changes
+  const handleProductClick = (product) => {
+    if (product.isMainCategory) {
+      setSubcategory(product.subcategory);
+      setVisibleCount(isSmallScreen ? 8 : 9);
+    }
+  };
+
   useEffect(() => {
     setVisibleCount(isSmallScreen ? 8 : 9);
   }, [isSmallScreen]);
@@ -115,9 +123,9 @@ const Products = () => {
         {/* --- PRODUCTS GRID --- */}
         <Grid container spacing={4}>
           {displayedProducts.map((product, index) => (
-            <Grid item xs={12} sm={6} md={4} key={product.id}>
-              <Fade in={true} timeout={index * 200}>
-                <Box>
+            <Grid item xs={12} sm={6} md={4} key={product.id} sx={{ display: 'flex' }}>
+              <Fade in={true} timeout={index * 200} style={{ width: '100%' }}>
+                <Box sx={{ width: '100%', cursor: product.isMainCategory ? 'pointer' : 'default' }} onClick={() => handleProductClick(product)}>
                   <ProductCard product={product} />
                 </Box>
               </Fade>

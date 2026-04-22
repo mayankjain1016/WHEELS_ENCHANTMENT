@@ -1,39 +1,43 @@
-// Import Skates images
-import skate1 from '../assets/skates/skate1.jpeg';
-import skate2 from '../assets/skates/skate3.jpeg';
-import skate3 from '../assets/skates/skate5.jpeg';
-import skate4 from '../assets/skates/skate6.jpeg';
-import skate5 from '../assets/skates/skate8.jpeg';
-import skate6 from '../assets/skates/WhatsApp Image 2026-04-16 at 11.46.35 PM.jpeg';
-import skate7 from '../assets/skates/WhatsApp Image 2026-04-16 at 11.46.38 PM (1).jpeg';
-import skate8 from '../assets/skates/WhatsApp Image 2026-04-16 at 11.46.38 PM (2).jpeg';
-import skate9 from '../assets/skates/WhatsApp Image 2026-04-16 at 11.46.38 PM (3).jpeg';
-import skate10 from '../assets/skates/WhatsApp Image 2026-04-16 at 11.46.39 PM (3).jpeg';
-import skate11 from '../assets/skates/WhatsApp Image 2026-04-16 at 11.46.39 PM (4).jpeg';
-import skate12 from '../assets/skates/WhatsApp Image 2026-04-16 at 11.46.39 PM.jpeg';
-import skate13 from '../assets/skates/WhatsApp Image 2026-04-16 at 11.46.40 PM (1).jpeg';
-import skate14 from '../assets/skates/WhatsApp Image 2026-04-16 at 11.46.40 PM (2).jpeg';
-import skate15 from '../assets/skates/WhatsApp Image 2026-04-16 at 11.46.41 PM.jpeg';
-import skate16 from '../assets/skates/WhatsApp Image 2026-04-16 at 11.46.42 PM (1).jpeg';
-import skate17 from '../assets/skates/WhatsApp Image 2026-04-16 at 11.46.42 PM (2).jpeg';
-import skate18 from '../assets/skates/WhatsApp Image 2026-04-16 at 11.46.42 PM (4).jpeg';
-import skate19 from '../assets/skates/WhatsApp Image 2026-04-16 at 11.46.42 PM.jpeg';
-import skate20 from '../assets/skates/WhatsApp Image 2026-04-16 at 11.46.43 PM (1).jpeg';
-import skate21 from '../assets/skates/WhatsApp Image 2026-04-16 at 11.46.43 PM (2).jpeg';
-import skate22 from '../assets/skates/WhatsApp Image 2026-04-16 at 11.46.43 PM.jpeg';
-import skate23 from '../assets/skates/WhatsApp Image 2026-04-16 at 11.46.44 PM (1).jpeg';
-import skate24 from '../assets/skates/WhatsApp Image 2026-04-16 at 11.46.44 PM (2).jpeg';
-import skate25 from '../assets/skates/WhatsApp Image 2026-04-16 at 11.46.44 PM (3).jpeg';
-import skate26 from '../assets/skates/WhatsApp Image 2026-04-16 at 11.46.45 PM (1).jpeg';
-import skate27 from '../assets/skates/WhatsApp Image 2026-04-16 at 11.46.45 PM (2).jpeg';
-import skate28 from '../assets/skates/WhatsApp Image 2026-04-16 at 11.46.46 PM (2).jpeg';
-import skate29 from '../assets/skates/WhatsApp Image 2026-04-16 at 11.46.46 PM.jpeg';
-import skate30 from '../assets/skates/WhatsApp Image 2026-04-16 at 11.46.47 PM (1).jpeg';
-import skate31 from '../assets/skates/WhatsApp Image 2026-04-16 at 11.46.47 PM (2).jpeg';
-import skate32 from '../assets/skates/WhatsApp Image 2026-04-16 at 11.46.47 PM.jpeg';
-import skate33 from '../assets/skates/WhatsApp Image 2026-04-16 at 11.46.48 PM (2).jpeg';
-import skate34 from '../assets/skates/WhatsApp Image 2026-04-16 at 11.46.48 PM.jpeg';
-import skate35 from '../assets/skates/WhatsApp Image 2026-04-16 at 11.46.49 PM.jpeg';
+// Import Quads Skates images
+import quads1 from '../assets/Quads_Skates/0d292238-4cc3-4125-a635-dfc011119e74.jfif';
+import quads2 from '../assets/Quads_Skates/104580e2-89d5-4dfe-9a65-ae8cd9f33dc9.jfif';
+import quads3 from '../assets/Quads_Skates/23c59442-3996-48e1-a1fe-794a196e74d5.jfif';
+import quads4 from '../assets/Quads_Skates/245708b9-dc99-45fc-b60d-842bfb8ceef3.jfif';
+import quads5 from '../assets/Quads_Skates/3a901246-2642-4cfe-ba2e-eec7e199e391.jfif';
+import quads6 from '../assets/Quads_Skates/3eed6b0c-589c-448d-8ef3-5e868827e1d6.jfif';
+import quads7 from '../assets/Quads_Skates/4176d4a5-0ed1-4784-8222-b304b3dc707c.jfif';
+import quads8 from '../assets/Quads_Skates/44e513c5-7ced-45e9-a74f-0dbcad6a9aa5 (1).jfif';
+import quads9 from '../assets/Quads_Skates/44e513c5-7ced-45e9-a74f-0dbcad6a9aa5.jfif';
+import quads10 from '../assets/Quads_Skates/494a41a3-24df-41e9-a838-02c28b9dfac8.jfif';
+import quads11 from '../assets/Quads_Skates/62d56de2-42b1-4532-a23b-a74e008752f2.jfif';
+import quads12 from '../assets/Quads_Skates/63566018-f59d-4441-8192-b29470da5906.jfif';
+import quads13 from '../assets/Quads_Skates/6503c651-96b6-4e25-acc9-7d2ef8adb27b.jfif';
+import quads14 from '../assets/Quads_Skates/68a56d0e-f1ef-4c7f-842e-dd6e3f8a00f5.jfif';
+import quads15 from '../assets/Quads_Skates/76d3e32e-3820-44c8-9951-40ba8761f811.jfif';
+import quads16 from '../assets/Quads_Skates/875fb69c-a64b-4dff-bded-0e9445a10e56.jfif';
+import quads17 from '../assets/Quads_Skates/98327867-bb3b-46c9-a5f5-d5226d5887c6.jfif';
+import quads18 from '../assets/Quads_Skates/a6f9dbf5-53bf-4361-81cd-c048d69b446b.jfif';
+import quads19 from '../assets/Quads_Skates/c1131811-d054-450e-a6c9-dbd97bb730fc.jfif';
+import quads20 from '../assets/Quads_Skates/ecac352b-944b-45b2-ba3b-a57d5b7ce132.jfif';
+import quads21 from '../assets/Quads_Skates/ed7480d9-f7f6-42ea-8f61-1ee50acd0be5.jfif';
+
+// Import Inline Skates images
+import inline1 from '../assets/Inline_Skates/0088c4a8-fa5d-4ef9-871c-014aade37259.jfif';
+import inline2 from '../assets/Inline_Skates/163c58fd-ab7f-4c3e-9afc-0562b8b1ecf2.jfif';
+import inline3 from '../assets/Inline_Skates/346a1327-f0da-455c-94b7-a756136c2801.jfif';
+import inline4 from '../assets/Inline_Skates/455d4642-51cc-4aa3-829a-7e58360f05e6.jfif';
+import inline5 from '../assets/Inline_Skates/46ecd428-cbf6-4be2-ab2d-aa6ba86d13e5.jfif';
+import inline6 from '../assets/Inline_Skates/5ff0503a-b281-490b-acee-9edc1e014a3f.jfif';
+import inline7 from '../assets/Inline_Skates/8599e25a-757b-4c6f-9fed-41a40d481a28.jfif';
+import inline8 from '../assets/Inline_Skates/a20fb307-f356-47a0-8bcf-3a428541fe20.jfif';
+import inline9 from '../assets/Inline_Skates/b03daa29-3530-4814-abd9-69062370d837.jfif';
+import inline10 from '../assets/Inline_Skates/d7153e54-ae44-4453-b7fa-455f3a1f83ce.jfif';
+import inline11 from '../assets/Inline_Skates/e3378e6a-acd3-412e-8ec8-1a41e64e4c50 (1).jfif';
+
+// Import Adjustable Skates images
+import adjustable1 from '../assets/Adjustable_Skates/214678e6-4794-4fed-9f81-9d9e14368442.jfif';
+import adjustable2 from '../assets/Adjustable_Skates/ab4c43e3-c398-4e0f-aa8a-730b587c0fa4.jfif';
+import adjustable3 from '../assets/Adjustable_Skates/aca31ffc-f337-42fd-8b94-fabd17264956.jfif';
 
 // Import Wheels images
 import wheel1 from '../assets/Wheels/WhatsApp Image 2026-04-17 at 12.14.34 AM.jpeg';
@@ -86,18 +90,44 @@ import protection8 from '../assets/Others/WhatsApp Image 2026-04-17 at 12.46.18 
 import protection9 from '../assets/Others/WhatsApp Image 2026-04-17 at 12.46.18 AM.jpeg';
 
 // Create product arrays for each category
-const skatesImages = [skate1, skate2, skate3, skate4, skate5, skate6, skate7, skate8, skate9, skate10, skate11, skate12, skate13, skate14, skate15, skate16, skate17, skate18, skate19, skate20, skate21, skate22, skate23, skate24, skate25, skate26, skate27, skate28, skate29, skate30, skate31, skate32, skate33, skate34, skate35];
+const quadsImages = [quads1, quads2, quads3, quads4, quads5, quads6, quads7, quads8, quads9, quads10, quads11, quads12, quads13, quads14, quads15, quads16, quads17, quads18, quads19, quads20, quads21];
+const inlineImages = [inline1, inline2, inline3, inline4, inline5, inline6, inline7, inline8, inline9, inline10, inline11];
+const adjustableImages = [adjustable1, adjustable2, adjustable3];
 const wheelsImages = [wheel1, wheel2, wheel3, wheel4, wheel5, wheel6, wheel7, wheel8, wheel9, wheel10, wheel11, wheel12, wheel13, wheel14, wheel15];
 const helmetsImages = [helmet1, helmet2, helmet3, helmet4, helmet5, helmet6, helmet7, helmet8, helmet9, helmet10, helmet11, helmet12, helmet13, helmet14, helmet15, helmet16, helmet17, helmet18, helmet19, helmet20];
 const protectionImages = [protection1, protection2, protection3, protection4, protection5, protection6, protection7, protection8, protection9];
 
-// Generate products for each category
-const skatesProducts = skatesImages.map((image, index) => ({
-  id: `skate-${index + 1}`,
-  name: `Skate ${index + 1}`,
+// Generate products for skate subcategories
+const quadsProducts = quadsImages.map((image, index) => ({
+  id: `quads-${index + 1}`,
+  name: `Quads Skates ${index + 1}`,
   category: 'Skates',
+  subcategory: 'Quads Skates',
   image: image,
 }));
+
+const inlineProducts = inlineImages.map((image, index) => ({
+  id: `inline-${index + 1}`,
+  name: `Inline Skates ${index + 1}`,
+  category: 'Skates',
+  subcategory: 'Inline Skates',
+  image: image,
+}));
+
+const adjustableProducts = adjustableImages.map((image, index) => ({
+  id: `adjustable-${index + 1}`,
+  name: `Adjustable Skates ${index + 1}`,
+  category: 'Skates',
+  subcategory: 'Adjustable Skates',
+  image: image,
+}));
+
+// Create main category products (first image from each subcategory)
+const skatesMainProducts = [
+  { id: 'skates-main-1', name: 'Quads Skates', category: 'Skates', subcategory: 'Quads Skates', image: quads1, isMainCategory: true },
+  { id: 'skates-main-2', name: 'Inline Skates', category: 'Skates', subcategory: 'Inline Skates', image: inline2, isMainCategory: true },
+  { id: 'skates-main-3', name: 'Adjustable Skates', category: 'Skates', subcategory: 'Adjustable Skates', image: adjustable3, isMainCategory: true },
+];
 
 const wheelsProducts = wheelsImages.map((image, index) => ({
   id: `wheel-${index + 1}`,
@@ -121,7 +151,7 @@ const protectionProducts = protectionImages.map((image, index) => ({
 }));
 
 // Combine all products
-export const products = [...skatesProducts, ...wheelsProducts, ...helmetsProducts, ...protectionProducts];
+export const products = [...skatesMainProducts, ...quadsProducts, ...inlineProducts, ...adjustableProducts, ...wheelsProducts, ...helmetsProducts, ...protectionProducts];
 
 // Generate allProducts with dynamic imports (lazy loading)
 const imageNumbers = [2353,2354,2355,2356,2357,2358,2359,2360,2361,2362,2363,2364,2365,2366,2367,2368,2369,2370,2371,2372,2373,2374,2375,2376,2377,2378,2379,2380,2381,2382,2383,2384,2385,2386,2387,2388,2389,2390,2391,2392,2393,2394,2395,2396,2397,2398,2399,2400,2401,2402,2403,2404,2405,2406,2407,2408,2409,2410,2411,2412,2413,2414,2416,2417,2418,2419,2420,2421,2422,2423,2424,2425,2426,2428,2429];

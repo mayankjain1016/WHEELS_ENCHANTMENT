@@ -79,33 +79,32 @@ const Home = () => {
   ];
   const coaches = [
     {
-      name: "Riya Majumder",
-      role: "Head Coach",
-      exp: "12+ Years",
-      specialty: "Youth Skating Specialist",
-      img: coachImg1,
-    },
-    {
-  
-      name: "Suankit China",
-      role: "Senior Coach",
+      name: "Suraj Das",
+      role: "",
       exp: "10+ Years",
-      specialty: "Speed & Technique Training",
-      img: coachImg2,
+      specialty: "",
+      img: coachImg4,
     },
     {
       name: "Md Irshad Khan",
-      role: "Safety Coach",
+      role: "",
       exp: "8+ Years",
-      specialty: "Balance, Form & Safety",
+      specialty: "",
       img: coachImg3,
     },
     {
-      name: "Suraj Das",
-      role: "Junior Coach",
-      exp: "5+ Years",
-      specialty: "Beginner & Kids Training",
-      img: coachImg4,
+      name: "Riya Majumder",
+      role: "",
+      exp: "3+ Years",
+      specialty: "",
+      img: coachImg1,
+    },
+    {
+      name: "Suankit China",
+      role: "",
+      exp: "2+ Years",
+      specialty: "",
+      img: coachImg2,
     },
   ];
 
@@ -241,16 +240,30 @@ const Home = () => {
               <Box
                 sx={{
                   mt: 11,
-                  p: 2.5,
+                  p: { xs: 2, md: 2.5 },
                 }}
               >
                 <Box
                   sx={{
                     display: "flex",
-                    flexDirection: { xs: "column", md: "row" },
-                    gap: 1,
-                    alignItems: { xs: "flex-start", md: "center" },
+                    flexDirection: "row",
+                    gap: { xs: 0.75, md: 1 },
+                    alignItems: "center",
                     justifyContent: "flex-start",
+                    overflowX: { xs: "auto", md: "visible" },
+                    overflowY: "hidden",
+                    flexWrap: "nowrap",
+                    pb: { xs: 1, md: 0 },
+                    '&::-webkit-scrollbar': {
+                      height: { xs: '4px', md: '0px' },
+                    },
+                    '&::-webkit-scrollbar-track': {
+                      background: 'transparent',
+                    },
+                    '&::-webkit-scrollbar-thumb': {
+                      background: alpha('#fff', 0.3),
+                      borderRadius: '4px',
+                    },
                   }}
                 >
                   {locationAreas.map((area, i) => (
@@ -258,7 +271,7 @@ const Home = () => {
                       key={i}
                       icon={
                         <MapPin 
-                          size={16} 
+                          size={14} 
                           strokeWidth={2.5} 
                           style={{ 
                             color: 'white',
@@ -272,15 +285,23 @@ const Home = () => {
                         bgcolor: "transparent",
                         color: "white",
                         fontWeight: 600,
-                        fontSize: "0.8rem",
+                        fontSize: { xs: "0.75rem", md: "0.8rem" },
                         border: `1.5px solid ${alpha("#fff", 0.3)}`,
                         backdropFilter: "blur(4px)",
                         textShadow: '0 1px 4px rgba(0,0,0,0.3)',
                         transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
                         whiteSpace: 'nowrap',
+                        borderRadius: '999px',
+                        py: { xs: 0.5, md: 0.5 },
+                        px: { xs: 1.25, md: 1 },
+                        height: { xs: '28px', md: 'auto' },
+                        flexShrink: 0,
                         '& .MuiChip-icon': {
-                          marginLeft: '8px',
-                          marginRight: '-4px',
+                          marginLeft: { xs: '2px', md: '8px' },
+                          marginRight: { xs: '-2px', md: '-4px' },
+                        },
+                        '& .MuiChip-label': {
+                          px: { xs: 0.5, md: 0.5 },
                         },
                         "&:hover": {
                           bgcolor: alpha("#fff", 0.15),
@@ -301,13 +322,18 @@ const Home = () => {
                       bgcolor: alpha(theme.palette.secondary.main, 0.15),
                       color: "white",
                       fontWeight: 700,
-                      fontSize: "0.8rem",
+                      fontSize: { xs: "0.75rem", md: "0.8rem" },
                       border: `1.5px solid ${theme.palette.secondary.main}`,
                       backdropFilter: "blur(4px)",
                       textShadow: '0 1px 4px rgba(0,0,0,0.3)',
                       transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
                       cursor: 'pointer',
                       whiteSpace: 'nowrap',
+                      borderRadius: '999px',
+                      py: { xs: 0.5, md: 0.5 },
+                      px: { xs: 1.5, md: 1 },
+                      height: { xs: '28px', md: 'auto' },
+                      flexShrink: 0,
                       "&:hover": {
                         bgcolor: theme.palette.secondary.main,
                         transform: 'scale(1.08)',
@@ -653,36 +679,14 @@ const Home = () => {
                 </Typography>
 
                 <Typography
-                  variant="subtitle1"
-                  sx={{
-                    color: "secondary.main",
-                    fontWeight: 700,
-                    mt: 0.8,
-                  }}
-                >
-                  {coach.role}
-                </Typography>
-
-                <Typography
                   variant="body2"
                   sx={{
-                    mt: 1.3,
+                    mt: 2,
                     fontWeight: 800,
                     color: "primary.main",
                   }}
                 >
                   {coach.exp} Experience
-                </Typography>
-
-                <Typography
-                  variant="body2"
-                  sx={{
-                    color: "text.secondary",
-                    mt: 1,
-                    lineHeight: 1.7,
-                  }}
-                >
-                  Specialization: {coach.specialty}
                 </Typography>
               </Card>
             </Grid>

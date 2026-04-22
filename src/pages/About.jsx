@@ -135,32 +135,32 @@ const About = () => {
 
   const coaches = [
     {
+      name: "Suraj Das",
+      role: "",
+      exp: "10+ Years",
+      specialty: "",
+      img: coachImg4,
+    },
+    {
+      name: "Md Irshad Khan",
+      role: "",
+      exp: "8+ Years",
+      specialty: "",
+      img: coachImg3,
+    },
+    {
       name: "Riya Majumder",
-      role: "Head Coach",
-      exp: "12+ Years",
-      specialty: "Youth Skating Specialist",
+      role: "",
+      exp: "3+ Years",
+      specialty: "",
       img: coachImg1,
     },
     {
       name: "Suankit China",
-      role: "Senior Coach",
-      exp: "10+ Years",
-      specialty: "Speed & Technique Training",
+      role: "",
+      exp: "2+ Years",
+      specialty: "",
       img: coachImg2,
-    },
-    {
-      name: "Md Irshad Khan",
-      role: "Safety Coach",
-      exp: "8+ Years",
-      specialty: "Balance, Form & Safety",
-      img: coachImg3,
-    },
-    {
-      name: "Suraj Das",
-      role: "Junior Coach",
-      exp: "5+ Years",
-      specialty: "Beginner & Kids Training",
-      img: coachImg4,
     },
   ];
 
@@ -762,36 +762,14 @@ const About = () => {
                   </Typography>
 
                   <Typography
-                    variant="subtitle1"
-                    sx={{
-                      color: "secondary.main",
-                      fontWeight: 700,
-                      mt: 0.8,
-                    }}
-                  >
-                    {coach.role}
-                  </Typography>
-
-                  <Typography
                     variant="body2"
                     sx={{
-                      mt: 1.3,
+                      mt: 2,
                       fontWeight: 800,
                       color: "primary.main",
                     }}
                   >
                     {coach.exp} Experience
-                  </Typography>
-
-                  <Typography
-                    variant="body2"
-                    sx={{
-                      color: "text.secondary",
-                      mt: 1,
-                      lineHeight: 1.7,
-                    }}
-                  >
-                    Specialization: {coach.specialty}
                   </Typography>
                 </Card>
               </Grid>
