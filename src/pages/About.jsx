@@ -353,6 +353,17 @@ const About = () => {
               sx={{
                 color: "text.secondary",
                 lineHeight: 1.9,
+                mb: 2.5,
+                fontSize: "1.05rem",
+              }}
+            >
+              We are proud to have conducted professional skating training programs at prestigious institutions including La Martiniere for Boys, Sri Sri Academy, Narayana Bally School, and South City International School.
+            </Typography>
+            <Typography
+              variant="body1"
+              sx={{
+                color: "text.secondary",
+                lineHeight: 1.9,
                 fontSize: "1.05rem",
               }}
             >

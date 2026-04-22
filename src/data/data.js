@@ -124,9 +124,9 @@ const adjustableProducts = adjustableImages.map((image, index) => ({
 
 // Create main category products (first image from each subcategory)
 const skatesMainProducts = [
-  { id: 'skates-main-1', name: 'Quads Skates', category: 'Skates', subcategory: 'Quads Skates', image: quads1, isMainCategory: true },
-  { id: 'skates-main-2', name: 'Inline Skates', category: 'Skates', subcategory: 'Inline Skates', image: inline2, isMainCategory: true },
-  { id: 'skates-main-3', name: 'Adjustable Skates', category: 'Skates', subcategory: 'Adjustable Skates', image: adjustable3, isMainCategory: true },
+  { id: 'skates-main-1', name: 'Adjustable Skates', category: 'Skates', subcategory: 'Adjustable Skates', image: adjustable3, isMainCategory: true },
+  { id: 'skates-main-2', name: 'Quads Skates', category: 'Skates', subcategory: 'Quads Skates', image: quads1, isMainCategory: true },
+  { id: 'skates-main-3', name: 'Inline Skates', category: 'Skates', subcategory: 'Inline Skates', image: inline2, isMainCategory: true },
 ];
 
 const wheelsProducts = wheelsImages.map((image, index) => ({

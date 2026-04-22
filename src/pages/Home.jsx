@@ -14,7 +14,7 @@ import {
 } from "@mui/material";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { ArrowRight, Sparkles, ShieldCheck, Award, Star, MapPin } from 'lucide-react';
+import { ArrowRight, Sparkles, ShieldCheck, Award, Star, MapPin, School, Users, Calendar } from 'lucide-react';
 import coachImg1 from "../assets/Coachs/Coach1.jpeg";
 import coachImg2 from "../assets/Coachs/Coach2.jpeg";
 import coachImg3 from "../assets/Coachs/Coach3.jpeg";
@@ -604,6 +604,198 @@ const Home = () => {
               </Grid>
             ))}
           </Grid>
+        </Container>
+      </Box>
+
+      {/* SCHOOL PARTNERSHIP PROGRAM */}
+      <Box sx={{ py: { xs: 10, md: 14 }, bgcolor: "background.paper" }}>
+        <Container maxWidth="lg">
+          <Box sx={{ textAlign: "center", mb: 8 }}>
+            <Typography
+              variant="overline"
+              sx={{
+                color: "secondary.main",
+                fontWeight: 800,
+                letterSpacing: 3,
+              }}
+            >
+              SCHOOL PARTNERSHIP PROGRAM
+            </Typography>
+            <Typography
+              variant="h2"
+              sx={{
+                fontWeight: 900,
+                mt: 1,
+                mb: 2,
+                fontSize: { xs: "1.8rem", md: "2.5rem" },
+              }}
+            >
+              Professional Skating Training at Your School
+            </Typography>
+            <Typography
+              variant="body1"
+              sx={{
+                color: "text.secondary",
+                maxWidth: 750,
+                mx: "auto",
+                lineHeight: 1.8,
+                fontSize: "1.05rem",
+              }}
+            >
+              Our certified coaches visit schools to conduct structured skating programs,
+              providing students with expert training in a safe and familiar environment.
+            </Typography>
+          </Box>
+
+          {/* Program Features */}
+          <Grid container spacing={4} sx={{ mb: 8 }}>
+            <Grid item xs={12} md={4}>
+              <Box sx={{ textAlign: "center" }}>
+                <Box
+                  sx={{
+                    width: 80,
+                    height: 80,
+                    borderRadius: "20px",
+                    bgcolor: alpha(theme.palette.secondary.main, 0.1),
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    mx: "auto",
+                    mb: 2.5,
+                  }}
+                >
+                  <School size={40} strokeWidth={2} color={theme.palette.secondary.main} />
+                </Box>
+                <Typography variant="h6" sx={{ fontWeight: 800, mb: 1 }}>
+                  On-Campus Training
+                </Typography>
+                <Typography variant="body2" sx={{ color: "text.secondary", lineHeight: 1.7 }}>
+                  Our coaches come to your school with all equipment and conduct classes on your premises.
+                </Typography>
+              </Box>
+            </Grid>
+            <Grid item xs={12} md={4}>
+              <Box sx={{ textAlign: "center" }}>
+                <Box
+                  sx={{
+                    width: 80,
+                    height: 80,
+                    borderRadius: "20px",
+                    bgcolor: alpha(theme.palette.secondary.main, 0.1),
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    mx: "auto",
+                    mb: 2.5,
+                  }}
+                >
+                  <Users size={40} strokeWidth={2} color={theme.palette.secondary.main} />
+                </Box>
+                <Typography variant="h6" sx={{ fontWeight: 800, mb: 1 }}>
+                  Certified Coaches
+                </Typography>
+                <Typography variant="body2" sx={{ color: "text.secondary", lineHeight: 1.7 }}>
+                  Experienced instructors trained in child safety, teaching methodology, and skating techniques.
+                </Typography>
+              </Box>
+            </Grid>
+            <Grid item xs={12} md={4}>
+              <Box sx={{ textAlign: "center" }}>
+                <Box
+                  sx={{
+                    width: 80,
+                    height: 80,
+                    borderRadius: "20px",
+                    bgcolor: alpha(theme.palette.secondary.main, 0.1),
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    mx: "auto",
+                    mb: 2.5,
+                  }}
+                >
+                  <Calendar size={40} strokeWidth={2} color={theme.palette.secondary.main} />
+                </Box>
+                <Typography variant="h6" sx={{ fontWeight: 800, mb: 1 }}>
+                  Flexible Scheduling
+                </Typography>
+                <Typography variant="body2" sx={{ color: "text.secondary", lineHeight: 1.7 }}>
+                  Programs designed to fit your school's timetable with weekly or bi-weekly sessions.
+                </Typography>
+              </Box>
+            </Grid>
+          </Grid>
+
+          {/* Partner Schools */}
+          <Box
+            sx={{
+              bgcolor: alpha(theme.palette.primary.main, 0.02),
+              borderRadius: "24px",
+              p: { xs: 4, md: 6 },
+              border: `1px solid ${alpha(theme.palette.divider, 0.08)}`,
+            }}
+          >
+            <Typography
+              variant="h6"
+              sx={{
+                fontWeight: 800,
+                textAlign: "center",
+                mb: 4,
+                color: "text.primary",
+              }}
+            >
+              Currently Training Students At
+            </Typography>
+            <Grid container spacing={3}>
+              {[
+                "La Martiniere for Boys",
+                "Sri Sri Academy",
+                "Narayana Bally School",
+                "South City International School",
+              ].map((school, i) => (
+                <Grid item xs={12} sm={6} md={3} key={i}>
+                  <Box
+                    sx={{
+                      p: 3,
+                      textAlign: "center",
+                      borderRadius: "16px",
+                      bgcolor: "background.paper",
+                      border: `2px solid ${alpha(theme.palette.divider, 0.1)}`,
+                      transition: "all 0.3s ease",
+                      height: "100%",
+                      display: "flex",
+                      flexDirection: "column",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      "&:hover": {
+                        borderColor: theme.palette.secondary.main,
+                        transform: "translateY(-6px)",
+                        boxShadow: `0 12px 24px ${alpha(theme.palette.secondary.main, 0.15)}`,
+                      },
+                    }}
+                  >
+                    <School
+                      size={32}
+                      strokeWidth={2}
+                      color={theme.palette.primary.main}
+                      style={{ marginBottom: 12 }}
+                    />
+                    <Typography
+                      variant="body2"
+                      sx={{
+                        fontWeight: 700,
+                        color: "text.primary",
+                        fontSize: "0.9rem",
+                        lineHeight: 1.4,
+                      }}
+                    >
+                      {school}
+                    </Typography>
+                  </Box>
+                </Grid>
+              ))}
+            </Grid>
+          </Box>
         </Container>
       </Box>
 
