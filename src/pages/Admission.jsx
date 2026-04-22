@@ -13,7 +13,7 @@ import {
 import { useState } from "react";
 import CircularProgress from "@mui/material/CircularProgress";
 import SectionHeader from "../components/SectionHeader";
-import { CheckCircle, Clock, Info, Upload } from 'lucide-react';
+import { CheckCircle2, Clock, Info, Upload } from 'lucide-react';
 
 const SCRIPT_URL =
   "https://script.google.com/macros/s/AKfycby0XFSHIPm7LenMEoEJyJA1r5krVDPdG2pSZ2bnvLmpL5Dfd08SArvacHqAdtoF-IVI/exec";
@@ -401,14 +401,15 @@ const Admission = () => {
                         width: 48,
                         height: 48,
                         borderRadius: '12px',
-                        bgcolor: alpha(theme.palette.secondary.main, 0.1),
+                        background: 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)',
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
                         mr: 2,
+                        boxShadow: '0 4px 12px rgba(0,0,0,0.15)',
                       }}
                     >
-                      <Clock size={24} strokeWidth={2.5} style={{ color: theme.palette.secondary.main }} />
+                      <Clock size={24} strokeWidth={2.5} style={{ color: 'white' }} />
                     </Box>
                     <Typography variant="h6" sx={{ fontWeight: 700 }}>
                       Training Schedule
@@ -434,14 +435,15 @@ const Admission = () => {
                         width: 48,
                         height: 48,
                         borderRadius: '12px',
-                        bgcolor: alpha(theme.palette.secondary.main, 0.1),
+                        background: 'linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)',
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
                         mr: 2,
+                        boxShadow: '0 4px 12px rgba(0,0,0,0.15)',
                       }}
                     >
-                      <CheckCircle size={24} strokeWidth={2.5} style={{ color: theme.palette.secondary.main }} />
+                      <CheckCircle2 size={24} strokeWidth={2.5} style={{ color: 'white' }} />
                     </Box>
                     <Typography variant="h6" sx={{ fontWeight: 700 }}>
                       What's Included
@@ -482,14 +484,15 @@ const Admission = () => {
                         width: 48,
                         height: 48,
                         borderRadius: '12px',
-                        bgcolor: alpha(theme.palette.secondary.main, 0.1),
+                        background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
                         mr: 2,
+                        boxShadow: '0 4px 12px rgba(0,0,0,0.15)',
                       }}
                     >
-                      <Info size={24} strokeWidth={2.5} style={{ color: theme.palette.secondary.main }} />
+                      <Info size={24} strokeWidth={2.5} style={{ color: 'white' }} />
                     </Box>
                     <Typography variant="h6" sx={{ fontWeight: 700 }}>
                       Guidelines

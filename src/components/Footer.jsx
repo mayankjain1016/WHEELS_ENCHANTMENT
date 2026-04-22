@@ -1,4 +1,5 @@
-import { Box, Container, Grid, Typography, IconButton, Link } from '@mui/material';
+import { Box, Container, Grid, Typography, IconButton, Link as MuiLink } from '@mui/material';
+import { Link } from 'react-router-dom';
 import logo from '../assets/logo.jpeg';
 
 const Footer = () => {
@@ -20,11 +21,11 @@ const Footer = () => {
               Quick Links
             </Typography>
             <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
-              <Link href="/" sx={{ color: 'rgba(255,255,255,0.8)', textDecoration: 'none', '&:hover': { color: 'secondary.main' } }}>Home</Link>
-              <Link href="/products" sx={{ color: 'rgba(255,255,255,0.8)', textDecoration: 'none', '&:hover': { color: 'secondary.main' } }}>Products</Link>
-              <Link href="/gallery" sx={{ color: 'rgba(255,255,255,0.8)', textDecoration: 'none', '&:hover': { color: 'secondary.main' } }}>Gallery</Link>
-              <Link href="/about" sx={{ color: 'rgba(255,255,255,0.8)', textDecoration: 'none', '&:hover': { color: 'secondary.main' } }}>About</Link>
-              <Link href="/contact" sx={{ color: 'rgba(255,255,255,0.8)', textDecoration: 'none', '&:hover': { color: 'secondary.main' } }}>Contact</Link>
+              <MuiLink component={Link} to="/" sx={{ color: 'rgba(255,255,255,0.8)', textDecoration: 'none', '&:hover': { color: 'secondary.main' } }}>Home</MuiLink>
+              <MuiLink component={Link} to="/products" sx={{ color: 'rgba(255,255,255,0.8)', textDecoration: 'none', '&:hover': { color: 'secondary.main' } }}>Products</MuiLink>
+              <MuiLink component={Link} to="/gallery" sx={{ color: 'rgba(255,255,255,0.8)', textDecoration: 'none', '&:hover': { color: 'secondary.main' } }}>Gallery</MuiLink>
+              <MuiLink component={Link} to="/about" sx={{ color: 'rgba(255,255,255,0.8)', textDecoration: 'none', '&:hover': { color: 'secondary.main' } }}>About</MuiLink>
+              <MuiLink component={Link} to="/admission" sx={{ color: 'rgba(255,255,255,0.8)', textDecoration: 'none', '&:hover': { color: 'secondary.main' } }}>Admission</MuiLink>
             </Box>
           </Grid>
 

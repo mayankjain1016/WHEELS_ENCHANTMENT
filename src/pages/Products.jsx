@@ -87,19 +87,38 @@ const Products = () => {
         
         {/* --- REFINED FILTER BAR (Glassmorphism) --- */}
         <Box sx={{ 
-          p: 2, 
+          p: { xs: 1.5, md: 2 }, 
           borderRadius: '16px', 
           bgcolor: alpha(theme.palette.background.paper, 0.9),
           backdropFilter: 'blur(10px)',
           boxShadow: '0 10px 40px rgba(0,0,0,0.1)',
           display: 'flex', 
-          gap: 3, 
           mb: 6, 
           justifyContent: 'center', 
           alignItems: 'center',
-          border: `1px solid ${alpha(theme.palette.divider, 0.1)}`
+          border: `1px solid ${alpha(theme.palette.divider, 0.1)}`,
+          overflowX: { xs: 'auto', md: 'visible' },
+          '&::-webkit-scrollbar': {
+            height: '4px',
+          },
+          '&::-webkit-scrollbar-track': {
+            background: 'transparent',
+          },
+          '&::-webkit-scrollbar-thumb': {
+            background: alpha(theme.palette.primary.main, 0.3),
+            borderRadius: '4px',
+          },
         }}>
-          <Stack direction="row" spacing={1} sx={{ overflowX: 'auto', py: 1, flexWrap: 'wrap', justifyContent: 'center' }}>
+          <Stack 
+            direction="row" 
+            spacing={{ xs: 1, md: 1 }} 
+            sx={{ 
+              py: { xs: 0.5, md: 1 }, 
+              flexWrap: 'nowrap',
+              justifyContent: { xs: 'flex-start', md: 'center' },
+              minWidth: { xs: 'max-content', md: 'auto' },
+            }}
+          >
             {categories.map((cat) => (
               <Chip
                 key={cat}
@@ -107,12 +126,22 @@ const Products = () => {
                 onClick={() => handleCategoryChange(cat)}
                 sx={{ 
                   cursor: 'pointer',
-                  px: 2,
+                  px: { xs: 1.25, md: 2 },
+                  py: { xs: 0.5, md: 0.75 },
+                  height: { xs: '30px', md: 'auto' },
+                  fontSize: { xs: '0.7rem', md: '0.8125rem' },
                   fontWeight: 600,
+                  borderRadius: { xs: '12px', md: '16px' },
                   transition: '0.3s',
                   bgcolor: category === cat ? 'primary.main' : 'transparent',
                   color: category === cat ? 'white' : 'text.primary',
                   border: `1px solid ${category === cat ? 'primary.main' : alpha(theme.palette.divider, 0.2)}`,
+                  flexShrink: 0,
+                  whiteSpace: 'nowrap',
+                  '& .MuiChip-label': {
+                    px: { xs: 0.75, md: 1 },
+                    py: 0,
+                  },
                   '&:hover': { bgcolor: category === cat ? 'primary.dark' : alpha(theme.palette.primary.main, 0.05) }
                 }}
               />

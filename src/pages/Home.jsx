@@ -14,7 +14,7 @@ import {
 } from "@mui/material";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { ArrowRight, GraduationCap, Shield, Trophy, BadgeCheck, MapPin } from 'lucide-react';
+import { ArrowRight, Sparkles, ShieldCheck, Award, Star, MapPin } from 'lucide-react';
 import coachImg1 from "../assets/Coachs/Coach1.jpeg";
 import coachImg2 from "../assets/Coachs/Coach2.jpeg";
 import coachImg3 from "../assets/Coachs/Coach3.jpeg";
@@ -56,25 +56,29 @@ const Home = () => {
       title: "Beginner Training",
       description:
         "A safe and encouraging start for young learners with a focus on balance, posture, and confidence.",
-      icon: <GraduationCap size={36} strokeWidth={2} />,
+      icon: <Sparkles size={36} strokeWidth={2.5} />,
+      gradient: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
     },
     {
       title: "Intermediate Level",
       description:
         "Build speed, control, and rhythm through guided practice and structured skating drills.",
-      icon: <Trophy size={36} strokeWidth={2} />,
+      icon: <Award size={36} strokeWidth={2.5} />,
+      gradient: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)',
     },
     {
       title: "Advanced Training",
       description:
         "Performance-oriented coaching for students ready to master advanced techniques and competitive skills.",
-      icon: <BadgeCheck size={36} strokeWidth={2} />,
+      icon: <Star size={36} strokeWidth={2.5} />,
+      gradient: 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)',
     },
     {
       title: "Safety Practice",
       description:
         "Dedicated sessions for protective movement, falling techniques, awareness, and safe skating habits.",
-      icon: <Shield size={36} strokeWidth={2} />,
+      icon: <ShieldCheck size={36} strokeWidth={2.5} />,
+      gradient: 'linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)',
     },
   ];
   const coaches = [
@@ -561,7 +565,7 @@ const Home = () => {
                 >
                   <Box
                     sx={{
-                      color: "secondary.main",
+                      color: "white",
                       mb: 2,
                       width: 72,
                       height: 72,
@@ -570,7 +574,8 @@ const Home = () => {
                       alignItems: "center",
                       justifyContent: "center",
                       mx: "auto",
-                      bgcolor: alpha(theme.palette.secondary.main, 0.1),
+                      background: program.gradient,
+                      boxShadow: '0 8px 24px rgba(0,0,0,0.15)',
                     }}
                   >
                     {program.icon}
