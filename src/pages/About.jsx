@@ -100,6 +100,17 @@ const CountUpNumber = ({ value, label }) => {
 const About = () => {
   const theme = useTheme();
 
+  useEffect(() => {
+    if (window.location.hash === '#locations') {
+      setTimeout(() => {
+        const element = document.getElementById('locations');
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }, 100);
+    }
+  }, []);
+
   const whyChooseUs = [
     {
       icon: <Users size={36} strokeWidth={2} />,
