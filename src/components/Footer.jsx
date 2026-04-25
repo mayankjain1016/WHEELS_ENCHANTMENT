@@ -9,7 +9,7 @@ const Footer = () => {
         <Grid container spacing={4}>
           <Grid item xs={12} md={4}>
             <Box sx={{ mb: 2 }}>
-              <img src={logo} alt="Wheels Enchntment" style={{ height: '40px' }} />
+              <img src={logo} alt="Wheels Enchntment" style={{ height: '40px', borderRadius: '50%' }} />
             </Box>
             <Typography variant="body2" sx={{ color: 'rgba(255,255,255,0.8)' }}>
               Premium skating products for riders who demand excellence.
@@ -87,8 +87,11 @@ const Footer = () => {
         </Grid>
 
         <Box sx={{ borderTop: '1px solid rgba(255,255,255,0.1)', mt: 4, pt: 3, textAlign: 'center' }}>
-          <Typography variant="body2" sx={{ color: 'rgba(255,255,255,0.6)' }}>
+          <Typography variant="body2" sx={{ color: 'rgba(255,255,255,0.6)', mb: 1 }}>
             © 2021-2026 Wheels Enchntment. All rights reserved. | Established in 2021
+          </Typography>
+          <Typography variant="body2" sx={{ color: 'rgba(255,255,255,0.5)', fontSize: '0.85rem' }}>
+            Developed by AFFOBE
           </Typography>
         </Box>
       </Container>

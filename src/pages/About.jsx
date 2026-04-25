@@ -11,7 +11,7 @@ import {
 } from "@mui/material";
 import { Link } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
-import { ArrowRight, Sparkles, ShieldCheck, Award, Star, Heart, Quote, Target, Eye, MapPin } from 'lucide-react';
+import { ArrowRight, Award, Star, Heart, Quote, Target, Eye, MapPin, Users, Trophy, Shield, Lightbulb } from 'lucide-react';
 import backgroundImg2 from "../assets/Background_imgs/backgroundimg2.jpeg";
 import backgroundImg3 from "../assets/Background_imgs/backgroundimg3.jpeg";
 import backgroundImg6 from "../assets/Background_imgs/backgroundimg6.jpeg";
@@ -102,39 +102,34 @@ const About = () => {
 
   const whyChooseUs = [
     {
-      icon: <Sparkles size={36} strokeWidth={2.5} />,
+      icon: <Users size={36} strokeWidth={2} />,
       title: "Expert Coaches",
       description:
         "Certified professionals with years of skating expertise and teaching experience.",
-      gradient: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
     },
     {
-      icon: <ShieldCheck size={36} strokeWidth={2.5} />,
+      icon: <Shield size={36} strokeWidth={2} />,
       title: "Safe Environment",
       description:
         "Child-safe facilities with proper safety equipment and supervised training.",
-      gradient: 'linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)',
     },
     {
-      icon: <Award size={36} strokeWidth={2.5} />,
+      icon: <Lightbulb size={36} strokeWidth={2} />,
       title: "Structured Learning",
       description:
         "Progressive curriculum designed for skill development at every level.",
-      gradient: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)',
     },
     {
-      icon: <Star size={36} strokeWidth={2.5} />,
+      icon: <Trophy size={36} strokeWidth={2} />,
       title: "Child-Friendly Training",
       description:
         "Age-appropriate methods that make learning fun, engaging, and effective.",
-      gradient: 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)',
     },
     {
-      icon: <Heart size={36} strokeWidth={2.5} />,
+      icon: <Star size={36} strokeWidth={2} />,
       title: "Skill Development",
       description:
         "Focus on building confidence, balance, coordination, and discipline.",
-      gradient: 'linear-gradient(135deg, #fa709a 0%, #fee140 100%)',
     },
   ];
 
@@ -407,16 +402,15 @@ const About = () => {
                   width: 80,
                   height: 80,
                   borderRadius: "20px",
-                  background: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)',
+                  bgcolor: "transparent",
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
-                  color: "white",
+                  color: theme.palette.secondary.main,
                   mb: 4,
-                  boxShadow: '0 8px 24px rgba(0,0,0,0.15)',
                 }}
               >
-                <Target size={40} strokeWidth={2.5} />
+                <Target size={40} strokeWidth={2} />
               </Box>
               <Typography
                 variant="h2"
@@ -463,16 +457,15 @@ const About = () => {
                   width: 80,
                   height: 80,
                   borderRadius: "20px",
-                  background: 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)',
+                  bgcolor: "transparent",
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
-                  color: "white",
+                  color: theme.palette.secondary.main,
                   mb: 4,
-                  boxShadow: '0 8px 24px rgba(0,0,0,0.15)',
                 }}
               >
-                <Eye size={40} strokeWidth={2.5} />
+                <Eye size={40} strokeWidth={2} />
               </Box>
               <Typography
                 variant="h2"
@@ -561,13 +554,12 @@ const About = () => {
                       width: 70,
                       height: 70,
                       borderRadius: "18px",
-                      background: item.gradient,
+                      bgcolor: "transparent",
                       display: "flex",
                       alignItems: "center",
                       justifyContent: "center",
-                      color: "white",
+                      color: theme.palette.secondary.main,
                       mb: 3,
-                      boxShadow: '0 8px 24px rgba(0,0,0,0.15)',
                     }}
                   >
                     {item.icon}
@@ -661,15 +653,14 @@ const About = () => {
                       width: 48,
                       height: 48,
                       borderRadius: "12px",
-                      background: 'linear-gradient(135deg, #fa709a 0%, #fee140 100%)',
+                      bgcolor: "transparent",
                       display: "flex",
                       alignItems: "center",
                       justifyContent: "center",
-                      color: "white",
-                      boxShadow: '0 4px 12px rgba(0,0,0,0.15)',
+                      color: theme.palette.secondary.main,
                     }}
                   >
-                    <MapPin size={20} strokeWidth={2.5} />
+                    <MapPin size={20} strokeWidth={2} />
                   </Box>
                   <Typography
                     variant="h6"

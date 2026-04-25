@@ -267,7 +267,7 @@ const Admission = () => {
                           variant="outlined"
                           component="label"
                           fullWidth
-                          startIcon={<Upload size={20} strokeWidth={2.5} />}
+                          startIcon={<Upload size={20} strokeWidth={2} />}
                           sx={{
                             py: 1.6,
                             textTransform: "none",
@@ -313,7 +313,7 @@ const Admission = () => {
                           variant="outlined"
                           component="label"
                           fullWidth
-                          startIcon={<Upload size={20} strokeWidth={2.5} />}
+                          startIcon={<Upload size={20} strokeWidth={2} />}
                           sx={{
                             py: 1.6,
                             textTransform: "none",
@@ -401,15 +401,14 @@ const Admission = () => {
                         width: 48,
                         height: 48,
                         borderRadius: '12px',
-                        background: 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)',
+                        bgcolor: "transparent",
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
                         mr: 2,
-                        boxShadow: '0 4px 12px rgba(0,0,0,0.15)',
                       }}
                     >
-                      <Clock size={24} strokeWidth={2.5} style={{ color: 'white' }} />
+                      <Clock size={24} strokeWidth={2} style={{ color: theme.palette.secondary.main }} />
                     </Box>
                     <Typography variant="h6" sx={{ fontWeight: 700 }}>
                       Training Schedule
@@ -435,15 +434,14 @@ const Admission = () => {
                         width: 48,
                         height: 48,
                         borderRadius: '12px',
-                        background: 'linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)',
+                        bgcolor: "transparent",
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
                         mr: 2,
-                        boxShadow: '0 4px 12px rgba(0,0,0,0.15)',
                       }}
                     >
-                      <CheckCircle2 size={24} strokeWidth={2.5} style={{ color: 'white' }} />
+                      <CheckCircle2 size={24} strokeWidth={2} style={{ color: theme.palette.secondary.main }} />
                     </Box>
                     <Typography variant="h6" sx={{ fontWeight: 700 }}>
                       What's Included
@@ -484,15 +482,14 @@ const Admission = () => {
                         width: 48,
                         height: 48,
                         borderRadius: '12px',
-                        background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                        bgcolor: "transparent",
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
                         mr: 2,
-                        boxShadow: '0 4px 12px rgba(0,0,0,0.15)',
                       }}
                     >
-                      <Info size={24} strokeWidth={2.5} style={{ color: 'white' }} />
+                      <Info size={24} strokeWidth={2} style={{ color: theme.palette.secondary.main }} />
                     </Box>
                     <Typography variant="h6" sx={{ fontWeight: 700 }}>
                       Guidelines

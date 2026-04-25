@@ -14,7 +14,7 @@ import {
 } from "@mui/material";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { ArrowRight, Sparkles, ShieldCheck, Award, Star, MapPin, School, Users, Calendar } from 'lucide-react';
+import { ArrowRight, Award, Star, MapPin, School, Users, Calendar, Target, Zap, Shield } from 'lucide-react';
 import coachImg1 from "../assets/Coachs/Coach1.jpeg";
 import coachImg2 from "../assets/Coachs/Coach2.jpeg";
 import coachImg3 from "../assets/Coachs/Coach3.jpeg";
@@ -56,29 +56,25 @@ const Home = () => {
       title: "Beginner Training",
       description:
         "A safe and encouraging start for young learners with a focus on balance, posture, and confidence.",
-      icon: <Sparkles size={36} strokeWidth={2.5} />,
-      gradient: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+      icon: <Target size={36} strokeWidth={2} />,
     },
     {
       title: "Intermediate Level",
       description:
         "Build speed, control, and rhythm through guided practice and structured skating drills.",
-      icon: <Award size={36} strokeWidth={2.5} />,
-      gradient: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)',
+      icon: <Zap size={36} strokeWidth={2} />,
     },
     {
       title: "Advanced Training",
       description:
         "Performance-oriented coaching for students ready to master advanced techniques and competitive skills.",
-      icon: <Star size={36} strokeWidth={2.5} />,
-      gradient: 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)',
+      icon: <Award size={36} strokeWidth={2} />,
     },
     {
       title: "Safety Practice",
       description:
         "Dedicated sessions for protective movement, falling techniques, awareness, and safe skating habits.",
-      icon: <ShieldCheck size={36} strokeWidth={2.5} />,
-      gradient: 'linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)',
+      icon: <Shield size={36} strokeWidth={2} />,
     },
   ];
   const coaches = [
@@ -245,6 +241,7 @@ const Home = () => {
                 sx={{
                   mt: 11,
                   p: { xs: 2, md: 2.5 },
+                  display: { xs: 'block', md: 'none' },
                 }}
               >
                 <Box
@@ -515,7 +512,7 @@ const Home = () => {
                 letterSpacing: 3,
               }}
             >
-              OUR PROGRAMS
+              Our Programs
             </Typography>
             <Typography
               variant="h2"
@@ -565,7 +562,7 @@ const Home = () => {
                 >
                   <Box
                     sx={{
-                      color: "white",
+                      color: theme.palette.secondary.main,
                       mb: 2,
                       width: 72,
                       height: 72,
@@ -574,8 +571,7 @@ const Home = () => {
                       alignItems: "center",
                       justifyContent: "center",
                       mx: "auto",
-                      background: program.gradient,
-                      boxShadow: '0 8px 24px rgba(0,0,0,0.15)',
+                      bgcolor: "transparent",
                     }}
                   >
                     {program.icon}
@@ -619,7 +615,7 @@ const Home = () => {
                 letterSpacing: 3,
               }}
             >
-              SCHOOL PARTNERSHIP PROGRAM
+              School Partnership Program
             </Typography>
             <Typography
               variant="h2"
@@ -656,7 +652,7 @@ const Home = () => {
                     width: 80,
                     height: 80,
                     borderRadius: "20px",
-                    bgcolor: alpha(theme.palette.secondary.main, 0.1),
+                    bgcolor: "transparent",
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
@@ -669,9 +665,6 @@ const Home = () => {
                 <Typography variant="h6" sx={{ fontWeight: 800, mb: 1 }}>
                   On-Campus Training
                 </Typography>
-                <Typography variant="body2" sx={{ color: "text.secondary", lineHeight: 1.7 }}>
-                  Our coaches come to your school with all equipment and conduct classes on your premises.
-                </Typography>
               </Box>
             </Grid>
             <Grid item xs={12} md={4}>
@@ -681,7 +674,7 @@ const Home = () => {
                     width: 80,
                     height: 80,
                     borderRadius: "20px",
-                    bgcolor: alpha(theme.palette.secondary.main, 0.1),
+                    bgcolor: "transparent",
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
@@ -694,9 +687,6 @@ const Home = () => {
                 <Typography variant="h6" sx={{ fontWeight: 800, mb: 1 }}>
                   Certified Coaches
                 </Typography>
-                <Typography variant="body2" sx={{ color: "text.secondary", lineHeight: 1.7 }}>
-                  Experienced instructors trained in child safety, teaching methodology, and skating techniques.
-                </Typography>
               </Box>
             </Grid>
             <Grid item xs={12} md={4}>
@@ -706,7 +696,7 @@ const Home = () => {
                     width: 80,
                     height: 80,
                     borderRadius: "20px",
-                    bgcolor: alpha(theme.palette.secondary.main, 0.1),
+                    bgcolor: "transparent",
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
@@ -718,9 +708,6 @@ const Home = () => {
                 </Box>
                 <Typography variant="h6" sx={{ fontWeight: 800, mb: 1 }}>
                   Flexible Scheduling
-                </Typography>
-                <Typography variant="body2" sx={{ color: "text.secondary", lineHeight: 1.7 }}>
-                  Programs designed to fit your school's timetable with weekly or bi-weekly sessions.
                 </Typography>
               </Box>
             </Grid>
@@ -803,17 +790,6 @@ const Home = () => {
       <Container maxWidth="lg" sx={{ py: { xs: 10, md: 14 } }}>
         <Box sx={{ textAlign: "center", mb: 8 }}>
           <Typography
-            variant="overline"
-            sx={{
-              color: "secondary.main",
-              fontWeight: 800,
-              letterSpacing: 3,
-            }}
-          >
-            OUR COACHES
-          </Typography>
-
-          <Typography
             variant="h2"
             sx={{
               fontWeight: 900,
@@ -823,7 +799,6 @@ const Home = () => {
           >
             Expert guidance from experienced coaches
           </Typography>
-
           <Typography
             variant="body1"
             sx={{
