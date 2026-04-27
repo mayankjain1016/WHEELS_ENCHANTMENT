@@ -19,6 +19,8 @@ import coachImg1 from "../assets/Coachs/Coach1.jpeg";
 import coachImg2 from "../assets/Coachs/Coach2.jpeg";
 import coachImg3 from "../assets/Coachs/Coach3.jpeg";
 import coachImg4 from "../assets/Coachs/Coach4.jpeg";
+import coachImg5 from "../assets/Coachs/Coach5.jpeg";
+import coachImg6 from "../assets/Coachs/Coach6.jpeg";
 
 const CountUpNumber = ({ value, label }) => {
   const [count, setCount] = useState(0);
@@ -101,9 +103,10 @@ const About = () => {
   const theme = useTheme();
 
   useEffect(() => {
-    if (window.location.hash === '#locations') {
+    const hash = window.location.hash;
+    if (hash === '#locations' || hash === '#coaches') {
       setTimeout(() => {
-        const element = document.getElementById('locations');
+        const element = document.getElementById(hash.substring(1));
         if (element) {
           element.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
@@ -146,11 +149,25 @@ const About = () => {
 
   const coaches = [
     {
+      name: "Asish Sarda",
+      role: "",
+      exp: "10+ Years",
+      specialty: "",
+      img: coachImg6,
+    },
+    {
       name: "Suraj Das",
       role: "",
       exp: "10+ Years",
       specialty: "",
       img: coachImg4,
+    },
+    {
+      name: "Atul Jaiswal",
+      role: "",
+      exp: "10+ Years",
+      specialty: "",
+      img: coachImg5,
     },
     {
       name: "Md Irshad Khan",
@@ -719,6 +736,7 @@ const About = () => {
           bgcolor: alpha(theme.palette.primary.main, 0.03),
           py: { xs: 10, md: 14 },
         }}
+        id="coaches"
       >
         <Container maxWidth="lg">
           <Box sx={{ textAlign: "center", mb: 8 }}>
@@ -749,7 +767,7 @@ const About = () => {
 
           <Grid container spacing={4}>
             {coaches.map((coach, i) => (
-              <Grid item xs={12} sm={6} md={3} key={i}>
+              <Grid item xs={12} sm={6} md={4} key={i}>
                 <Card
                   elevation={0}
                   sx={{
@@ -787,8 +805,9 @@ const About = () => {
                     variant="body2"
                     sx={{
                       mt: 2,
-                      fontWeight: 800,
-                      color: "primary.main",
+                      fontWeight: 700,
+                      color: "text.secondary",
+                      fontSize: "0.95rem",
                     }}
                   >
                     {coach.exp} Experience

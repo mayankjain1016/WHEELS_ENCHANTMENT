@@ -19,6 +19,8 @@ import coachImg1 from "../assets/Coachs/Coach1.jpeg";
 import coachImg2 from "../assets/Coachs/Coach2.jpeg";
 import coachImg3 from "../assets/Coachs/Coach3.jpeg";
 import coachImg4 from "../assets/Coachs/Coach4.jpeg";
+import coachImg5 from "../assets/Coachs/Coach5.jpeg";
+import coachImg6 from "../assets/Coachs/Coach6.jpeg";
 import backgroundImg from "../assets/Background_imgs/backgroundimg.jpeg";
 import backgroundImg_2 from "../assets/Background_imgs/backgroundimg_2.jpeg";
 import backgroundImg_3 from "../assets/Background_imgs/backgroundimg_3.jpeg";
@@ -81,11 +83,25 @@ const Home = () => {
   ];
   const coaches = [
     {
+      name: "Asish Sarda",
+      role: "",
+      exp: "10+ Years",
+      specialty: "",
+      img: coachImg6,
+    },
+    {
       name: "Suraj Das",
       role: "",
       exp: "10+ Years",
       specialty: "",
       img: coachImg4,
+    },
+    {
+      name: "Atul Jaiswal",
+      role: "",
+      exp: "10+ Years",
+      specialty: "",
+      img: coachImg5,
     },
     {
       name: "Md Irshad Khan",
@@ -816,8 +832,8 @@ const Home = () => {
         </Box>
 
         <Grid container spacing={4}>
-          {coaches.map((coach, i) => (
-            <Grid item xs={12} sm={6} md={3} key={i}>
+          {coaches.slice(0, 3).map((coach, i) => (
+            <Grid item xs={12} sm={6} md={4} key={i}>
               <Card
                 elevation={0}
                 sx={{
@@ -855,8 +871,9 @@ const Home = () => {
                   variant="body2"
                   sx={{
                     mt: 2,
-                    fontWeight: 800,
-                    color: "primary.main",
+                    fontWeight: 700,
+                    color: "text.secondary",
+                    fontSize: "0.95rem",
                   }}
                 >
                   {coach.exp} Experience
@@ -865,6 +882,30 @@ const Home = () => {
             </Grid>
           ))}
         </Grid>
+
+        <Box sx={{ textAlign: "center", mt: 6 }}>
+          <Button
+            component={Link}
+            to="/about#coaches"
+            variant="outlined"
+            color="primary"
+            endIcon={<ArrowRight size={18} strokeWidth={2.5} />}
+            sx={{
+              fontWeight: 700,
+              textTransform: "none",
+              px: 4,
+              py: 1.5,
+              borderRadius: "999px",
+              borderWidth: 2,
+              "&:hover": {
+                borderWidth: 2,
+                transform: "translateY(-2px)",
+              },
+            }}
+          >
+            View All Coaches
+          </Button>
+        </Box>
       </Container>
 
       {/* FINAL CTA */}
