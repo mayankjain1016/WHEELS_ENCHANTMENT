@@ -30,6 +30,8 @@ import backgroundImg3 from "../assets/Background_imgs/backgroundimg3.jpeg";
 import backgroundImg4 from "../assets/Background_imgs/backgroundimg4.jpeg";
 import backgroundImg5 from "../assets/Background_imgs/backgroundimg5.jpeg";
 
+const GOOGLE_FORM_LINK = "https://docs.google.com/forms/d/e/1FAIpQLSewHxoYAZXBgkeWcz8mE4oIT5aNmKQ-olxzRG8uDJYSOoDvkw/viewform";
+
 const Home = () => {
   const theme = useTheme();
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
@@ -208,8 +210,7 @@ const Home = () => {
                   variant="contained"
                   color="secondary"
                   size="large"
-                  component={Link}
-                  to="/admission"
+                  onClick={() => window.open(GOOGLE_FORM_LINK, "_blank")}
                   endIcon={<ArrowRight size={20} strokeWidth={2.5} />}
                   sx={{
                     px: 4.5,
@@ -903,8 +904,7 @@ const Home = () => {
           <Button
             variant="contained"
             color="secondary"
-            component={Link}
-            to="/admission"
+            onClick={() => window.open(GOOGLE_FORM_LINK, "_blank")}
             endIcon={<ArrowRight size={20} strokeWidth={2.5} />}
             sx={{
               px: 4.5,
