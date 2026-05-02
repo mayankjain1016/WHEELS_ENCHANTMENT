@@ -21,6 +21,7 @@ import coachImg3 from "../assets/Coachs/Coach3.jpeg";
 import coachImg4 from "../assets/Coachs/Coach4.jpeg";
 import coachImg5 from "../assets/Coachs/Coach5.jpeg";
 import coachImg6 from "../assets/Coachs/Coach6.jpeg";
+import coachImg7 from "../assets/Coachs/Coach7.jpeg";
 
 const CountUpNumber = ({ value, label }) => {
   const [count, setCount] = useState(0);
@@ -189,6 +190,13 @@ const About = () => {
       exp: "2+ Years",
       specialty: "",
       img: coachImg2,
+    },
+    {
+      name: "Kinkar Rewani",
+      role: "",
+      exp: "1+ Years",
+      specialty: "",
+      img: coachImg7,
     },
   ];
 
