@@ -4,6 +4,7 @@ import {
   Typography, alpha, Stack, Fade 
 } from '@mui/material';
 import { useState, useMemo, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import ProductCard from '../components/ProductCard';
 import { products, allProducts } from '../data/data';
 import backgroundImg7 from '../assets/Background_imgs/backgroundimg7.jpeg';
@@ -45,6 +46,17 @@ const Products = () => {
       setVisibleCount(isSmallScreen ? 8 : 9);
     }
   };
+
+  const location = useLocation();
+
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    const sub = params.get('subcategory');
+    if (sub) {
+      setCategory('Skates');
+      setSubcategory(sub);
+    }
+  }, [location.search]);
 
   useEffect(() => {
     setVisibleCount(isSmallScreen ? 8 : 9);

@@ -21,6 +21,8 @@ import coachImg3 from "../assets/Coachs/Coach3.jpeg";
 import coachImg4 from "../assets/Coachs/Coach4.jpeg";
 import coachImg5 from "../assets/Coachs/Coach5.jpeg";
 import coachImg6 from "../assets/Coachs/Coach6.jpeg";
+import coachImg8 from "../assets/Coachs/Coach8.jpeg";
+import coachImg9 from "../assets/Coachs/Coach9.jpeg";
 import backgroundImg from "../assets/Background_imgs/backgroundimg.jpeg";
 import backgroundImg_2 from "../assets/Background_imgs/backgroundimg_2.jpeg";
 import backgroundImg_3 from "../assets/Background_imgs/backgroundimg_3.jpeg";
@@ -123,6 +125,20 @@ const Home = () => {
       exp: "2+ Years",
       specialty: "",
       img: coachImg2,
+    },
+    {
+      name: "Kishan Goenka",
+      role: "",
+      exp: "1+ Years",
+      specialty: "",
+      img: coachImg8,
+    },
+    {
+      name: "Ritika Mukherjee",
+      role: "",
+      exp: "1+ Years",
+      specialty: "",
+      img: coachImg9,
     },
   ];
 

@@ -42,7 +42,6 @@ const Navbar = () => {
     { label: 'Products', path: '/products' },
     { label: 'Gallery', path: '/gallery' },
     { label: 'About Us', path: '/about' },
-    { label: 'Admission', path: '/admission' },
   ];
 
   const luxuryEasing = 'cubic-bezier(0.4, 0, 0.2, 1)';
@@ -96,36 +95,36 @@ const Navbar = () => {
                     key={item.path}
                     component={Link}
                     to={item.path}
-                    sx={{
-                      color: 'secondary.main',
-                      fontWeight: 600,
-                      fontSize: '0.9rem',
-                      letterSpacing: '0.1em',
-                      textTransform: 'uppercase',
-                      position: 'relative',
-                      px: 1,
-                      minWidth: 'auto',
-                      transition: `all 0.3s ${luxuryEasing}`,
-                      '&::after': {
-                        content: '""',
-                        position: 'absolute',
-                        width: isActive ? '100%' : '0%',
-                        height: '2px',
-                        bottom: 6,
-                        left: '50%',
-                        transform: 'translateX(-50%)',
-                        bgcolor: 'secondary.main',
-                        transition: `width 0.3s ${luxuryEasing}`,
-                      },
-                      '&:hover': {
-                        bgcolor: 'transparent',
-                        color: (location.pathname === '/gallery' || location.pathname === '/admission')
-                          ? '#000000'
-                          : (isScrolled ? 'primary.main' : '#ffffff'),
-                        transform: 'translateY(-2px)',
-                        '&::after': { width: '100%' }
-                      },
-                    }}
+                    sx={{ 
+          color: 'secondary.main',
+          fontWeight: 600,
+          fontSize: '0.9rem',
+          letterSpacing: '0.1em',
+          textTransform: 'uppercase',
+          position: 'relative',
+          px: 1,
+          minWidth: 'auto',
+          transition: `all 0.3s ${luxuryEasing}`,
+          '&::after': {
+            content: '""',
+            position: 'absolute',
+            width: isActive ? '100%' : '0%',
+            height: '2px',
+            bottom: 6,
+            left: '50%',
+            transform: 'translateX(-50%)',
+            bgcolor: 'secondary.main',
+            transition: `width 0.3s ${luxuryEasing}`,
+          },
+          '&:hover': {
+            bgcolor: 'transparent',
+            color: location.pathname === '/gallery'
+              ? '#000000'
+              : (isScrolled ? 'primary.main' : '#ffffff'),
+            transform: 'translateY(-2px)',
+            '&::after': { width: '100%' }
+          },
+        }}
                   >
                     {item.label}
                   </Button>
@@ -140,7 +139,7 @@ const Navbar = () => {
               <IconButton 
                 onClick={() => setDrawerOpen(true)} 
                 sx={{ 
-                  color: (location.pathname === '/gallery' || location.pathname === '/admission')
+                  color: location.pathname === '/gallery'
                     ? 'secondary.main'
                     : (isScrolled ? 'primary.main' : '#ffffff')
                 }}

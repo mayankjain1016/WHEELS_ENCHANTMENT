@@ -22,17 +22,35 @@ import quads20 from '../assets/Quads_Skates/ecac352b-944b-45b2-ba3b-a57d5b7ce132
 import quads21 from '../assets/Quads_Skates/ed7480d9-f7f6-42ea-8f61-1ee50acd0be5.jfif';
 
 // Import Inline Skates images
-import inline1 from '../assets/Inline_Skates/0088c4a8-fa5d-4ef9-871c-014aade37259.jfif';
-import inline2 from '../assets/Inline_Skates/163c58fd-ab7f-4c3e-9afc-0562b8b1ecf2.jfif';
-import inline3 from '../assets/Inline_Skates/346a1327-f0da-455c-94b7-a756136c2801.jfif';
-import inline4 from '../assets/Inline_Skates/455d4642-51cc-4aa3-829a-7e58360f05e6.jfif';
-import inline5 from '../assets/Inline_Skates/46ecd428-cbf6-4be2-ab2d-aa6ba86d13e5.jfif';
-import inline6 from '../assets/Inline_Skates/5ff0503a-b281-490b-acee-9edc1e014a3f.jfif';
-import inline7 from '../assets/Inline_Skates/8599e25a-757b-4c6f-9fed-41a40d481a28.jfif';
-import inline8 from '../assets/Inline_Skates/a20fb307-f356-47a0-8bcf-3a428541fe20.jfif';
-import inline9 from '../assets/Inline_Skates/b03daa29-3530-4814-abd9-69062370d837.jfif';
-import inline10 from '../assets/Inline_Skates/d7153e54-ae44-4453-b7fa-455f3a1f83ce.jfif';
-import inline11 from '../assets/Inline_Skates/e3378e6a-acd3-412e-8ec8-1a41e64e4c50 (1).jfif';
+import inline1 from '../assets/Inline_Skates/05c1f840-16a3-433a-b79f-2acc0b980f8e.jfif';
+import inline2 from '../assets/Inline_Skates/06a710a0-2fa5-4d99-81f7-307a5e9c58ba.jfif';
+import inline3 from '../assets/Inline_Skates/0d810191-eb81-4fa7-96a3-ac092b47ddde.jfif';
+import inline4 from '../assets/Inline_Skates/1531c625-29ac-4d71-9ccd-a8e7e02bdcdc.jfif';
+import inline5 from '../assets/Inline_Skates/25cc2643-1025-4804-8d83-f8e2abe807ef.jfif';
+import inline6 from '../assets/Inline_Skates/26038f7f-1d45-4ffc-b1ef-d7b5c9ee4dd7.jfif';
+import inline7 from '../assets/Inline_Skates/2d67b94d-679d-452e-bf5e-d1f2f6f613be.jfif';
+import inline8 from '../assets/Inline_Skates/392f316c-c604-473a-b840-f33f4c2884a6.jfif';
+import inline9 from '../assets/Inline_Skates/40df5dd4-dd85-44e9-a9c6-0c6a22bc1bb4.jfif';
+import inline10 from '../assets/Inline_Skates/489064b2-4aea-40e0-8167-9e559f95a1b1.jfif';
+import inline11 from '../assets/Inline_Skates/5d8888d4-5f89-4be2-a5be-109824eb8aa2.jfif';
+import inline12 from '../assets/Inline_Skates/7239bd9d-da82-4bdf-a55c-1470a47e7dbd.jfif';
+import inline13 from '../assets/Inline_Skates/73dce29d-a4d6-4b81-96ed-2ac735d074af.jfif';
+import inline14 from '../assets/Inline_Skates/822e69f7-eb5a-45ba-b80e-f095bd81d051.jfif';
+import inline15 from '../assets/Inline_Skates/876844f5-a411-4818-82de-c85fe2f9f708.jfif';
+import inline16 from '../assets/Inline_Skates/898a2e91-e517-4a15-86d4-d003ac1fae63 (1).jfif';
+import inline17 from '../assets/Inline_Skates/898a2e91-e517-4a15-86d4-d003ac1fae63.jfif';
+import inline18 from '../assets/Inline_Skates/92e55dd6-9ea0-4e87-9c13-442de1de012c.jfif';
+import inline19 from '../assets/Inline_Skates/9a99e810-c9c1-4e4f-96ae-08b7925dac33.jfif';
+import inline20 from '../assets/Inline_Skates/a8098e89-2db3-48e2-b76a-fae9d90ac609.jfif';
+import inline21 from '../assets/Inline_Skates/b13a7cae-f75b-4620-8545-381102283c20.jfif';
+import inline22 from '../assets/Inline_Skates/c44c6289-9e70-4875-991b-769d40fc9636.jfif';
+import inline23 from '../assets/Inline_Skates/ccc14446-b0b3-41a9-bd1c-e38864c19d80.jfif';
+import inline24 from '../assets/Inline_Skates/cef73b39-999f-4bed-a5fb-28013cc27d6a.jfif';
+import inline25 from '../assets/Inline_Skates/d4bd841a-1248-4ea2-8e01-c10c53bcf87d.jfif';
+import inline26 from '../assets/Inline_Skates/db898a76-6b0b-4745-a20b-641604de5c79.jfif';
+import inline27 from '../assets/Inline_Skates/dca5306f-3a17-41ee-8e23-460bce36e8cd.jfif';
+import inline28 from '../assets/Inline_Skates/e79e8040-58f2-44d0-ac79-954edf6c4f49.jfif';
+import inline29 from '../assets/Inline_Skates/feb6579c-96b3-4136-baf8-4e06b3b025fd.jfif';
 
 // Import Adjustable Skates images
 import adjustable1 from '../assets/Adjustable_Skates/214678e6-4794-4fed-9f81-9d9e14368442.jfif';
@@ -91,7 +109,7 @@ import protection9 from '../assets/Others/WhatsApp Image 2026-04-17 at 12.46.18 
 
 // Create product arrays for each category
 const quadsImages = [quads1, quads2, quads3, quads4, quads5, quads6, quads7, quads8, quads9, quads10, quads11, quads12, quads13, quads14, quads15, quads16, quads17, quads18, quads19, quads20, quads21];
-const inlineImages = [inline1, inline2, inline3, inline4, inline5, inline6, inline7, inline8, inline9, inline10, inline11];
+const inlineImages = [inline1, inline2, inline3, inline4, inline5, inline6, inline7, inline8, inline9, inline10, inline11, inline12, inline13, inline14, inline15, inline16, inline17, inline18, inline19, inline20, inline21, inline22, inline23, inline24, inline25, inline26, inline27, inline28, inline29];
 const adjustableImages = [adjustable1, adjustable2, adjustable3];
 const wheelsImages = [wheel1, wheel2, wheel3, wheel4, wheel5, wheel6, wheel7, wheel8, wheel9, wheel10, wheel11, wheel12, wheel13, wheel14, wheel15];
 const helmetsImages = [helmet1, helmet2, helmet3, helmet4, helmet5, helmet6, helmet7, helmet8, helmet9, helmet10, helmet11, helmet12, helmet13, helmet14, helmet15, helmet16, helmet17, helmet18, helmet19, helmet20];

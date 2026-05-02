@@ -8,6 +8,7 @@ import {
   useTheme,
   alpha,
   Button,
+  Chip,
 } from "@mui/material";
 import { Link } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
@@ -15,6 +16,9 @@ import { ArrowRight, Award, Star, Heart, Quote, Target, Eye, MapPin, Users, Trop
 import backgroundImg2 from "../assets/Background_imgs/backgroundimg2.jpeg";
 import backgroundImg3 from "../assets/Background_imgs/backgroundimg3.jpeg";
 import backgroundImg6 from "../assets/Background_imgs/backgroundimg6.jpeg";
+import adjustableSkateImg from "../assets/Adjustable_Skates/aca31ffc-f337-42fd-8b94-fabd17264956.jfif";
+import quadSkateImg from "../assets/Quads_Skates/0d292238-4cc3-4125-a635-dfc011119e74.jfif";
+import inlineSkateImg from "../assets/Inline_Skates/05c1f840-16a3-433a-b79f-2acc0b980f8e.jfif";
 import coachImg1 from "../assets/Coachs/Coach1.jpeg";
 import coachImg2 from "../assets/Coachs/Coach2.jpeg";
 import coachImg3 from "../assets/Coachs/Coach3.jpeg";
@@ -22,6 +26,8 @@ import coachImg4 from "../assets/Coachs/Coach4.jpeg";
 import coachImg5 from "../assets/Coachs/Coach5.jpeg";
 import coachImg6 from "../assets/Coachs/Coach6.jpeg";
 import coachImg7 from "../assets/Coachs/Coach7.jpeg";
+import coachImg8 from "../assets/Coachs/Coach8.jpeg";
+import coachImg9 from "../assets/Coachs/Coach9.jpeg";
 
 const CountUpNumber = ({ value, label }) => {
   const [count, setCount] = useState(0);
@@ -198,6 +204,20 @@ const About = () => {
       specialty: "",
       img: coachImg7,
     },
+    {
+      name: "Kishan Goenka",
+      role: "",
+      exp: "1+ Years",
+      specialty: "",
+      img: coachImg8,
+    },
+    {
+      name: "Ritika Mukherjee",
+      role: "",
+      exp: "1+ Years",
+      specialty: "",
+      img: coachImg9,
+    },
   ];
 
   const locations = [
@@ -212,7 +232,7 @@ const About = () => {
     },
     {
       area: "North Kolkata",
-      places: ["Sinthee", "Cossipore", "Kakurgachi", "Phoolbagan"],
+      places: ["Sinthee", "Cossipore", "Kankurgachi", "Phoolbagan"],
     },
     {
       area: "South Kolkata",
@@ -427,6 +447,130 @@ const About = () => {
           </Grid>
         </Grid>
       </Container>
+
+      {/* SKATE LEVELS SECTION */}
+      <Box sx={{ bgcolor: alpha(theme.palette.primary.main, 0.03), py: { xs: 10, md: 14 } }}>
+        <Container maxWidth="lg">
+          <Box sx={{ textAlign: "center", mb: 8 }}>
+            <Typography variant="overline" sx={{ color: "secondary.main", fontWeight: 800, letterSpacing: 3 }}>
+              OUR SKATES
+            </Typography>
+            <Typography variant="h2" sx={{ fontWeight: 900, mt: 1, mb: 2, fontSize: { xs: "2rem", md: "3rem" } }}>
+              Find the Right Skate for Every Level
+            </Typography>
+            <Typography variant="body1" sx={{ color: "text.secondary", maxWidth: 650, mx: "auto", lineHeight: 1.8, fontSize: "1.05rem" }}>
+              We guide every child through a structured progression — from their very first roll to advanced speed and tricks.
+            </Typography>
+          </Box>
+
+          <Grid container spacing={4}>
+            {[
+              {
+                level: "Level 1",
+                title: "Adjustable Skates",
+                tagline: "",
+                description: "Perfect for tiny tots. These skates grow with your child — adjustable size ideal for learning balance and basics, easy to put on, and a great starting point for every young skater.",
+                img: adjustableSkateImg,
+                subcategory: "Adjustable Skates",
+                link: "/products?subcategory=Adjustable+Skates",
+                color: "#4CAF50",
+              },
+              {
+                level: "Level 2",
+                title: "Quad Skates",
+                tagline: "",
+                description: "Classic fun on four wheels! Great for stability, quad skates have two wheels in front and back, making it easy to glide. Perfect for kids who've mastered balance and want to skate with confidence.",
+                img: quadSkateImg,
+                subcategory: "Quads Skates",
+                link: "/products?subcategory=Quads+Skates",
+                color: "#FF9800",
+              },
+              {
+                level: "Level 3",
+                title: "Inline Skates",
+                tagline: "",
+                description: "Speed demons in the making! Inline skates have wheels in a single line, ideal for kids who want to skate faster, learn tricks, and explore advanced techniques. Better balance and agility required.",
+                img: inlineSkateImg,
+                subcategory: "Inline Skates",
+                link: "/products?subcategory=Inline+Skates",
+                color: theme.palette.secondary.main,
+              },
+            ].map((skate, i) => (
+              <Grid item xs={12} md={4} key={i}>
+                <Card
+                  elevation={0}
+                  sx={{
+                    height: "100%",
+                    borderRadius: "24px",
+                    overflow: "hidden",
+                    border: `1px solid ${alpha(theme.palette.divider, 0.1)}`,
+                    boxShadow: "0 10px 30px rgba(0,0,0,0.06)",
+                    transition: "all 0.35s ease",
+                    display: "flex",
+                    flexDirection: "column",
+                    "&:hover": {
+                      transform: "translateY(-10px)",
+                      boxShadow: "0 24px 50px rgba(0,0,0,0.12)",
+                    },
+                  }}
+                >
+                  <Box sx={{ position: "relative" }}>
+                    <Box
+                      component="img"
+                      src={skate.img}
+                      alt={skate.title}
+                      sx={{ width: "100%", height: 240, objectFit: "cover" }}
+                    />
+                    <Chip
+                      label={skate.level}
+                      size="small"
+                      sx={{
+                        position: "absolute",
+                        top: 16,
+                        left: 16,
+                        bgcolor: skate.color,
+                        color: "white",
+                        fontWeight: 800,
+                        fontSize: "0.8rem",
+                        letterSpacing: 1,
+                      }}
+                    />
+                  </Box>
+                  <Box sx={{ p: 2, flexGrow: 1, display: "flex", flexDirection: "column" }}>
+                    <Typography variant="overline" sx={{ color: skate.color, fontWeight: 800, letterSpacing: 1, fontSize: "0.7rem" }}>
+                      {skate.tagline}
+                    </Typography>
+                    <Typography variant="h6" sx={{ fontWeight: 800, mt: 0.25, mb: 0.5 }}>
+                      {skate.title}
+                    </Typography>
+                    <Typography variant="body2" sx={{ color: "text.secondary", lineHeight: 1.6, fontSize: "0.85rem", flexGrow: 1 }}>
+                      {skate.description}
+                    </Typography>
+                    <Button
+                      component={Link}
+                      to={skate.link}
+                      endIcon={<ArrowRight size={14} strokeWidth={2.5} />}
+                      sx={{
+                        mt: 1,
+                        p: 0,
+                        minWidth: 0,
+                        fontWeight: 700,
+                        fontSize: "0.82rem",
+                        textTransform: "none",
+                        color: skate.color,
+                        alignSelf: "flex-start",
+                        "&:hover": { bgcolor: "transparent", opacity: 0.8 },
+                      }}
+                    >
+                      Learn More
+                    </Button>
+                  </Box>
+                </Card>
+              </Grid>
+            ))}
+          </Grid>
+        </Container>
+      </Box>
 
       {/* MISSION SECTION */}
       <Box sx={{ py: { xs: 10, md: 16 } }}>
@@ -1062,8 +1206,10 @@ const About = () => {
               Become part of the Wheels Enchntment family. Experience world-class coaching, a supportive community, and a transformative skating journey.
             </Typography>
             <Button
-              component={Link}
-              to="/admission"
+              component="a"
+              href="https://docs.google.com/forms/d/e/1FAIpQLSewHxoYAZXBgkeWcz8mE4oIT5aNmKQ-olxzRG8uDJYSOoDvkw/viewform"
+              target="_blank"
+              rel="noopener noreferrer"
               variant="contained"
               color="secondary"
               size="large"
