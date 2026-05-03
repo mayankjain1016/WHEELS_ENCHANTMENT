@@ -156,6 +156,13 @@ const About = () => {
 
   const coaches = [
     {
+      name: "Kishan Goenka",
+      role: "Founder & Senior Coach",
+      exp: "12+ Years",
+      specialty: "",
+      img: coachImg8,
+    },
+    {
       name: "Asish Sarda",
       role: "",
       exp: "10+ Years",
@@ -205,16 +212,9 @@ const About = () => {
       img: coachImg7,
     },
     {
-      name: "Kishan Goenka",
-      role: "",
-      exp: "1+ Years",
-      specialty: "",
-      img: coachImg8,
-    },
-    {
       name: "Ritika Mukherjee",
       role: "",
-      exp: "1+ Years",
+      exp: "2+ Years",
       specialty: "",
       img: coachImg9,
     },
@@ -917,19 +917,21 @@ const About = () => {
             </Typography>
           </Box>
 
-          <Grid container spacing={4}>
+          <Grid container spacing={{ xs: 2.5, md: 4 }}>
             {coaches.map((coach, i) => (
               <Grid item xs={12} sm={6} md={4} key={i}>
                 <Card
                   elevation={0}
                   sx={{
                     height: "100%",
-                    p: 4,
-                    borderRadius: "28px",
+                    p: { xs: 2, md: 4 },
+                    borderRadius: { xs: "18px", md: "28px" },
                     textAlign: "center",
                     border: `1px solid ${alpha(theme.palette.divider, 0.08)}`,
                     boxShadow: "0 18px 40px rgba(0,0,0,0.05)",
                     transition: "all 0.35s ease",
+                    maxWidth: { xs: "280px", sm: "100%" },
+                    mx: { xs: "auto", sm: 0 },
                     "&:hover": {
                       transform: "translateY(-8px)",
                       boxShadow: "0 26px 50px rgba(0,0,0,0.08)",
@@ -940,26 +942,40 @@ const About = () => {
                     src={coach.img}
                     alt={coach.name}
                     sx={{
-                      width: 160,
-                      height: 160,
+                      width: { xs: 110, md: 160 },
+                      height: { xs: 110, md: 160 },
                       mx: "auto",
-                      mb: 3,
-                      border: "6px solid white",
+                      mb: { xs: 1.5, md: 3 },
+                      border: { xs: "3px solid white", md: "6px solid white" },
                       boxShadow: "0 15px 35px rgba(0,0,0,0.14)",
                     }}
                   />
 
-                  <Typography variant="h5" sx={{ fontWeight: 800 }}>
+                  <Typography variant="h5" sx={{ fontWeight: 800, fontSize: { xs: "1rem", md: "1.5rem" } }}>
                     {coach.name}
                   </Typography>
+
+                  {coach.role && (
+                    <Typography
+                      variant="body2"
+                      sx={{
+                        mt: { xs: 0.6, md: 1 },
+                        fontWeight: 700,
+                        color: "secondary.main",
+                        fontSize: { xs: "0.75rem", md: "0.9rem" },
+                      }}
+                    >
+                      {coach.role}
+                    </Typography>
+                  )}
 
                   <Typography
                     variant="body2"
                     sx={{
-                      mt: 2,
+                      mt: { xs: 1.2, md: 2 },
                       fontWeight: 700,
                       color: "text.secondary",
-                      fontSize: "0.95rem",
+                      fontSize: { xs: "0.8rem", md: "0.95rem" },
                     }}
                   >
                     {coach.exp} Experience
@@ -1161,8 +1177,8 @@ const About = () => {
       {/* FINAL CTA SECTION */}
       <Box
         sx={{
-          bgcolor: "primary.main",
-          py: { xs: 10, md: 14 },
+          bgcolor: alpha(theme.palette.secondary.main, 0.08),
+          py: { xs: 4, md: 6 },
           position: "relative",
           overflow: "hidden",
         }}
@@ -1182,7 +1198,7 @@ const About = () => {
             <Typography
               variant="h2"
               sx={{
-                color: "white",
+                color: "primary.main",
                 fontWeight: 900,
                 mt: 1,
                 mb: 3,
@@ -1195,7 +1211,7 @@ const About = () => {
             <Typography
               variant="body1"
               sx={{
-                color: alpha("#fff", 0.9),
+                color: "text.secondary",
                 mb: 5,
                 lineHeight: 1.8,
                 fontSize: "1.1rem",

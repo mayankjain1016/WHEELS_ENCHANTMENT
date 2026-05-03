@@ -85,6 +85,13 @@ const Home = () => {
   ];
   const coaches = [
     {
+      name: "Kishan Goenka",
+      role: "Founder & Senior Coach",
+      exp: "12+ Years",
+      specialty: "",
+      img: coachImg8,
+    },
+    {
       name: "Asish Sarda",
       role: "",
       exp: "10+ Years",
@@ -127,16 +134,9 @@ const Home = () => {
       img: coachImg2,
     },
     {
-      name: "Kishan Goenka",
-      role: "",
-      exp: "1+ Years",
-      specialty: "",
-      img: coachImg8,
-    },
-    {
       name: "Ritika Mukherjee",
       role: "",
-      exp: "1+ Years",
+      exp: "2+ Years",
       specialty: "",
       img: coachImg9,
     },
@@ -158,7 +158,7 @@ const Home = () => {
       <Box
         sx={{
           position: "relative",
-          minHeight: { xs: "70vh", sm: "80vh", md: "95vh" },
+          minHeight: { xs: "60vh", sm: "65vh", md: "75vh" },
           display: "flex",
           alignItems: "center",
           overflow: "hidden",
@@ -191,7 +191,7 @@ const Home = () => {
             }}
           />
         ))}
-        <Container maxWidth="lg" sx={{ position: "relative", zIndex: 3, mt: { xs: 8, md: 14 } }}>
+        <Container maxWidth="lg" sx={{ position: "relative", zIndex: 3, mt: { xs: 4, sm: 6, md: 10 }, px: { xs: 2, sm: 3 } }}>
           <Grid container alignItems="center">
             <Grid item xs={12} md={8} lg={7}>
               <Typography
@@ -199,15 +199,15 @@ const Home = () => {
                 sx={{
                   color: "white",
                   fontWeight: 900,
-                  lineHeight: 1.05,
+                  lineHeight: { xs: 1.15, md: 1.05 },
                   letterSpacing: "-0.04em",
                   fontSize: {
-                    xs: "2rem",
-                    sm: "2.6rem",
-                    md: "3.3rem",
-                    lg: "3.8rem",
+                    xs: "1.75rem",
+                    sm: "2.2rem",
+                    md: "3rem",
+                    lg: "3.5rem",
                   },
-                  mb: 3,
+                  mb: { xs: 2, md: 3 },
                 }}
               >
                 Where Young Skaters Build{" "}
@@ -222,10 +222,10 @@ const Home = () => {
                 sx={{
                   color: alpha("#fff", 0.88),
                   fontWeight: 400,
-                  lineHeight: 1.8,
+                  lineHeight: { xs: 1.6, md: 1.8 },
                   maxWidth: "680px",
-                  mb: 4.5,
-                  fontSize: { xs: "1rem", md: "1.15rem" },
+                  mb: { xs: 3, md: 4.5 },
+                  fontSize: { xs: "0.9rem", sm: "1rem", md: "1.15rem" },
                 }}
               >
                 A premium skating academy where children learn with expert
@@ -235,7 +235,7 @@ const Home = () => {
 
               <Stack
                 direction={{ xs: "column", sm: "row" }}
-                spacing={2.5}
+                spacing={{ xs: 2, sm: 2.5 }}
                 alignItems={{ xs: "stretch", sm: "center" }}
               >
                 <Button
@@ -243,13 +243,13 @@ const Home = () => {
                   color="secondary"
                   size="large"
                   onClick={() => window.open(GOOGLE_FORM_LINK, "_blank")}
-                  endIcon={<ArrowRight size={20} strokeWidth={2.5} />}
+                  endIcon={<ArrowRight size={16} strokeWidth={2.5} />}
                   sx={{
-                    px: 4.5,
-                    py: 1.8,
+                    px: { xs: 2, sm: 4.5 },
+                    py: { xs: 1, sm: 1.8 },
                     borderRadius: "999px",
-                    fontWeight: 800,
-                    fontSize: "1rem",
+                    fontWeight: 700,
+                    fontSize: { xs: "0.8rem", sm: "1rem" },
                     textTransform: "none",
                     boxShadow: `0 18px 35px ${alpha(
                       theme.palette.secondary.main,
@@ -272,8 +272,8 @@ const Home = () => {
               {/* COMPACT LOCATIONS BAR */}
               <Box
                 sx={{
-                  mt: 11,
-                  p: { xs: 2, md: 2.5 },
+                  mt: { xs: 6, sm: 8, md: 11 },
+                  p: { xs: 1.5, md: 2.5 },
                   display: { xs: 'block', md: 'none' },
                 }}
               >
@@ -820,7 +820,7 @@ const Home = () => {
       </Box>
 
       {/* COACHES */}
-      <Container maxWidth="lg" sx={{ py: { xs: 10, md: 14 } }}>
+      <Container maxWidth="lg" sx={{ py: { xs: 6, md: 8 }, pb: { xs: 3, md: 4 } }}>
         <Box sx={{ textAlign: "center", mb: 8 }}>
           <Typography
             variant="h2"
@@ -847,19 +847,21 @@ const Home = () => {
           </Typography>
         </Box>
 
-        <Grid container spacing={4}>
+        <Grid container spacing={{ xs: 2.5, md: 4 }}>
           {coaches.slice(0, 3).map((coach, i) => (
             <Grid item xs={12} sm={6} md={4} key={i}>
               <Card
                 elevation={0}
                 sx={{
                   height: "100%",
-                  p: 4,
-                  borderRadius: "28px",
+                  p: { xs: 2, md: 4 },
+                  borderRadius: { xs: "18px", md: "28px" },
                   textAlign: "center",
                   border: `1px solid ${alpha(theme.palette.divider, 0.08)}`,
                   boxShadow: "0 18px 40px rgba(0,0,0,0.05)",
                   transition: "all 0.35s ease",
+                  maxWidth: { xs: "280px", sm: "100%" },
+                  mx: { xs: "auto", sm: 0 },
                   "&:hover": {
                     transform: "translateY(-8px)",
                     boxShadow: "0 26px 50px rgba(0,0,0,0.08)",
@@ -870,26 +872,40 @@ const Home = () => {
                   src={coach.img}
                   alt={coach.name}
                   sx={{
-                    width: 160,
-                    height: 160,
+                    width: { xs: 110, md: 160 },
+                    height: { xs: 110, md: 160 },
                     mx: "auto",
-                    mb: 3,
-                    border: "6px solid white",
+                    mb: { xs: 1.5, md: 3 },
+                    border: { xs: "3px solid white", md: "6px solid white" },
                     boxShadow: "0 15px 35px rgba(0,0,0,0.14)",
                   }}
                 />
 
-                <Typography variant="h5" sx={{ fontWeight: 800 }}>
+                <Typography variant="h5" sx={{ fontWeight: 800, fontSize: { xs: "1rem", md: "1.5rem" } }}>
                   {coach.name}
                 </Typography>
+
+                {coach.role && (
+                  <Typography
+                    variant="body2"
+                    sx={{
+                      mt: { xs: 0.6, md: 1 },
+                      fontWeight: 700,
+                      color: "secondary.main",
+                      fontSize: { xs: "0.75rem", md: "0.9rem" },
+                    }}
+                  >
+                    {coach.role}
+                  </Typography>
+                )}
 
                 <Typography
                   variant="body2"
                   sx={{
-                    mt: 2,
+                    mt: { xs: 1.2, md: 2 },
                     fontWeight: 700,
                     color: "text.secondary",
-                    fontSize: "0.95rem",
+                    fontSize: { xs: "0.8rem", md: "0.95rem" },
                   }}
                 >
                   {coach.exp} Experience
@@ -899,7 +915,7 @@ const Home = () => {
           ))}
         </Grid>
 
-        <Box sx={{ textAlign: "center", mt: 6 }}>
+        <Box sx={{ textAlign: "center", mt: { xs: 4, md: 5 } }}>
           <Button
             component={Link}
             to="/about#coaches"
@@ -927,9 +943,10 @@ const Home = () => {
       {/* FINAL CTA */}
       <Box
         sx={{
-          py: { xs: 9, md: 12 },
-          bgcolor: "primary.main",
-          color: "white",
+          py: { xs: 3, md: 4 },
+          pt: { xs: 4, md: 5 },
+          bgcolor: alpha(theme.palette.secondary.main, 0.08),
+          color: "text.primary",
         }}
       >
         <Container maxWidth="md" sx={{ textAlign: "center" }}>
@@ -937,8 +954,9 @@ const Home = () => {
             variant="h3"
             sx={{
               fontWeight: 900,
-              mb: 2,
-              fontSize: { xs: "2rem", md: "3rem" },
+              mb: { xs: 1.5, md: 2 },
+              fontSize: { xs: "1.5rem", sm: "2rem", md: "2.5rem" },
+              color: "primary.main",
             }}
           >
             Give your child a confident start on wheels
@@ -947,11 +965,12 @@ const Home = () => {
           <Typography
             variant="body1"
             sx={{
-              color: alpha("#fff", 0.82),
+              color: "text.secondary",
               maxWidth: 700,
               mx: "auto",
               lineHeight: 1.8,
-              mb: 4,
+              mb: { xs: 3, md: 4 },
+              fontSize: { xs: "0.9rem", md: "1rem" },
             }}
           >
             Join a skating academy that combines expert coaching, a child-safe
@@ -964,10 +983,11 @@ const Home = () => {
             onClick={() => window.open(GOOGLE_FORM_LINK, "_blank")}
             endIcon={<ArrowRight size={20} strokeWidth={2.5} />}
             sx={{
-              px: 4.5,
-              py: 1.7,
+              px: { xs: 3, sm: 4.5 },
+              py: { xs: 1.3, sm: 1.7 },
               borderRadius: "999px",
               fontWeight: 800,
+              fontSize: { xs: "0.85rem", sm: "1rem" },
               textTransform: "none",
               boxShadow: `0 16px 35px ${alpha(
                 theme.palette.secondary.main,

@@ -4,7 +4,7 @@ import logo from '../assets/logo.jpeg';
 
 const Footer = () => {
   return (
-    <Box sx={{ bgcolor: 'primary.main', color: 'white', py: 6, mt: 8 }}>
+    <Box sx={{ bgcolor: 'primary.main', color: 'white', py: 6, mt: 0 }}>
       <Container maxWidth="lg">
         <Grid container spacing={4}>
           <Grid item xs={12} md={4}>
@@ -90,7 +90,7 @@ const Footer = () => {
             © 2021-2026 Wheels Enchntment. All rights reserved. | Established in 2021
           </Typography>
           <Typography variant="body2" sx={{ color: 'rgba(255,255,255,0.5)', fontSize: '0.85rem' }}>
-            Developed by AFFOBE
+            Developed by <Box component="a" href="https://www.affobe.com/" target="_blank" rel="noopener noreferrer" sx={{ color: 'rgba(255,255,255,0.5)', textDecoration: 'none', '&:hover': { color: 'secondary.main', textDecoration: 'underline' } }}>AFFOBE</Box>
           </Typography>
         </Box>
       </Container>
