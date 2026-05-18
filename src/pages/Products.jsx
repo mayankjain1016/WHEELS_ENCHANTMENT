@@ -1,66 +1,87 @@
 import { 
-  Box, Container, Grid, FormControl, Select, MenuItem, 
-  InputLabel, Chip, Button, useMediaQuery, useTheme, 
-  Typography, alpha, Stack, Fade 
+  Box, Container, Grid, Chip, Button, useMediaQuery, useTheme, 
+  Typography, alpha, Stack, Fade, CircularProgress 
 } from '@mui/material';
-import { useState, useMemo, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import ProductCard from '../components/ProductCard';
-import { products, allProducts } from '../data/data';
+import { productsApi } from '../api/products';
+import { categoriesApi } from '../api/categories';
+import { getImageUrl } from '../utils/imageUrl';
 import backgroundImg7 from '../assets/Background_imgs/backgroundimg7.jpeg';
 
 const Products = () => {
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down('md'));
+  const location = useLocation();
   
-  const [category, setCategory] = useState('Skates');
-  const [subcategory, setSubcategory] = useState(null);
-  const [visibleCount, setVisibleCount] = useState(8);
+  const [categories, setCategories] = useState([]);
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [selectedCategory, setSelectedCategory] = useState(null);
+  const [page, setPage] = useState(1);
+  const [hasMore, setHasMore] = useState(true);
+  const [totalProducts, setTotalProducts] = useState(0);
 
-  const categories = ['Skates', 'Helmets', 'Wheels', 'Protection'];
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const response = await categoriesApi.getAll({ isActive: true });
+        setCategories(response.data);
+        if (response.data.length > 0 && !selectedCategory) {
+          setSelectedCategory(response.data[0]._id);
+        }
+      } catch (error) {
+        console.error('Failed to fetch categories:', error);
+      }
+    };
+    fetchCategories();
+  }, []);
 
-  const processedProducts = useMemo(() => {
-    if (subcategory) {
-      return products.filter(p => p.subcategory === subcategory && !p.isMainCategory);
-    }
-    return products.filter(p => p.category === category && (p.isMainCategory || !p.subcategory));
-  }, [category, subcategory]);
+  useEffect(() => {
+    if (!selectedCategory) return;
+    
+    const fetchProducts = async () => {
+      try {
+        setLoading(true);
+        const response = await productsApi.getAll({
+          page,
+          limit: 12,
+          category: selectedCategory,
+          isActive: true
+        });
+        
+        if (page === 1) {
+          setProducts(response.data);
+        } else {
+          setProducts(prev => [...prev, ...response.data]);
+        }
+        
+        setHasMore(response.pagination.hasNextPage);
+        setTotalProducts(response.pagination.total);
+      } catch (error) {
+        console.error('Failed to fetch products:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
 
-  const displayedProducts = processedProducts.slice(0, visibleCount);
-  const hasMore = visibleCount < processedProducts.length;
+    fetchProducts();
+  }, [selectedCategory, page]);
+
+  const handleCategoryChange = (categoryId) => {
+    setSelectedCategory(categoryId);
+    setPage(1);
+    setProducts([]);
+  };
 
   const handleViewMore = () => {
-    const increment = isSmallScreen ? 8 : 9;
-    setVisibleCount(prev => prev + increment);
+    setPage(prev => prev + 1);
   };
 
-  const handleCategoryChange = (cat) => {
-    setCategory(cat);
-    setSubcategory(null);
-    setVisibleCount(isSmallScreen ? 8 : 9);
+  const getProductImageUrl = (product) => {
+    return getImageUrl(product?.images?.[0]?.url);
   };
-
-  const handleProductClick = (product) => {
-    if (product.isMainCategory) {
-      setSubcategory(product.subcategory);
-      setVisibleCount(isSmallScreen ? 8 : 9);
-    }
-  };
-
-  const location = useLocation();
-
-  useEffect(() => {
-    const params = new URLSearchParams(location.search);
-    const sub = params.get('subcategory');
-    if (sub) {
-      setCategory('Skates');
-      setSubcategory(sub);
-    }
-  }, [location.search]);
-
-  useEffect(() => {
-    setVisibleCount(isSmallScreen ? 8 : 9);
-  }, [isSmallScreen]);
 
   return (
     <Box sx={{ bgcolor: 'background.default', minHeight: '100vh', pb: 10 }}>
@@ -121,74 +142,92 @@ const Products = () => {
             borderRadius: '4px',
           },
         }}>
-          <Stack 
-            direction="row" 
-            spacing={{ xs: 1, md: 1 }} 
-            sx={{ 
-              py: { xs: 0.5, md: 1 }, 
-              flexWrap: 'nowrap',
-              justifyContent: { xs: 'flex-start', md: 'center' },
-              minWidth: { xs: 'max-content', md: 'auto' },
-            }}
-          >
-            {categories.map((cat) => (
-              <Chip
-                key={cat}
-                label={cat}
-                onClick={() => handleCategoryChange(cat)}
-                sx={{ 
-                  cursor: 'pointer',
-                  px: { xs: 1.25, md: 2 },
-                  py: { xs: 0.5, md: 0.75 },
-                  height: { xs: '30px', md: 'auto' },
-                  fontSize: { xs: '0.7rem', md: '0.8125rem' },
-                  fontWeight: 600,
-                  borderRadius: { xs: '12px', md: '16px' },
-                  transition: '0.3s',
-                  bgcolor: category === cat ? 'primary.main' : 'transparent',
-                  color: category === cat ? 'white' : 'text.primary',
-                  border: `1px solid ${category === cat ? 'primary.main' : alpha(theme.palette.divider, 0.2)}`,
-                  flexShrink: 0,
-                  whiteSpace: 'nowrap',
-                  '& .MuiChip-label': {
-                    px: { xs: 0.75, md: 1 },
-                    py: 0,
-                  },
-                  '&:hover': { bgcolor: category === cat ? 'primary.dark' : alpha(theme.palette.primary.main, 0.05) }
-                }}
-              />
-            ))}
-          </Stack>
+          {loading && page === 1 ? (
+            <Box sx={{ display: 'flex', justifyContent: 'center', py: 2 }}>
+              <CircularProgress size={30} />
+            </Box>
+          ) : (
+            <Stack 
+              direction="row" 
+              spacing={{ xs: 1, md: 1 }} 
+              sx={{ 
+                py: { xs: 0.5, md: 1 }, 
+                flexWrap: 'nowrap',
+                justifyContent: { xs: 'flex-start', md: 'center' },
+                minWidth: { xs: 'max-content', md: 'auto' },
+              }}
+            >
+              {categories.map((cat) => (
+                <Chip
+                  key={cat._id}
+                  label={cat.name}
+                  onClick={() => handleCategoryChange(cat._id)}
+                  sx={{ 
+                    cursor: 'pointer',
+                    px: { xs: 1.25, md: 2 },
+                    py: { xs: 0.5, md: 0.75 },
+                    height: { xs: '30px', md: 'auto' },
+                    fontSize: { xs: '0.7rem', md: '0.8125rem' },
+                    fontWeight: 600,
+                    borderRadius: { xs: '12px', md: '16px' },
+                    transition: '0.3s',
+                    bgcolor: selectedCategory === cat._id ? 'primary.main' : 'transparent',
+                    color: selectedCategory === cat._id ? 'white' : 'text.primary',
+                    border: `1px solid ${selectedCategory === cat._id ? 'primary.main' : alpha(theme.palette.divider, 0.2)}`,
+                    flexShrink: 0,
+                    whiteSpace: 'nowrap',
+                    '& .MuiChip-label': {
+                      px: { xs: 0.75, md: 1 },
+                      py: 0,
+                    },
+                    '&:hover': { bgcolor: selectedCategory === cat._id ? 'primary.dark' : alpha(theme.palette.primary.main, 0.05) }
+                  }}
+                />
+              ))}
+            </Stack>
+          )}
         </Box>
 
         {/* --- PRODUCTS GRID --- */}
-        <Grid container spacing={4}>
-          {displayedProducts.map((product, index) => (
-            <Grid item xs={12} sm={6} md={4} key={product.id} sx={{ display: 'flex' }}>
-              <Fade in={true} timeout={index * 200} style={{ width: '100%' }}>
-                <Box sx={{ width: '100%', cursor: product.isMainCategory ? 'pointer' : 'default' }} onClick={() => handleProductClick(product)}>
-                  <ProductCard product={product} />
-                </Box>
-              </Fade>
-            </Grid>
-          ))}
-        </Grid>
-
-        {/* --- EMPTY STATE --- */}
-        {displayedProducts.length === 0 && (
-          <Box sx={{ textAlign: 'center', py: 10 }}>
-            <Typography variant="h5" color="text.secondary">No products found in this category.</Typography>
+        {loading && page === 1 ? (
+          <Box sx={{ display: 'flex', justifyContent: 'center', py: 10 }}>
+            <CircularProgress size={60} />
           </Box>
+        ) : (
+          <>
+            <Grid container spacing={4}>
+              {products.map((product, index) => (
+                <Grid item xs={12} sm={6} md={4} key={product._id} sx={{ display: 'flex' }}>
+                  <Fade in={true} timeout={index * 200} style={{ width: '100%' }}>
+                    <Box sx={{ width: '100%' }}>
+                      <ProductCard product={{
+                        ...product,
+                        image: getProductImageUrl(product)
+                      }} />
+                    </Box>
+                  </Fade>
+                </Grid>
+              ))}
+            </Grid>
+
+            {/* --- EMPTY STATE --- */}
+            {products.length === 0 && (
+              <Box sx={{ textAlign: 'center', py: 10 }}>
+                <Typography variant="h5" color="text.secondary">No products found in this category.</Typography>
+              </Box>
+            )}
+          </>
         )}
 
         {/* --- LUXURY VIEW MORE --- */}
-        {hasMore && (
+        {hasMore && products.length > 0 && (
           <Box sx={{ textAlign: 'center', mt: 10 }}>
             <Button 
               variant="outlined" 
               color="primary" 
               size="large" 
               onClick={handleViewMore}
+              disabled={loading}
               sx={{ 
                 px: 8, 
                 py: 1.5, 
@@ -199,10 +238,10 @@ const Products = () => {
                 '&:hover': { borderWidth: 2, bgcolor: alpha(theme.palette.primary.main, 0.05) }
               }}
             >
-              Discover More
+              {loading && page > 1 ? <CircularProgress size={20} /> : 'Discover More'}
             </Button>
             <Typography variant="body2" sx={{ mt: 2, color: 'text.secondary', fontWeight: 500 }}>
-              Showing {displayedProducts.length} of {processedProducts.length} Products
+              Showing {products.length} of {totalProducts} Products
             </Typography>
           </Box>
         )}

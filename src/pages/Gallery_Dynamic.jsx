@@ -15,6 +15,7 @@ const Gallery = () => {
   const [hasMore, setHasMore] = useState(true);
   const [totalImages, setTotalImages] = useState(0);
 
+  // Fetch gallery images from API
   useEffect(() => {
     const fetchImages = async () => {
       try {
@@ -62,6 +63,7 @@ const Gallery = () => {
 
   return (
     <Box sx={{ bgcolor: '#F8F9FB', minHeight: '100vh' }}>
+      {/* Hero Section */}
       <Box sx={{ 
         position: 'relative',
         color: 'white', 
@@ -99,12 +101,14 @@ const Gallery = () => {
       </Box>
 
       <Container maxWidth="lg" sx={{ mt: 6, position: 'relative', zIndex: 10, pb: 10 }}>
+        {/* Loading State */}
         {loading && page === 1 && (
           <Box sx={{ display: 'flex', justifyContent: 'center', py: 10 }}>
             <CircularProgress size={60} />
           </Box>
         )}
 
+        {/* Gallery Grid */}
         {!loading || page > 1 ? (
           <Grid container spacing={3}>
             {images.map((image, index) => (
@@ -143,12 +147,14 @@ const Gallery = () => {
           </Grid>
         ) : null}
 
+        {/* Empty State */}
         {!loading && images.length === 0 && (
           <Box sx={{ textAlign: 'center', py: 10 }}>
             <Typography variant="h5" color="text.secondary">No images found.</Typography>
           </Box>
         )}
 
+        {/* See More Button */}
         {hasMore && images.length > 0 && (
           <Box sx={{ textAlign: 'center', mt: 8 }}>
             <Box
@@ -184,6 +190,7 @@ const Gallery = () => {
         )}
       </Container>
 
+      {/* Lightbox Modal */}
       <Dialog
         open={open}
         onClose={handleClose}
@@ -200,6 +207,7 @@ const Gallery = () => {
         }}
       >
         <Box sx={{ position: 'relative', height: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+          {/* Close Button */}
           <IconButton
             onClick={handleClose}
             sx={{
@@ -220,6 +228,7 @@ const Gallery = () => {
             <X size={24} strokeWidth={2.5} />
           </IconButton>
 
+          {/* Image */}
           {selectedIndex !== null && images[selectedIndex] && (
             <Box
               component="img"

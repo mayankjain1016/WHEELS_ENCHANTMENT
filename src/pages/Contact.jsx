@@ -1,8 +1,9 @@
-import { Box, Container, Grid, TextField, Button, Card, CardContent, Typography } from '@mui/material';
+import { Box, Container, Grid, Card, CardContent, Typography } from '@mui/material';
 import EmailIcon from '@mui/icons-material/Email';
 import PhoneIcon from '@mui/icons-material/Phone';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import SectionHeader from '../components/SectionHeader';
+import LeadForm from '../components/LeadForm';
 
 const Contact = () => {
   return (
@@ -21,38 +22,7 @@ const Contact = () => {
                 <Typography variant="h5" sx={{ fontWeight: 600, mb: 3 }}>
                   Send Us a Message
                 </Typography>
-                <Box component="form" sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
-                  <TextField
-                    fullWidth
-                    label="Full Name"
-                    variant="outlined"
-                    required
-                  />
-                  <TextField
-                    fullWidth
-                    label="Email Address"
-                    variant="outlined"
-                    type="email"
-                    required
-                  />
-                  <TextField
-                    fullWidth
-                    label="Subject"
-                    variant="outlined"
-                    required
-                  />
-                  <TextField
-                    fullWidth
-                    label="Message"
-                    variant="outlined"
-                    multiline
-                    rows={6}
-                    required
-                  />
-                  <Button variant="contained" color="primary" size="large">
-                    Send Message
-                  </Button>
-                </Box>
+                <LeadForm source="contact_page" />
               </CardContent>
             </Card>
           </Grid>

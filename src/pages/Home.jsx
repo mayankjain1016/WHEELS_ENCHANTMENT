@@ -15,6 +15,9 @@ import {
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { ArrowRight, Award, Star, MapPin, School, Users, Calendar, Target, Zap, Shield } from 'lucide-react';
+import { coachesApi } from '../api/coaches';
+import { getImageUrl } from '../utils/imageUrl';
+import LeadForm from '../components/LeadForm';
 import coachImg1 from "../assets/Coachs/Coach1.jpeg";
 import coachImg2 from "../assets/Coachs/Coach2.jpeg";
 import coachImg3 from "../assets/Coachs/Coach3.jpeg";
@@ -39,6 +42,7 @@ const GOOGLE_FORM_LINK = "https://docs.google.com/forms/d/e/1FAIpQLSewHxoYAZXBgk
 const Home = () => {
   const theme = useTheme();
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [formOpen, setFormOpen] = useState(false);
 
   const heroImages = [
     backgroundImg,
@@ -83,64 +87,29 @@ const Home = () => {
       icon: <Shield size={36} strokeWidth={2} />,
     },
   ];
-  const coaches = [
-    {
-      name: "Kishan Goenka",
-      role: "Founder & Senior Coach",
-      exp: "12+ Years",
-      specialty: "",
-      img: coachImg8,
-    },
-    {
-      name: "Asish Sarda",
-      role: "",
-      exp: "10+ Years",
-      specialty: "",
-      img: coachImg6,
-    },
-    {
-      name: "Suraj Das",
-      role: "",
-      exp: "10+ Years",
-      specialty: "",
-      img: coachImg4,
-    },
-    {
-      name: "Atul Jaiswal",
-      role: "",
-      exp: "10+ Years",
-      specialty: "",
-      img: coachImg5,
-    },
-    {
-      name: "Md Irshad Khan",
-      role: "",
-      exp: "8+ Years",
-      specialty: "",
-      img: coachImg3,
-    },
-    {
-      name: "Riya Majumder",
-      role: "",
-      exp: "3+ Years",
-      specialty: "",
-      img: coachImg1,
-    },
-    {
-      name: "Suankit China",
-      role: "",
-      exp: "2+ Years",
-      specialty: "",
-      img: coachImg2,
-    },
-    {
-      name: "Ritika Mukherjee",
-      role: "",
-      exp: "2+ Years",
-      specialty: "",
-      img: coachImg9,
-    },
-  ];
+  const [coaches, setCoaches] = useState([]);
+  const [loadingCoaches, setLoadingCoaches] = useState(true);
+
+  // Fetch coaches from API
+  useEffect(() => {
+    const fetchCoaches = async () => {
+      try {
+        const data = await coachesApi.getAll({ isActive: true });
+        setCoaches(data);
+      } catch (error) {
+        console.error('Failed to fetch coaches:', error);
+        // Fallback to static data if API fails
+        setCoaches([
+          { name: "Kishan Goenka", role: "Founder & Senior Coach", experience: "12+ Years", image: { url: coachImg8, thumbnail: coachImg8 } },
+          { name: "Asish Sarda", role: "", experience: "10+ Years", image: { url: coachImg6, thumbnail: coachImg6 } },
+          { name: "Suraj Das", role: "", experience: "10+ Years", image: { url: coachImg4, thumbnail: coachImg4 } },
+        ]);
+      } finally {
+        setLoadingCoaches(false);
+      }
+    };
+    fetchCoaches();
+  }, []);
 
   const highlights = [];
 
@@ -242,7 +211,7 @@ const Home = () => {
                   variant="contained"
                   color="secondary"
                   size="large"
-                  onClick={() => window.open(GOOGLE_FORM_LINK, "_blank")}
+                  onClick={() => setFormOpen(true)}
                   endIcon={<ArrowRight size={16} strokeWidth={2.5} />}
                   sx={{
                     px: { xs: 2, sm: 4.5 },
@@ -848,7 +817,7 @@ const Home = () => {
         </Box>
 
         <Grid container spacing={{ xs: 2.5, md: 4 }}>
-          {coaches.slice(0, 3).map((coach, i) => (
+          {coaches?.slice(0, 3).map((coach, i) => (
             <Grid item xs={12} sm={6} md={4} key={i}>
               <Card
                 elevation={0}
@@ -869,7 +838,7 @@ const Home = () => {
                 }}
               >
                 <Avatar
-                  src={coach.img}
+                  src={getImageUrl(coach.image?.url)}
                   alt={coach.name}
                   sx={{
                     width: { xs: 110, md: 160 },
@@ -908,7 +877,7 @@ const Home = () => {
                     fontSize: { xs: "0.8rem", md: "0.95rem" },
                   }}
                 >
-                  {coach.exp} Experience
+                  {coach.experience} Experience
                 </Typography>
               </Card>
             </Grid>
@@ -980,7 +949,7 @@ const Home = () => {
           <Button
             variant="contained"
             color="secondary"
-            onClick={() => window.open(GOOGLE_FORM_LINK, "_blank")}
+            onClick={() => setFormOpen(true)}
             endIcon={<ArrowRight size={20} strokeWidth={2.5} />}
             sx={{
               px: { xs: 3, sm: 4.5 },
@@ -1003,6 +972,9 @@ const Home = () => {
           </Button>
         </Container>
       </Box>
+
+      {/* Lead Form Dialog */}
+      <LeadForm open={formOpen} onClose={() => setFormOpen(false)} />
     </Box>
   );
 };
