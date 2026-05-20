@@ -7,7 +7,8 @@ const apiClient = axios.create({
   headers: {
     'Content-Type': 'application/json',
   },
-  withCredentials: true, // Send cookies with requests
+  withCredentials: true,
+  timeout: 10000, // 10 second timeout
 });
 
 // Response interceptor to handle token refresh

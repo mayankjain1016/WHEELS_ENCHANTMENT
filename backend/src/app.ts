@@ -18,7 +18,7 @@ app.set('trust proxy', 1);
 
   // CORS - Must be before other middleware
 app.use(cors({
-  origin: env.FRONTEND_URL,
+  origin: ['https://www.wheelsenchntment.com', 'https://wheelsenchntment.com'],
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
@@ -27,7 +27,7 @@ app.use(cors({
 
 // Additional CORS headers for all requests including static files
 app.use((_req, res, next) => {
-  res.setHeader('Access-Control-Allow-Origin', env.FRONTEND_URL);
+  res.setHeader('Access-Control-Allow-Origin', 'https://www.wheelsenchntment.com');
   res.setHeader('Access-Control-Allow-Credentials', 'true');
   res.setHeader('Cross-Origin-Resource-Policy', 'cross-origin');
   next();
@@ -62,8 +62,11 @@ app.use(requestLogger);
 // Rate limiting
 app.use('/api/', apiLimiter);
 
-// Static files - serve uploads
-app.use('/uploads', express.static(path.join(__dirname, '../uploads'), {
+// Static files - serve uploads with CORS
+app.use('/uploads', cors({
+  origin: ['https://www.wheelsenchntment.com', 'https://wheelsenchntment.com'],
+  credentials: true
+}), express.static(path.join(__dirname, '../uploads'), {
   maxAge: '1y',
   etag: true,
   lastModified: true
