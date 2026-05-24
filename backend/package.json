@@ -13,7 +13,8 @@
     "seed:admin": "ts-node src/seeds/admin.seed.ts",
     "seed:categories": "ts-node src/seeds/categories.seed.ts",
     "seed:locations": "ts-node src/seeds/locations.seed.ts",
-    "seed:all": "npm run seed:admin && npm run seed:categories && npm run seed:locations"
+    "seed:complete": "ts-node src/seeds/complete.seed.ts",
+    "seed:all": "npm run seed:admin && npm run seed:categories && npm run seed:locations && npm run seed:complete"
   },
   "keywords": ["skating", "academy", "api", "typescript", "express"],
   "author": "Wheels Enchantment",
