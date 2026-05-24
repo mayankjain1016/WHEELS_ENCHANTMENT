@@ -166,9 +166,9 @@ const seedComplete = async () => {
     logger.info(`✅ Created ${createdCategories.length} categories`);
 
     // Create subcategories for Skates
-    const skatesCategory = createdCategories.find(c => c.slug === 'skates');
-    let subcategoriesData = [];
-    let createdSubcategories = [];
+    const skatesCategory = createdCategories.find(c => c.slug === 'skates')!;
+    let subcategoriesData: any[] = [];
+    let createdSubcategories: any[] = [];
 
     if (skatesCategory) {
       subcategoriesData = [
@@ -316,13 +316,13 @@ const seedComplete = async () => {
     // =====================================================
     logger.info('🛒 Seeding products...');
 
-    const helmetsCategory = createdCategories.find(c => c.slug === 'helmets');
-    const wheelsCategory = createdCategories.find(c => c.slug === 'wheels');
-    const protectionCategory = createdCategories.find(c => c.slug === 'protection');
+    const helmetsCategory = createdCategories.find(c => c.slug === 'helmets')!;
+    const wheelsCategory = createdCategories.find(c => c.slug === 'wheels')!;
+    const protectionCategory = createdCategories.find(c => c.slug === 'protection')!;
 
-    const adjustableSkatesSubcat = createdSubcategories.find(s => s.slug === 'adjustable-skates');
-    const quadsSkatesSubcat = createdSubcategories.find(s => s.slug === 'quads-skates');
-    const inlineSkatesSubcat = createdSubcategories.find(s => s.slug === 'inline-skates');
+    const adjustableSkatesSubcat = createdSubcategories.find(s => s.slug === 'adjustable-skates')!;
+    const quadsSkatesSubcat = createdSubcategories.find(s => s.slug === 'quads-skates')!;
+    const inlineSkatesSubcat = createdSubcategories.find(s => s.slug === 'inline-skates')!;
 
     const productsData = [
       // Adjustable Skates
