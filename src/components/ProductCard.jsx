@@ -30,18 +30,35 @@ const ProductCard = ({ product }) => {
       }}
     >
       <Box sx={{ position: 'relative', overflow: 'hidden', height: '320px', flexShrink: 0 }}>
-        <CardMedia
-          component="img"
-          image={product.image}
-          alt={product.name}
-          className="product-image"
-          sx={{
-            width: '100%',
-            height: '100%',
-            objectFit: 'cover',
-            transition: 'transform 0.6s cubic-bezier(0.4, 0, 0.2, 1)',
-          }}
-        />
+        {product.image ? (
+          <CardMedia
+            component="img"
+            image={product.image}
+            alt={product.name}
+            className="product-image"
+            onError={(e) => {
+              console.error('Image failed to load:', product.image);
+              e.target.style.display = 'none';
+            }}
+            sx={{
+              width: '100%',
+              height: '100%',
+              objectFit: 'cover',
+              transition: 'transform 0.6s cubic-bezier(0.4, 0, 0.2, 1)',
+            }}
+          />
+        ) : (
+          <Box sx={{ 
+            width: '100%', 
+            height: '100%', 
+            bgcolor: 'grey.200', 
+            display: 'flex', 
+            alignItems: 'center', 
+            justifyContent: 'center' 
+          }}>
+            <Typography color="text.secondary">No Image</Typography>
+          </Box>
+        )}
         <Box
           className="product-overlay"
           sx={{

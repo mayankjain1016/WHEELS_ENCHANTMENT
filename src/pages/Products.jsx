@@ -86,7 +86,9 @@ const Products = () => {
   };
 
   const getProductImageUrl = (product) => {
-    return getImageUrl(product?.images?.[0]?.url);
+    const imageUrl = getImageUrl(product?.images?.[0]?.url);
+    console.log('Product:', product.name, 'Image URL:', imageUrl);
+    return imageUrl;
   };
 
   return (

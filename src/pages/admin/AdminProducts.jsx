@@ -79,7 +79,9 @@ const AdminProducts = () => {
         isBestseller: product.isBestseller || false
       });
       if (product.images?.length > 0) {
-        setPreviewUrls(product.images.map(img => getImageUrl(product)));
+        setPreviewUrls(product.images.map(img => getImageUrl(img.url)));
+      } else {
+        setPreviewUrls([]);
       }
     } else {
       setEditMode(false);
