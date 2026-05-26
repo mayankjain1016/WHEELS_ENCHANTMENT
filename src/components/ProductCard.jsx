@@ -39,6 +39,7 @@ const ProductCard = ({ product }) => {
             onError={(e) => {
               console.error('Image failed to load:', product.image);
               e.target.style.display = 'none';
+              e.target.parentElement.innerHTML = '<div style="width:100%;height:100%;background:#f5f5f5;display:flex;align-items:center;justify-content:center;flex-direction:column"><svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="#bdbdbd" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg><p style="color:#9e9e9e;margin-top:12px;font-size:14px">No Image Available</p></div>';
             }}
             sx={{
               width: '100%',
@@ -51,12 +52,19 @@ const ProductCard = ({ product }) => {
           <Box sx={{ 
             width: '100%', 
             height: '100%', 
-            bgcolor: 'grey.200', 
+            bgcolor: '#f5f5f5', 
             display: 'flex', 
             alignItems: 'center', 
-            justifyContent: 'center' 
+            justifyContent: 'center',
+            flexDirection: 'column',
+            gap: 1.5
           }}>
-            <Typography color="text.secondary">No Image</Typography>
+            <Box component="svg" width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="#bdbdbd" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+              <circle cx="8.5" cy="8.5" r="1.5"/>
+              <polyline points="21 15 16 10 5 21"/>
+            </Box>
+            <Typography color="text.secondary" sx={{ fontSize: '0.875rem', fontWeight: 500 }}>No Image Available</Typography>
           </Box>
         )}
         <Box

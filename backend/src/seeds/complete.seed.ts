@@ -30,30 +30,24 @@ const imageUrls = {
       '/uploads/products/quads/104580e2-89d5-4dfe-9a65-ae8cd9f33dc9.jfif',
       '/uploads/products/quads/23c59442-3996-48e1-a1fe-794a196e74d5.jfif',
       '/uploads/products/quads/245708b9-dc99-45fc-b60d-842bfb8ceef3.jfif',
-      '/uploads/products/quads/3a901246-2642-4cfe-ba2e-eec7e199e391.jfif',
-      '/uploads/products/quads/3eed6b0c-589c-448d-8ef3-5e868827e1d6.jfif',
     ],
     inlineSkates: [
       '/uploads/products/inline/05c1f840-16a3-433a-b79f-2acc0b980f8e.jfif',
       '/uploads/products/inline/06a710a0-2fa5-4d99-81f7-307a5e9c58ba.jfif',
       '/uploads/products/inline/0d810191-eb81-4fa7-96a3-ac092b47ddde.jfif',
       '/uploads/products/inline/1531c625-29ac-4d71-9ccd-a8e7e02bdcdc.jfif',
-      '/uploads/products/inline/25cc2643-1025-4804-8d83-f8e2abe807ef.jfif',
-      '/uploads/products/inline/26038f7f-1d45-4ffc-b1ef-d7b5c9ee4dd7.jfif',
     ],
     helmets: [
       '/uploads/products/helmets/WhatsApp Image 2026-04-17 at 12.24.46 AM (1).jpeg',
       '/uploads/products/helmets/WhatsApp Image 2026-04-17 at 12.24.46 AM.jpeg',
       '/uploads/products/helmets/WhatsApp Image 2026-04-17 at 12.24.47 AM (1).jpeg',
       '/uploads/products/helmets/WhatsApp Image 2026-04-17 at 12.24.47 AM (2).jpeg',
-      '/uploads/products/helmets/WhatsApp Image 2026-04-17 at 12.24.47 AM.jpeg',
     ],
     wheels: [
       '/uploads/products/wheels/WhatsApp Image 2026-04-17 at 12.14.34 AM.jpeg',
       '/uploads/products/wheels/WhatsApp Image 2026-04-17 at 12.14.35 AM (1).jpeg',
       '/uploads/products/wheels/WhatsApp Image 2026-04-17 at 12.14.35 AM (2).jpeg',
       '/uploads/products/wheels/WhatsApp Image 2026-04-17 at 12.14.35 AM.jpeg',
-      '/uploads/products/wheels/WhatsApp Image 2026-04-17 at 12.14.36 AM (1).jpeg',
     ],
     protection: [
       '/uploads/products/protection/WhatsApp Image 2026-04-17 at 12.46.16 AM (1).jpeg',
@@ -338,13 +332,13 @@ const seedComplete = async () => {
             url: imageUrls.products.adjustableSkates[0],
             thumbnail: imageUrls.products.adjustableSkates[0],
             alt: 'ProGlide Adjustable Skates',
-            filename: 'proglide-adjustable-1.jfif'
+            filename: '214678e6-4794-4fed-9f81-9d9e14368442.jfif'
           },
           {
             url: imageUrls.products.adjustableSkates[1],
             thumbnail: imageUrls.products.adjustableSkates[1],
             alt: 'ProGlide Adjustable Skates Side View',
-            filename: 'proglide-adjustable-2.jfif'
+            filename: 'ab4c43e3-c398-4e0f-aa8a-730b587c0fa4.jfif'
           }
         ],
         price: 2499,
@@ -374,7 +368,7 @@ const seedComplete = async () => {
             url: imageUrls.products.adjustableSkates[2],
             thumbnail: imageUrls.products.adjustableSkates[2],
             alt: 'FlexFit Adjustable Skates Pro',
-            filename: 'flexfit-pro-1.jfif'
+            filename: 'aca31ffc-f337-42fd-8b94-fabd17264956.jfif'
           }
         ],
         price: 3999,
@@ -406,13 +400,13 @@ const seedComplete = async () => {
             url: imageUrls.products.quadsSkates[0],
             thumbnail: imageUrls.products.quadsSkates[0],
             alt: 'ClassicRoll Quad Skates',
-            filename: 'classicroll-quad-1.jfif'
+            filename: '0d292238-4cc3-4125-a635-dfc011119e74.jfif'
           },
           {
             url: imageUrls.products.quadsSkates[1],
             thumbnail: imageUrls.products.quadsSkates[1],
             alt: 'ClassicRoll Quad Skates Variant',
-            filename: 'classicroll-quad-2.jfif'
+            filename: '104580e2-89d5-4dfe-9a65-ae8cd9f33dc9.jfif'
           }
         ],
         price: 1999,
@@ -442,13 +436,13 @@ const seedComplete = async () => {
             url: imageUrls.products.quadsSkates[2],
             thumbnail: imageUrls.products.quadsSkates[2],
             alt: 'Elite Quad Skates',
-            filename: 'elite-quad-1.jfif'
+            filename: '23c59442-3996-48e1-a1fe-794a196e74d5.jfif'
           },
           {
             url: imageUrls.products.quadsSkates[3],
             thumbnail: imageUrls.products.quadsSkates[3],
             alt: 'Elite Quad Skates Variant',
-            filename: 'elite-quad-2.jfif'
+            filename: '245708b9-dc99-45fc-b60d-842bfb8ceef3.jfif'
           }
         ],
         price: 5999,
@@ -480,13 +474,13 @@ const seedComplete = async () => {
             url: imageUrls.products.inlineSkates[0],
             thumbnail: imageUrls.products.inlineSkates[0],
             alt: 'SpeedRush Inline Skates',
-            filename: 'speedrush-inline-1.jfif'
+            filename: '05c1f840-16a3-433a-b79f-2acc0b980f8e.jfif'
           },
           {
             url: imageUrls.products.inlineSkates[1],
             thumbnail: imageUrls.products.inlineSkates[1],
             alt: 'SpeedRush Inline Skates Variant',
-            filename: 'speedrush-inline-2.jfif'
+            filename: '06a710a0-2fa5-4d99-81f7-307a5e9c58ba.jfif'
           }
         ],
         price: 2299,
@@ -516,13 +510,13 @@ const seedComplete = async () => {
             url: imageUrls.products.inlineSkates[2],
             thumbnail: imageUrls.products.inlineSkates[2],
             alt: 'RaceLite Pro Inline Skates',
-            filename: 'racelite-pro-1.jfif'
+            filename: '0d810191-eb81-4fa7-96a3-ac092b47ddde.jfif'
           },
           {
             url: imageUrls.products.inlineSkates[3],
             thumbnail: imageUrls.products.inlineSkates[3],
             alt: 'RaceLite Pro Inline Skates Variant',
-            filename: 'racelite-pro-2.jfif'
+            filename: '1531c625-29ac-4d71-9ccd-a8e7e02bdcdc.jfif'
           }
         ],
         price: 6999,
@@ -553,13 +547,13 @@ const seedComplete = async () => {
             url: imageUrls.products.helmets[0],
             thumbnail: imageUrls.products.helmets[0],
             alt: 'SafeGuard Kids Helmet',
-            filename: 'safeguard-kids-1.jpeg'
+            filename: 'WhatsApp Image 2026-04-17 at 12.24.46 AM (1).jpeg'
           },
           {
             url: imageUrls.products.helmets[1],
             thumbnail: imageUrls.products.helmets[1],
             alt: 'SafeGuard Kids Helmet Variant',
-            filename: 'safeguard-kids-2.jpeg'
+            filename: 'WhatsApp Image 2026-04-17 at 12.24.46 AM.jpeg'
           }
         ],
         price: 899,
@@ -588,13 +582,13 @@ const seedComplete = async () => {
             url: imageUrls.products.helmets[2],
             thumbnail: imageUrls.products.helmets[2],
             alt: 'ProShield Adult Helmet',
-            filename: 'proshield-adult-1.jpeg'
+            filename: 'WhatsApp Image 2026-04-17 at 12.24.47 AM (1).jpeg'
           },
           {
             url: imageUrls.products.helmets[3],
             thumbnail: imageUrls.products.helmets[3],
             alt: 'ProShield Adult Helmet Variant',
-            filename: 'proshield-adult-2.jpeg'
+            filename: 'WhatsApp Image 2026-04-17 at 12.24.47 AM (2).jpeg'
           }
         ],
         price: 1599,
@@ -625,13 +619,13 @@ const seedComplete = async () => {
             url: imageUrls.products.wheels[0],
             thumbnail: imageUrls.products.wheels[0],
             alt: 'SpinMax 64mm Wheels',
-            filename: 'spinmax-64-1.jpeg'
+            filename: 'WhatsApp Image 2026-04-17 at 12.14.34 AM.jpeg'
           },
           {
             url: imageUrls.products.wheels[1],
             thumbnail: imageUrls.products.wheels[1],
             alt: 'SpinMax 64mm Wheels Detail',
-            filename: 'spinmax-64-2.jpeg'
+            filename: 'WhatsApp Image 2026-04-17 at 12.14.35 AM (1).jpeg'
           }
         ],
         price: 1299,
@@ -660,13 +654,13 @@ const seedComplete = async () => {
             url: imageUrls.products.wheels[2],
             thumbnail: imageUrls.products.wheels[2],
             alt: 'TurboGlide 80mm Wheels',
-            filename: 'turboglide-80-1.jpeg'
+            filename: 'WhatsApp Image 2026-04-17 at 12.14.35 AM (2).jpeg'
           },
           {
             url: imageUrls.products.wheels[3],
             thumbnail: imageUrls.products.wheels[3],
             alt: 'TurboGlide 80mm Wheels Detail',
-            filename: 'turboglide-80-2.jpeg'
+            filename: 'WhatsApp Image 2026-04-17 at 12.14.35 AM.jpeg'
           }
         ],
         price: 1599,
@@ -697,7 +691,7 @@ const seedComplete = async () => {
             url: imageUrls.products.protection[0],
             thumbnail: imageUrls.products.protection[0],
             alt: 'SoftGuard Wrist Guards',
-            filename: 'softguard-wrist-1.jpeg'
+            filename: 'WhatsApp Image 2026-04-17 at 12.46.16 AM (1).jpeg'
           }
         ],
         price: 699,
@@ -726,7 +720,7 @@ const seedComplete = async () => {
             url: imageUrls.products.protection[1],
             thumbnail: imageUrls.products.protection[1],
             alt: 'CompletePro Protection Kit',
-            filename: 'completepro-kit-1.jpeg'
+            filename: 'WhatsApp Image 2026-04-17 at 12.46.16 AM.jpeg'
           }
         ],
         price: 1999,
