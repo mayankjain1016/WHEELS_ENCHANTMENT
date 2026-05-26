@@ -11,7 +11,7 @@ import {
   Chip,
 } from "@mui/material";
 import { Link } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { coachesApi } from '../api/coaches';
 import { getImageUrl } from '../utils/imageUrl';
 import { ArrowRight, Award, Star, Heart, Quote, Target, Eye, MapPin, Users, Trophy, Shield, Lightbulb } from 'lucide-react';
@@ -239,71 +239,7 @@ const About = () => {
     },
   ];
 
-  const coaches = [
-    {
-      name: "Kishan Goenka",
-      role: "Founder & Senior Coach",
-      exp: "12+ Years",
-      specialty: "",
-      img: coachImg8,
-    },
-    {
-      name: "Asish Sarda",
-      role: "",
-      exp: "10+ Years",
-      specialty: "",
-      img: coachImg6,
-    },
-    {
-      name: "Suraj Das",
-      role: "",
-      exp: "10+ Years",
-      specialty: "",
-      img: coachImg4,
-    },
-    {
-      name: "Atul Jaiswal",
-      role: "",
-      exp: "10+ Years",
-      specialty: "",
-      img: coachImg5,
-    },
-    {
-      name: "Md Irshad Khan",
-      role: "",
-      exp: "8+ Years",
-      specialty: "",
-      img: coachImg3,
-    },
-    {
-      name: "Riya Majumder",
-      role: "",
-      exp: "3+ Years",
-      specialty: "",
-      img: coachImg1,
-    },
-    {
-      name: "Suankit China",
-      role: "",
-      exp: "2+ Years",
-      specialty: "",
-      img: coachImg2,
-    },
-    {
-      name: "Kinkar Rewani",
-      role: "",
-      exp: "1+ Years",
-      specialty: "",
-      img: coachImg7,
-    },
-    {
-      name: "Ritika Mukherjee",
-      role: "",
-      exp: "2+ Years",
-      specialty: "",
-      img: coachImg9,
-    },
-  ];
+
 
   const getCoachImageUrl = (coach) => {
     return getImageUrl(coach?.image?.url) || coach?.img;
