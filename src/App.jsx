@@ -9,7 +9,7 @@ import Footer from './components/Footer';
 import Home from './pages/Home';
 import Products from './pages/Products';
 import Gallery from './pages/Gallery';
-import About from './pages/About';
+import Contact from './pages/Contact';
 import AdminLogin from './pages/admin/AdminLogin';
 import AdminDashboard from './pages/admin/AdminDashboard';
 import AdminLeads from './pages/admin/AdminLeads';
@@ -54,6 +54,7 @@ function App() {
                   <Route path="/products" element={<Products />} />
                   <Route path="/gallery" element={<Gallery />} />
                   <Route path="/about" element={<About />} />
+                  <Route path="/contact" element={<Contact />} />
                 </Routes>
               </Box>
               <Footer />

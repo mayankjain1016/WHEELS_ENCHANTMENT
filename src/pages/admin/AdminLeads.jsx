@@ -159,8 +159,12 @@ const AdminLeads = () => {
           {selectedLead && (
             <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
               <Box>
-                <Typography variant="caption" color="text.secondary">Name</Typography>
-                <Typography variant="body1" sx={{ fontWeight: 600 }}>{selectedLead.name}</Typography>
+                <Typography variant="caption" color="text.secondary">Student Name</Typography>
+                <Typography variant="body1" sx={{ fontWeight: 600 }}>{selectedLead.studentName || selectedLead.name}</Typography>
+              </Box>
+              <Box>
+                <Typography variant="caption" color="text.secondary">Parent Name</Typography>
+                <Typography variant="body1">{selectedLead.parentName || 'Not provided'}</Typography>
               </Box>
               <Box>
                 <Typography variant="caption" color="text.secondary">Email</Typography>
@@ -169,6 +173,22 @@ const AdminLeads = () => {
               <Box>
                 <Typography variant="caption" color="text.secondary">Phone</Typography>
                 <Typography variant="body1">{selectedLead.phone || 'Not provided'}</Typography>
+              </Box>
+              <Box>
+                <Typography variant="caption" color="text.secondary">Age</Typography>
+                <Typography variant="body1">{selectedLead.age || 'Not provided'}</Typography>
+              </Box>
+              <Box>
+                <Typography variant="caption" color="text.secondary">Location</Typography>
+                <Typography variant="body1">{selectedLead.location || 'Not provided'}</Typography>
+              </Box>
+              <Box>
+                <Typography variant="caption" color="text.secondary">Preferred Training Location</Typography>
+                <Typography variant="body1">{selectedLead.preferredLocation || 'Not provided'}</Typography>
+              </Box>
+              <Box>
+                <Typography variant="caption" color="text.secondary">Experience Level</Typography>
+                <Typography variant="body1">{selectedLead.experienceLevel || 'Not provided'}</Typography>
               </Box>
               <Box>
                 <Typography variant="caption" color="text.secondary">Message</Typography>

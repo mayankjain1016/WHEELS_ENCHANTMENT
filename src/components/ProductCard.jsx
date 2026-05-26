@@ -73,6 +73,18 @@ const ProductCard = ({ product }) => {
           >
             {product.name}
           </Typography>
+          {product.price && (
+            <Box sx={{ display: 'flex', gap: 1, alignItems: 'center', mb: 2 }}>
+              <Typography variant="h6" color="secondary" sx={{ fontWeight: 700 }}>
+                ₹{product.price}
+              </Typography>
+              {product.compareAtPrice && (
+                <Typography variant="body2" sx={{ textDecoration: 'line-through', color: 'text.secondary' }}>
+                  ₹{product.compareAtPrice}
+                </Typography>
+              )}
+            </Box>
+          )}
           <Button
             variant="contained"
             color="secondary"

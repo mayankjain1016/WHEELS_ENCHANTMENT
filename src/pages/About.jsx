@@ -11,7 +11,9 @@ import {
   Chip,
 } from "@mui/material";
 import { Link } from "react-router-dom";
-import { useEffect, useRef, useState } from "react";
+import { useState, useEffect } from "react";
+import { coachesApi } from '../api/coaches';
+import { getImageUrl } from '../utils/imageUrl';
 import { ArrowRight, Award, Star, Heart, Quote, Target, Eye, MapPin, Users, Trophy, Shield, Lightbulb } from 'lucide-react';
 import backgroundImg2 from "../assets/Background_imgs/backgroundimg2.jpeg";
 import backgroundImg3 from "../assets/Background_imgs/backgroundimg3.jpeg";
@@ -108,6 +110,8 @@ const CountUpNumber = ({ value, label }) => {
 
 const About = () => {
   const theme = useTheme();
+  const [coaches, setCoaches] = useState([]);
+  const [loadingCoaches, setLoadingCoaches] = useState(true);
 
   useEffect(() => {
     const hash = window.location.hash;
@@ -119,6 +123,87 @@ const About = () => {
         }
       }, 100);
     }
+  }, []);
+
+  // Fetch coaches from API
+  useEffect(() => {
+    const fetchCoaches = async () => {
+      try {
+        const data = await coachesApi.getAll({ isActive: true });
+        setCoaches(data);
+      } catch (error) {
+        console.error('Failed to fetch coaches:', error);
+        // Fallback to static data if API fails
+        setCoaches([
+          {
+            name: "Kishan Goenka",
+            role: "Founder & Senior Coach",
+            experience: "12+ Years",
+            specialty: "",
+            image: { url: coachImg8 },
+          },
+          {
+            name: "Asish Sarda",
+            role: "",
+            experience: "10+ Years",
+            specialty: "",
+            image: { url: coachImg6 },
+          },
+          {
+            name: "Suraj Das",
+            role: "",
+            experience: "10+ Years",
+            specialty: "",
+            image: { url: coachImg4 },
+          },
+          {
+            name: "Atul Jaiswal",
+            role: "",
+            experience: "10+ Years",
+            specialty: "",
+            image: { url: coachImg5 },
+          },
+          {
+            name: "Md Irshad Khan",
+            role: "",
+            experience: "8+ Years",
+            specialty: "",
+            image: { url: coachImg3 },
+          },
+          {
+            name: "Riya Majumder",
+            role: "",
+            experience: "3+ Years",
+            specialty: "",
+            image: { url: coachImg1 },
+          },
+          {
+            name: "Suankit China",
+            role: "",
+            experience: "2+ Years",
+            specialty: "",
+            image: { url: coachImg2 },
+          },
+          {
+            name: "Kinkar Rewani",
+            role: "",
+            experience: "1+ Years",
+            specialty: "",
+            image: { url: coachImg7 },
+          },
+          {
+            name: "Ritika Mukherjee",
+            role: "",
+            experience: "2+ Years",
+            specialty: "",
+            image: { url: coachImg9 },
+          },
+        ]);
+      } finally {
+        setLoadingCoaches(false);
+      }
+    };
+    fetchCoaches();
   }, []);
 
   const whyChooseUs = [
@@ -219,6 +304,10 @@ const About = () => {
       img: coachImg9,
     },
   ];
+
+  const getCoachImageUrl = (coach) => {
+    return getImageUrl(coach?.image?.url) || coach?.img;
+  };
 
   const locations = [
     {
@@ -939,7 +1028,7 @@ const About = () => {
                   }}
                 >
                   <Avatar
-                    src={coach.img}
+                    src={getCoachImageUrl(coach)}
                     alt={coach.name}
                     sx={{
                       width: { xs: 110, md: 160 },
@@ -978,7 +1067,7 @@ const About = () => {
                       fontSize: { xs: "0.8rem", md: "0.95rem" },
                     }}
                   >
-                    {coach.exp} Experience
+                    {coach.experience || coach.exp} Experience
                   </Typography>
                 </Card>
               </Grid>

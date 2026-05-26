@@ -305,11 +305,11 @@ const AdminProducts = () => {
                     </Typography>
                     <Box sx={{ display: 'flex', gap: 1, alignItems: 'center', mb: 1 }}>
                       <Typography variant="h6" color="secondary" sx={{ fontWeight: 700 }}>
-                        ${product.price}
+                        ₹{product.price}
                       </Typography>
                       {product.compareAtPrice && (
                         <Typography variant="body2" sx={{ textDecoration: 'line-through', color: 'text.secondary' }}>
-                          ${product.compareAtPrice}
+                          ₹{product.compareAtPrice}
                         </Typography>
                       )}
                     </Box>

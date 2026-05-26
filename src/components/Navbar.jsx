@@ -42,6 +42,7 @@ const Navbar = () => {
     { label: 'Products', path: '/products' },
     { label: 'Gallery', path: '/gallery' },
     { label: 'About Us', path: '/about' },
+    { label: 'Contact', path: '/contact' },
   ];
 
   const luxuryEasing = 'cubic-bezier(0.4, 0, 0.2, 1)';

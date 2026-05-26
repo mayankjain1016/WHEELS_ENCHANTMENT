@@ -56,7 +56,7 @@ const Footer = () => {
               </IconButton>
               <IconButton 
                 component="a" 
-                href="https://www.instagram.com/victoriamemorial_skatingclub?igsh=MTVxcjJ6dmxjNzl0dw%3D%3D&utm_source=qr" 
+                href="https://www.instagram.com/wheels_enchntment?utm_source=qr" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 sx={{ 

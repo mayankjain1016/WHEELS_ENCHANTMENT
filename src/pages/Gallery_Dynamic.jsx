@@ -25,16 +25,20 @@ const Gallery = () => {
           isActive: true
         });
         
+        const imagesData = response?.data?.data || response?.data || [];
+        const paginationData = response?.data?.pagination || response?.pagination || {};
+        
         if (page === 1) {
-          setImages(response.data);
+          setImages(Array.isArray(imagesData) ? imagesData : []);
         } else {
-          setImages(prev => [...prev, ...response.data]);
+          setImages(prev => [...prev, ...(Array.isArray(imagesData) ? imagesData : [])]);
         }
         
-        setHasMore(response.pagination.hasNextPage);
-        setTotalImages(response.pagination.total);
+        setHasMore(paginationData.hasNextPage || false);
+        setTotalImages(paginationData.total || 0);
       } catch (error) {
         console.error('Failed to fetch gallery:', error);
+        setImages([]);
       } finally {
         setLoading(false);
       }

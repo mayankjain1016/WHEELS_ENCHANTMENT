@@ -27,12 +27,14 @@ const Products = () => {
     const fetchCategories = async () => {
       try {
         const response = await categoriesApi.getAll({ isActive: true });
-        setCategories(response.data);
-        if (response.data.length > 0 && !selectedCategory) {
-          setSelectedCategory(response.data[0]._id);
+        const categoriesData = Array.isArray(response) ? response : (response?.data || []);
+        setCategories(categoriesData);
+        if (categoriesData.length > 0 && !selectedCategory) {
+          setSelectedCategory(categoriesData[0]._id);
         }
       } catch (error) {
         console.error('Failed to fetch categories:', error);
+        setCategories([]);
       }
     };
     fetchCategories();
@@ -51,16 +53,20 @@ const Products = () => {
           isActive: true
         });
         
+        const productsData = response?.data?.data || response?.data || [];
+        const paginationData = response?.data?.pagination || response?.pagination || {};
+        
         if (page === 1) {
-          setProducts(response.data);
+          setProducts(Array.isArray(productsData) ? productsData : []);
         } else {
-          setProducts(prev => [...prev, ...response.data]);
+          setProducts(prev => [...prev, ...(Array.isArray(productsData) ? productsData : [])]);
         }
         
-        setHasMore(response.pagination.hasNextPage);
-        setTotalProducts(response.pagination.total);
+        setHasMore(paginationData.hasNextPage || false);
+        setTotalProducts(paginationData.total || 0);
       } catch (error) {
         console.error('Failed to fetch products:', error);
+        setProducts([]);
       } finally {
         setLoading(false);
       }
