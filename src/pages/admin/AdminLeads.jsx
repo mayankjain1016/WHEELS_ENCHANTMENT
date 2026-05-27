@@ -110,21 +110,21 @@ const AdminLeads = () => {
               ) : (
                 leads.map((lead) => (
                   <TableRow key={lead._id} hover>
-                    <TableCell>{lead.name}</TableCell>
+                    <TableCell>{lead.studentName || lead.name || '-'}</TableCell>
                     <TableCell>{lead.email}</TableCell>
                     <TableCell>{lead.phone || '-'}</TableCell>
                     <TableCell>
-                      <Chip label={lead.source} size="small" />
+                      <Chip label={lead.source || 'Website'} size="small" />
                     </TableCell>
                     <TableCell>
                       <Chip 
-                        label={lead.status} 
+                        label={lead.status || 'New'} 
                         size="small" 
-                        color={getStatusColor(lead.status)}
+                        color={getStatusColor((lead.status || 'New').toLowerCase())}
                       />
                     </TableCell>
                     <TableCell>
-                      {new Date(lead.createdAt).toLocaleDateString()}
+                      {new Date(lead.submittedAt || lead.createdAt).toLocaleDateString()}
                     </TableCell>
                     <TableCell>
                       <IconButton 
@@ -210,7 +210,7 @@ const AdminLeads = () => {
               <Box>
                 <Typography variant="caption" color="text.secondary">Submitted On</Typography>
                 <Typography variant="body1">
-                  {new Date(selectedLead.createdAt).toLocaleString()}
+                  {new Date(selectedLead.submittedAt || selectedLead.createdAt).toLocaleString()}
                 </Typography>
               </Box>
             </Box>

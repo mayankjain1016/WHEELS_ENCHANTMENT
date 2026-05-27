@@ -17,7 +17,6 @@ import { useState, useEffect } from "react";
 import { ArrowRight, Award, Star, MapPin, School, Users, Calendar, Target, Zap, Shield } from 'lucide-react';
 import { coachesApi } from '../api/coaches';
 import { getImageUrl } from '../utils/imageUrl';
-import LeadForm from '../components/LeadForm';
 import coachImg1 from "../assets/Coachs/Coach1.jpeg";
 import coachImg2 from "../assets/Coachs/Coach2.jpeg";
 import coachImg3 from "../assets/Coachs/Coach3.jpeg";
@@ -42,7 +41,6 @@ const GOOGLE_FORM_LINK = "https://docs.google.com/forms/d/e/1FAIpQLSewHxoYAZXBgk
 const Home = () => {
   const theme = useTheme();
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  const [formOpen, setFormOpen] = useState(false);
 
   const heroImages = [
     backgroundImg,
@@ -208,10 +206,11 @@ const Home = () => {
                 alignItems={{ xs: "stretch", sm: "center" }}
               >
                 <Button
+                  component={Link}
+                  to="/contact"
                   variant="contained"
                   color="secondary"
                   size="large"
-                  onClick={() => setFormOpen(true)}
                   endIcon={<ArrowRight size={16} strokeWidth={2.5} />}
                   sx={{
                     px: { xs: 2, sm: 4.5 },
@@ -947,9 +946,10 @@ const Home = () => {
           </Typography>
 
           <Button
+            component={Link}
+            to="/contact"
             variant="contained"
             color="secondary"
-            onClick={() => setFormOpen(true)}
             endIcon={<ArrowRight size={20} strokeWidth={2.5} />}
             sx={{
               px: { xs: 3, sm: 4.5 },
@@ -972,9 +972,6 @@ const Home = () => {
           </Button>
         </Container>
       </Box>
-
-      {/* Lead Form Dialog */}
-      <LeadForm open={formOpen} onClose={() => setFormOpen(false)} />
     </Box>
   );
 };

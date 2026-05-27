@@ -105,7 +105,7 @@ class EmailService {
       <p>We have received your inquiry and our team will contact you shortly to discuss the next steps.</p>
       <p>In the meantime, feel free to reach out to us at:</p>
       <ul>
-        <li>Email: ${env.EMAIL_FROM}</li>
+        <li>Email: Wheelsenchntment27@gmail.com</li>
         <li>Phone: +91 9674242870</li>
       </ul>
       <p>Best regards,<br>Wheels Enchantment Team</p>

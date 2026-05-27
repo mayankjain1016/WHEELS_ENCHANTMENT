@@ -1,11 +1,64 @@
-import { Box, Container, Grid, Card, CardContent, Typography } from '@mui/material';
+import { useState } from 'react';
+import { Box, Container, Grid, Card, CardContent, Typography, TextField, Button, Alert, CircularProgress, MenuItem } from '@mui/material';
 import EmailIcon from '@mui/icons-material/Email';
 import PhoneIcon from '@mui/icons-material/Phone';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import SectionHeader from '../components/SectionHeader';
-import LeadForm from '../components/LeadForm';
+
+import { leadsApi } from '../api/leads';
 
 const Contact = () => {
+  const [formData, setFormData] = useState({
+    studentName: '',
+    parentName: '',
+    email: '',
+    phone: '',
+    age: '',
+    location: '',
+    preferredLocation: '',
+    experienceLevel: 'Beginner',
+    message: ''
+  });
+  const [loading, setLoading] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
+  const [error, setError] = useState('');
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setError('');
+
+    try {
+      await leadsApi.submit({
+        ...formData,
+        age: formData.age ? parseInt(formData.age) : undefined
+      });
+      setSubmitted(true);
+      setTimeout(() => {
+        setSubmitted(false);
+        setFormData({
+          studentName: '',
+          parentName: '',
+          email: '',
+          phone: '',
+          age: '',
+          location: '',
+          preferredLocation: '',
+          experienceLevel: 'Beginner',
+          message: ''
+        });
+      }, 3000);
+    } catch (err) {
+      setError(err.response?.data?.message || 'Failed to submit form. Please try again.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <Box sx={{ py: { xs: 10, md: 12 }, minHeight: '100vh' }}>
       <Container maxWidth="lg">
@@ -22,7 +75,115 @@ const Contact = () => {
                 <Typography variant="h5" sx={{ fontWeight: 600, mb: 3 }}>
                   Send Us a Message
                 </Typography>
-                <LeadForm source="contact_page" />
+                {submitted && (
+                  <Alert severity="success" sx={{ mb: 3 }}>
+                    Application submitted successfully! We'll contact you soon.
+                  </Alert>
+                )}
+                {error && (
+                  <Alert severity="error" sx={{ mb: 3 }}>
+                    {error}
+                  </Alert>
+                )}
+                <Box component="form" onSubmit={handleSubmit}>
+                  <TextField
+                    fullWidth
+                    label="Student Name"
+                    name="studentName"
+                    required
+                    value={formData.studentName}
+                    onChange={handleChange}
+                    sx={{ mb: 2 }}
+                  />
+                  <TextField
+                    fullWidth
+                    label="Parent Name"
+                    name="parentName"
+                    required
+                    value={formData.parentName}
+                    onChange={handleChange}
+                    sx={{ mb: 2 }}
+                  />
+                  <TextField
+                    fullWidth
+                    label="Email"
+                    name="email"
+                    type="email"
+                    required
+                    value={formData.email}
+                    onChange={handleChange}
+                    sx={{ mb: 2 }}
+                  />
+                  <TextField
+                    fullWidth
+                    label="Phone Number (10 digits)"
+                    name="phone"
+                    required
+                    value={formData.phone}
+                    onChange={handleChange}
+                    inputProps={{ maxLength: 10, pattern: '[0-9]{10}' }}
+                    sx={{ mb: 2 }}
+                  />
+                  <TextField
+                    fullWidth
+                    label="Age"
+                    name="age"
+                    type="number"
+                    value={formData.age}
+                    onChange={handleChange}
+                    inputProps={{ min: 3, max: 100 }}
+                    sx={{ mb: 2 }}
+                  />
+                  <TextField
+                    fullWidth
+                    label="Location"
+                    name="location"
+                    value={formData.location}
+                    onChange={handleChange}
+                    sx={{ mb: 2 }}
+                  />
+                  <TextField
+                    fullWidth
+                    label="Preferred Training Location"
+                    name="preferredLocation"
+                    value={formData.preferredLocation}
+                    onChange={handleChange}
+                    sx={{ mb: 2 }}
+                  />
+                  <TextField
+                    fullWidth
+                    select
+                    label="Experience Level"
+                    name="experienceLevel"
+                    value={formData.experienceLevel}
+                    onChange={handleChange}
+                    sx={{ mb: 2 }}
+                  >
+                    <MenuItem value="Beginner">Beginner</MenuItem>
+                    <MenuItem value="Intermediate">Intermediate</MenuItem>
+                    <MenuItem value="Advanced">Advanced</MenuItem>
+                  </TextField>
+                  <TextField
+                    fullWidth
+                    label="Message (Optional)"
+                    name="message"
+                    multiline
+                    rows={3}
+                    value={formData.message}
+                    onChange={handleChange}
+                    sx={{ mb: 3 }}
+                  />
+                  <Button
+                    type="submit"
+                    variant="contained"
+                    color="secondary"
+                    fullWidth
+                    disabled={loading}
+                    sx={{ py: 1.5, fontWeight: 600 }}
+                  >
+                    {loading ? <CircularProgress size={24} color="inherit" /> : 'Submit Application'}
+                  </Button>
+                </Box>
               </CardContent>
             </Card>
           </Grid>
@@ -38,10 +199,7 @@ const Contact = () => {
                       Email
                     </Typography>
                     <Typography color="text.secondary">
-                      info@wheelsenchantment.com
-                    </Typography>
-                    <Typography color="text.secondary">
-                      support@wheelsenchantment.com
+                      Wheelsenchntment27@gmail.com
                     </Typography>
                   </Box>
                 </CardContent>
@@ -55,10 +213,10 @@ const Contact = () => {
                       Phone
                     </Typography>
                     <Typography color="text.secondary">
-                      +1 (555) 123-4567
+                      +91 9674242870
                     </Typography>
                     <Typography color="text.secondary">
-                      Mon-Fri: 9AM - 6PM EST
+                      Mon-Sat: 9AM - 7PM IST
                     </Typography>
                   </Box>
                 </CardContent>

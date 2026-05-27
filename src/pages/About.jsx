@@ -14,22 +14,13 @@ import { Link } from "react-router-dom";
 import { useState, useEffect, useRef } from "react";
 import { coachesApi } from '../api/coaches';
 import { getImageUrl } from '../utils/imageUrl';
-import { ArrowRight, Award, Star, Heart, Quote, Target, Eye, MapPin, Users, Trophy, Shield, Lightbulb } from 'lucide-react';
+import { ArrowRight, Quote, Target, Eye, MapPin, Users, Trophy, Shield, Lightbulb } from 'lucide-react';
 import backgroundImg2 from "../assets/Background_imgs/backgroundimg2.jpeg";
 import backgroundImg3 from "../assets/Background_imgs/backgroundimg3.jpeg";
 import backgroundImg6 from "../assets/Background_imgs/backgroundimg6.jpeg";
 import adjustableSkateImg from "../assets/Adjustable_Skates/aca31ffc-f337-42fd-8b94-fabd17264956.jfif";
 import quadSkateImg from "../assets/Quads_Skates/0d292238-4cc3-4125-a635-dfc011119e74.jfif";
 import inlineSkateImg from "../assets/Inline_Skates/05c1f840-16a3-433a-b79f-2acc0b980f8e.jfif";
-import coachImg1 from "../assets/Coachs/Coach1.jpeg";
-import coachImg2 from "../assets/Coachs/Coach2.jpeg";
-import coachImg3 from "../assets/Coachs/Coach3.jpeg";
-import coachImg4 from "../assets/Coachs/Coach4.jpeg";
-import coachImg5 from "../assets/Coachs/Coach5.jpeg";
-import coachImg6 from "../assets/Coachs/Coach6.jpeg";
-import coachImg7 from "../assets/Coachs/Coach7.jpeg";
-import coachImg8 from "../assets/Coachs/Coach8.jpeg";
-import coachImg9 from "../assets/Coachs/Coach9.jpeg";
 
 const CountUpNumber = ({ value, label }) => {
   const [count, setCount] = useState(0);
@@ -133,72 +124,6 @@ const About = () => {
         setCoaches(data);
       } catch (error) {
         console.error('Failed to fetch coaches:', error);
-        // Fallback to static data if API fails
-        setCoaches([
-          {
-            name: "Kishan Goenka",
-            role: "Founder & Senior Coach",
-            experience: "12+ Years",
-            specialty: "",
-            image: { url: coachImg8 },
-          },
-          {
-            name: "Asish Sarda",
-            role: "",
-            experience: "10+ Years",
-            specialty: "",
-            image: { url: coachImg6 },
-          },
-          {
-            name: "Suraj Das",
-            role: "",
-            experience: "10+ Years",
-            specialty: "",
-            image: { url: coachImg4 },
-          },
-          {
-            name: "Atul Jaiswal",
-            role: "",
-            experience: "10+ Years",
-            specialty: "",
-            image: { url: coachImg5 },
-          },
-          {
-            name: "Md Irshad Khan",
-            role: "",
-            experience: "8+ Years",
-            specialty: "",
-            image: { url: coachImg3 },
-          },
-          {
-            name: "Riya Majumder",
-            role: "",
-            experience: "3+ Years",
-            specialty: "",
-            image: { url: coachImg1 },
-          },
-          {
-            name: "Suankit China",
-            role: "",
-            experience: "2+ Years",
-            specialty: "",
-            image: { url: coachImg2 },
-          },
-          {
-            name: "Kinkar Rewani",
-            role: "",
-            experience: "1+ Years",
-            specialty: "",
-            image: { url: coachImg7 },
-          },
-          {
-            name: "Ritika Mukherjee",
-            role: "",
-            experience: "2+ Years",
-            specialty: "",
-            image: { url: coachImg9 },
-          },
-        ]);
       } finally {
         setLoadingCoaches(false);
       }
@@ -242,7 +167,7 @@ const About = () => {
 
 
   const getCoachImageUrl = (coach) => {
-    return getImageUrl(coach?.image?.url) || coach?.img;
+    return getImageUrl(coach?.image?.url);
   };
 
   const locations = [
@@ -942,8 +867,21 @@ const About = () => {
             </Typography>
           </Box>
 
-          <Grid container spacing={{ xs: 2.5, md: 4 }}>
-            {coaches.map((coach, i) => (
+          {loadingCoaches ? (
+            <Box sx={{ textAlign: 'center', py: 8 }}>
+              <Typography variant="body1" color="text.secondary">
+                Loading coaches...
+              </Typography>
+            </Box>
+          ) : coaches.length === 0 ? (
+            <Box sx={{ textAlign: 'center', py: 8 }}>
+              <Typography variant="body1" color="text.secondary">
+                No coaches available at the moment.
+              </Typography>
+            </Box>
+          ) : (
+            <Grid container spacing={{ xs: 2.5, md: 4 }}>
+              {coaches.map((coach, i) => (
               <Grid item xs={12} sm={6} md={4} key={i}>
                 <Card
                   elevation={0}
@@ -1003,12 +941,13 @@ const About = () => {
                       fontSize: { xs: "0.8rem", md: "0.95rem" },
                     }}
                   >
-                    {coach.experience || coach.exp} Experience
+                    {coach.experience} Experience
                   </Typography>
                 </Card>
               </Grid>
-            ))}
-          </Grid>
+              ))}
+            </Grid>
+          )}
         </Container>
       </Box>
 
