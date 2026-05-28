@@ -7,7 +7,7 @@ import { Request, Response, NextFunction } from 'express';
 export const parseFormData = (req: Request, _res: Response, next: NextFunction) => {
   if (req.body) {
     // Parse numeric fields
-    const numericFields = ['price', 'compareAtPrice', 'stock', 'displayOrder'];
+    const numericFields = ['price', 'compareAtPrice', 'stock', 'displayOrder', 'age'];
     numericFields.forEach(field => {
       if (req.body[field] !== undefined && req.body[field] !== '') {
         const parsed = parseFloat(req.body[field]);
