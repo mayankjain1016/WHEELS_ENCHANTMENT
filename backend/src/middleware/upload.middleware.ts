@@ -64,7 +64,9 @@ export const uploadFields = multer({
 }).fields([
   { name: 'image', maxCount: 1 },
   { name: 'images', maxCount: 10 },
-  { name: 'logo', maxCount: 1 }
+  { name: 'logo', maxCount: 1 },
+  { name: 'photo', maxCount: 1 },
+  { name: 'aadharCard', maxCount: 1 }
 ]);
 
 /**

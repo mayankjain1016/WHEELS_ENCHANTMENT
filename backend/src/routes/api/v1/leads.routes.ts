@@ -3,6 +3,7 @@ import * as leadController from '../../../controllers/lead.controller';
 import { authenticate, authorize } from '../../../middleware/auth.middleware';
 import { validate, validateParams } from '../../../middleware/validate.middleware';
 import { leadLimiter } from '../../../middleware/rateLimit.middleware';
+import { uploadFields, handleMulterError } from '../../../middleware/upload.middleware';
 import {
   createLeadSchema,
   updateLeadSchema,
@@ -15,8 +16,8 @@ import {
 
 const router = Router();
 
-// Public route - Form submission
-router.post('/', leadLimiter, validate(createLeadSchema), leadController.createLead);
+// Public route - Form submission with file uploads
+router.post('/', leadLimiter, uploadFields, handleMulterError, leadController.createLead);
 
 // Protected routes (Admin only)
 router.use(authenticate, authorize('admin', 'super_admin'));

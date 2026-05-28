@@ -9,12 +9,50 @@ export const createLeadSchema = z.object({
       .min(2, 'Name must be at least 2 characters')
       .max(100, 'Name cannot exceed 100 characters')
       .trim(),
-    parentName: z
+    dateOfBirth: z
       .string({
-        required_error: 'Parent name is required'
+        required_error: 'Date of birth is required'
+      })
+      .refine((val) => !isNaN(Date.parse(val)), 'Invalid date format'),
+    school: z
+      .string({
+        required_error: 'School name is required'
+      })
+      .min(2, 'School name must be at least 2 characters')
+      .max(200, 'School name cannot exceed 200 characters')
+      .trim(),
+    fatherName: z
+      .string({
+        required_error: 'Father name is required'
       })
       .min(2, 'Name must be at least 2 characters')
       .max(100, 'Name cannot exceed 100 characters')
+      .trim(),
+    fatherMobile: z
+      .string({
+        required_error: 'Father mobile number is required'
+      })
+      .regex(/^[0-9]{10}$/, 'Please provide a valid 10-digit phone number')
+      .trim(),
+    motherName: z
+      .string({
+        required_error: 'Mother name is required'
+      })
+      .min(2, 'Name must be at least 2 characters')
+      .max(100, 'Name cannot exceed 100 characters')
+      .trim(),
+    motherMobile: z
+      .string({
+        required_error: 'Mother mobile number is required'
+      })
+      .regex(/^[0-9]{10}$/, 'Please provide a valid 10-digit phone number')
+      .trim(),
+    address: z
+      .string({
+        required_error: 'Address is required'
+      })
+      .min(10, 'Address must be at least 10 characters')
+      .max(500, 'Address cannot exceed 500 characters')
       .trim(),
     email: z
       .string({
@@ -22,12 +60,6 @@ export const createLeadSchema = z.object({
       })
       .email('Invalid email address')
       .toLowerCase()
-      .trim(),
-    phone: z
-      .string({
-        required_error: 'Phone number is required'
-      })
-      .regex(/^[0-9]{10}$/, 'Please provide a valid 10-digit phone number')
       .trim(),
     age: z
       .number()

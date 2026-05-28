@@ -10,15 +10,22 @@ import { leadsApi } from '../api/leads';
 const Contact = () => {
   const [formData, setFormData] = useState({
     studentName: '',
-    parentName: '',
+    dateOfBirth: '',
+    school: '',
+    fatherName: '',
+    fatherMobile: '',
+    motherName: '',
+    motherMobile: '',
+    address: '',
     email: '',
-    phone: '',
     age: '',
     location: '',
     preferredLocation: '',
     experienceLevel: 'Beginner',
     message: ''
   });
+  const [photo, setPhoto] = useState(null);
+  const [aadharCard, setAadharCard] = useState(null);
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState('');
@@ -27,30 +34,60 @@ const Contact = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+  const handleFileChange = (e, type) => {
+    const file = e.target.files[0];
+    if (file) {
+      if (type === 'photo') setPhoto(file);
+      if (type === 'aadhar') setAadharCard(file);
+    }
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
     setError('');
 
     try {
-      await leadsApi.submit({
-        ...formData,
-        age: formData.age ? parseInt(formData.age) : undefined
+      const formDataToSend = new FormData();
+      
+      // Append all text fields
+      Object.keys(formData).forEach(key => {
+        if (formData[key]) {
+          formDataToSend.append(key, formData[key]);
+        }
       });
+
+      // Append age as number if provided
+      if (formData.age) {
+        formDataToSend.append('age', formData.age);
+      }
+
+      // Append files
+      if (photo) formDataToSend.append('photo', photo);
+      if (aadharCard) formDataToSend.append('aadharCard', aadharCard);
+
+      await leadsApi.submit(formDataToSend);
       setSubmitted(true);
       setTimeout(() => {
         setSubmitted(false);
         setFormData({
           studentName: '',
-          parentName: '',
+          dateOfBirth: '',
+          school: '',
+          fatherName: '',
+          fatherMobile: '',
+          motherName: '',
+          motherMobile: '',
+          address: '',
           email: '',
-          phone: '',
           age: '',
           location: '',
           preferredLocation: '',
           experienceLevel: 'Beginner',
           message: ''
         });
+        setPhoto(null);
+        setAadharCard(null);
       }, 3000);
     } catch (err) {
       setError(err.response?.data?.message || 'Failed to submit form. Please try again.');
@@ -97,10 +134,70 @@ const Contact = () => {
                   />
                   <TextField
                     fullWidth
-                    label="Parent Name"
-                    name="parentName"
+                    label="Date of Birth"
+                    name="dateOfBirth"
+                    type="date"
                     required
-                    value={formData.parentName}
+                    value={formData.dateOfBirth}
+                    onChange={handleChange}
+                    InputLabelProps={{ shrink: true }}
+                    sx={{ mb: 2 }}
+                  />
+                  <TextField
+                    fullWidth
+                    label="School"
+                    name="school"
+                    required
+                    value={formData.school}
+                    onChange={handleChange}
+                    sx={{ mb: 2 }}
+                  />
+                  <TextField
+                    fullWidth
+                    label="Father Name"
+                    name="fatherName"
+                    required
+                    value={formData.fatherName}
+                    onChange={handleChange}
+                    sx={{ mb: 2 }}
+                  />
+                  <TextField
+                    fullWidth
+                    label="Father Mobile Number (10 digits)"
+                    name="fatherMobile"
+                    required
+                    value={formData.fatherMobile}
+                    onChange={handleChange}
+                    inputProps={{ maxLength: 10, pattern: '[0-9]{10}' }}
+                    sx={{ mb: 2 }}
+                  />
+                  <TextField
+                    fullWidth
+                    label="Mother Name"
+                    name="motherName"
+                    required
+                    value={formData.motherName}
+                    onChange={handleChange}
+                    sx={{ mb: 2 }}
+                  />
+                  <TextField
+                    fullWidth
+                    label="Mother Mobile Number (10 digits)"
+                    name="motherMobile"
+                    required
+                    value={formData.motherMobile}
+                    onChange={handleChange}
+                    inputProps={{ maxLength: 10, pattern: '[0-9]{10}' }}
+                    sx={{ mb: 2 }}
+                  />
+                  <TextField
+                    fullWidth
+                    label="Address"
+                    name="address"
+                    required
+                    multiline
+                    rows={2}
+                    value={formData.address}
                     onChange={handleChange}
                     sx={{ mb: 2 }}
                   />
@@ -114,16 +211,44 @@ const Contact = () => {
                     onChange={handleChange}
                     sx={{ mb: 2 }}
                   />
-                  <TextField
-                    fullWidth
-                    label="Phone Number (10 digits)"
-                    name="phone"
-                    required
-                    value={formData.phone}
-                    onChange={handleChange}
-                    inputProps={{ maxLength: 10, pattern: '[0-9]{10}' }}
-                    sx={{ mb: 2 }}
-                  />
+                  <Box sx={{ mb: 2 }}>
+                    <Typography variant="body2" sx={{ mb: 1, fontWeight: 500 }}>
+                      Passport Size Photo *
+                    </Typography>
+                    <Button
+                      variant="outlined"
+                      component="label"
+                      fullWidth
+                      sx={{ justifyContent: 'flex-start', textTransform: 'none' }}
+                    >
+                      {photo ? photo.name : 'Choose Photo'}
+                      <input
+                        type="file"
+                        hidden
+                        accept="image/*"
+                        onChange={(e) => handleFileChange(e, 'photo')}
+                      />
+                    </Button>
+                  </Box>
+                  <Box sx={{ mb: 2 }}>
+                    <Typography variant="body2" sx={{ mb: 1, fontWeight: 500 }}>
+                      Aadhar Card (Optional)
+                    </Typography>
+                    <Button
+                      variant="outlined"
+                      component="label"
+                      fullWidth
+                      sx={{ justifyContent: 'flex-start', textTransform: 'none' }}
+                    >
+                      {aadharCard ? aadharCard.name : 'Choose Aadhar Card'}
+                      <input
+                        type="file"
+                        hidden
+                        accept="image/*"
+                        onChange={(e) => handleFileChange(e, 'aadhar')}
+                      />
+                    </Button>
+                  </Box>
                   <TextField
                     fullWidth
                     label="Age"

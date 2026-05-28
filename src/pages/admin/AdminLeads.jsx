@@ -91,10 +91,11 @@ const AdminLeads = () => {
           <Table>
             <TableHead>
               <TableRow sx={{ bgcolor: 'primary.main' }}>
-                <TableCell sx={{ color: 'white', fontWeight: 700 }}>Name</TableCell>
+                <TableCell sx={{ color: 'white', fontWeight: 700 }}>Student Name</TableCell>
+                <TableCell sx={{ color: 'white', fontWeight: 700 }}>Father Name</TableCell>
                 <TableCell sx={{ color: 'white', fontWeight: 700 }}>Email</TableCell>
-                <TableCell sx={{ color: 'white', fontWeight: 700 }}>Phone</TableCell>
-                <TableCell sx={{ color: 'white', fontWeight: 700 }}>Source</TableCell>
+                <TableCell sx={{ color: 'white', fontWeight: 700 }}>Father Mobile</TableCell>
+                <TableCell sx={{ color: 'white', fontWeight: 700 }}>School</TableCell>
                 <TableCell sx={{ color: 'white', fontWeight: 700 }}>Status</TableCell>
                 <TableCell sx={{ color: 'white', fontWeight: 700 }}>Date</TableCell>
                 <TableCell sx={{ color: 'white', fontWeight: 700 }}>Actions</TableCell>
@@ -103,7 +104,7 @@ const AdminLeads = () => {
             <TableBody>
               {!leads || leads.length === 0 ? (
                 <TableRow>
-                  <TableCell colSpan={7} align="center" sx={{ py: 8 }}>
+                  <TableCell colSpan={8} align="center" sx={{ py: 8 }}>
                     <Typography color="text.secondary">No leads found</Typography>
                   </TableCell>
                 </TableRow>
@@ -111,11 +112,10 @@ const AdminLeads = () => {
                 leads.map((lead) => (
                   <TableRow key={lead._id} hover>
                     <TableCell>{lead.studentName || lead.name || '-'}</TableCell>
+                    <TableCell>{lead.fatherName || '-'}</TableCell>
                     <TableCell>{lead.email}</TableCell>
-                    <TableCell>{lead.phone || '-'}</TableCell>
-                    <TableCell>
-                      <Chip label={lead.source || 'Website'} size="small" />
-                    </TableCell>
+                    <TableCell>{lead.fatherMobile || '-'}</TableCell>
+                    <TableCell>{lead.school || '-'}</TableCell>
                     <TableCell>
                       <Chip 
                         label={lead.status || 'New'} 
@@ -163,17 +163,49 @@ const AdminLeads = () => {
                 <Typography variant="body1" sx={{ fontWeight: 600 }}>{selectedLead.studentName || selectedLead.name}</Typography>
               </Box>
               <Box>
-                <Typography variant="caption" color="text.secondary">Parent Name</Typography>
-                <Typography variant="body1">{selectedLead.parentName || 'Not provided'}</Typography>
+                <Typography variant="caption" color="text.secondary">Date of Birth</Typography>
+                <Typography variant="body1">{selectedLead.dateOfBirth ? new Date(selectedLead.dateOfBirth).toLocaleDateString() : 'Not provided'}</Typography>
+              </Box>
+              <Box>
+                <Typography variant="caption" color="text.secondary">School</Typography>
+                <Typography variant="body1">{selectedLead.school || 'Not provided'}</Typography>
+              </Box>
+              <Box>
+                <Typography variant="caption" color="text.secondary">Father Name</Typography>
+                <Typography variant="body1">{selectedLead.fatherName || 'Not provided'}</Typography>
+              </Box>
+              <Box>
+                <Typography variant="caption" color="text.secondary">Father Mobile</Typography>
+                <Typography variant="body1">{selectedLead.fatherMobile || 'Not provided'}</Typography>
+              </Box>
+              <Box>
+                <Typography variant="caption" color="text.secondary">Mother Name</Typography>
+                <Typography variant="body1">{selectedLead.motherName || 'Not provided'}</Typography>
+              </Box>
+              <Box>
+                <Typography variant="caption" color="text.secondary">Mother Mobile</Typography>
+                <Typography variant="body1">{selectedLead.motherMobile || 'Not provided'}</Typography>
+              </Box>
+              <Box>
+                <Typography variant="caption" color="text.secondary">Address</Typography>
+                <Typography variant="body1">{selectedLead.address || 'Not provided'}</Typography>
               </Box>
               <Box>
                 <Typography variant="caption" color="text.secondary">Email</Typography>
                 <Typography variant="body1">{selectedLead.email}</Typography>
               </Box>
-              <Box>
-                <Typography variant="caption" color="text.secondary">Phone</Typography>
-                <Typography variant="body1">{selectedLead.phone || 'Not provided'}</Typography>
-              </Box>
+              {selectedLead.photo && (
+                <Box>
+                  <Typography variant="caption" color="text.secondary">Photo</Typography>
+                  <Box component="img" src={selectedLead.photo} alt="Student" sx={{ width: 150, height: 150, objectFit: 'cover', borderRadius: 1, mt: 1 }} />
+                </Box>
+              )}
+              {selectedLead.aadharCard && (
+                <Box>
+                  <Typography variant="caption" color="text.secondary">Aadhar Card</Typography>
+                  <Box component="img" src={selectedLead.aadharCard} alt="Aadhar" sx={{ width: '100%', maxWidth: 300, height: 'auto', borderRadius: 1, mt: 1 }} />
+                </Box>
+              )}
               <Box>
                 <Typography variant="caption" color="text.secondary">Age</Typography>
                 <Typography variant="body1">{selectedLead.age || 'Not provided'}</Typography>

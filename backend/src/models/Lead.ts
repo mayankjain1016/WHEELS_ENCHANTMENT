@@ -9,9 +9,16 @@ interface Note {
 
 export interface ILead extends Document {
   studentName: string;
-  parentName: string;
+  dateOfBirth: Date;
+  school: string;
+  fatherName: string;
+  fatherMobile: string;
+  motherName: string;
+  motherMobile: string;
+  address: string;
   email: string;
-  phone: string;
+  photo?: string;
+  aadharCard?: string;
   age?: number;
   location: string;
   preferredLocation: string;
@@ -34,11 +41,45 @@ const leadSchema = new Schema<ILead>(
       trim: true,
       maxlength: [100, 'Name cannot exceed 100 characters']
     },
-    parentName: {
+    dateOfBirth: {
+      type: Date,
+      required: [true, 'Date of birth is required']
+    },
+    school: {
       type: String,
-      required: [true, 'Parent name is required'],
+      required: [true, 'School name is required'],
+      trim: true,
+      maxlength: [200, 'School name cannot exceed 200 characters']
+    },
+    fatherName: {
+      type: String,
+      required: [true, 'Father name is required'],
       trim: true,
       maxlength: [100, 'Name cannot exceed 100 characters']
+    },
+    fatherMobile: {
+      type: String,
+      required: [true, 'Father mobile number is required'],
+      trim: true,
+      match: [/^[0-9]{10}$/, 'Please provide a valid 10-digit phone number']
+    },
+    motherName: {
+      type: String,
+      required: [true, 'Mother name is required'],
+      trim: true,
+      maxlength: [100, 'Name cannot exceed 100 characters']
+    },
+    motherMobile: {
+      type: String,
+      required: [true, 'Mother mobile number is required'],
+      trim: true,
+      match: [/^[0-9]{10}$/, 'Please provide a valid 10-digit phone number']
+    },
+    address: {
+      type: String,
+      required: [true, 'Address is required'],
+      trim: true,
+      maxlength: [500, 'Address cannot exceed 500 characters']
     },
     email: {
       type: String,
@@ -47,11 +88,13 @@ const leadSchema = new Schema<ILead>(
       trim: true,
       match: [/^\S+@\S+\.\S+$/, 'Please provide a valid email']
     },
-    phone: {
+    photo: {
       type: String,
-      required: [true, 'Phone number is required'],
-      trim: true,
-      match: [/^[0-9]{10}$/, 'Please provide a valid 10-digit phone number']
+      trim: true
+    },
+    aadharCard: {
+      type: String,
+      trim: true
     },
     age: {
       type: Number,
@@ -138,11 +181,12 @@ const leadSchema = new Schema<ILead>(
 
 // Indexes
 leadSchema.index({ email: 1 });
-leadSchema.index({ phone: 1 });
+leadSchema.index({ fatherMobile: 1 });
+leadSchema.index({ motherMobile: 1 });
 leadSchema.index({ status: 1 });
 leadSchema.index({ submittedAt: -1 });
 leadSchema.index({ followUpDate: 1 });
-leadSchema.index({ studentName: 'text', parentName: 'text' });
+leadSchema.index({ studentName: 'text', fatherName: 'text', motherName: 'text' });
 
 const Lead = mongoose.model<ILead>('Lead', leadSchema);
 

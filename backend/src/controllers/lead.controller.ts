@@ -12,15 +12,47 @@ import { paginate, getPaginationParams } from '../utils/pagination';
  * @access  Public
  */
 export const createLead = asyncHandler(async (req: Request, res: Response) => {
-  const lead = await Lead.create(req.body);
+  const files = req.files as { [fieldname: string]: Express.Multer.File[] };
+  const leadData = { ...req.body };
+
+  // Handle photo upload
+  if (files?.photo?.[0]) {
+    const imageService = (await import('../services/image.service')).default;
+    const processed = await imageService.processImage(files.photo[0].buffer, 'leads', {
+      maxWidth: 800,
+      maxHeight: 800,
+      thumbnailSize: 200,
+      quality: 85
+    });
+    leadData.photo = processed.optimized.url;
+  }
+
+  // Handle aadhar card upload
+  if (files?.aadharCard?.[0]) {
+    const imageService = (await import('../services/image.service')).default;
+    const processed = await imageService.processImage(files.aadharCard[0].buffer, 'leads', {
+      maxWidth: 1200,
+      maxHeight: 1200,
+      thumbnailSize: 300,
+      quality: 90
+    });
+    leadData.aadharCard = processed.optimized.url;
+  }
+
+  // Convert dateOfBirth string to Date
+  if (leadData.dateOfBirth) {
+    leadData.dateOfBirth = new Date(leadData.dateOfBirth);
+  }
+
+  const lead = await Lead.create(leadData);
 
   // Send notification emails
   try {
     await emailService.sendLeadNotification({
       studentName: lead.studentName,
-      parentName: lead.parentName,
+      parentName: lead.fatherName,
       email: lead.email,
-      phone: lead.phone,
+      phone: lead.fatherMobile,
       message: lead.message
     });
 
