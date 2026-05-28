@@ -9,28 +9,26 @@ export const createLeadSchema = z.object({
       .min(2, 'Name must be at least 2 characters')
       .trim(),
     dateOfBirth: z
-      .string()
-      .optional(),
+      .string({ required_error: 'Date of birth is required' })
+      .min(1, 'Date of birth is required'),
     school: z
-      .string()
-      .optional(),
+      .string({ required_error: 'School name is required' })
+      .min(1, 'School name is required'),
     fatherName: z
-      .string()
-      .optional(),
+      .string({ required_error: 'Father name is required' })
+      .min(1, 'Father name is required'),
     fatherMobile: z
-      .string()
-      .regex(/^[0-9]{10}$/, 'Invalid phone number')
-      .optional(),
+      .string({ required_error: 'Father mobile number is required' })
+      .regex(/^[0-9]{10}$/, 'Invalid phone number'),
     motherName: z
-      .string()
-      .optional(),
+      .string({ required_error: 'Mother name is required' })
+      .min(1, 'Mother name is required'),
     motherMobile: z
-      .string()
-      .regex(/^[0-9]{10}$/, 'Invalid phone number')
-      .optional(),
+      .string({ required_error: 'Mother mobile number is required' })
+      .regex(/^[0-9]{10}$/, 'Invalid phone number'),
     address: z
-      .string()
-      .optional(),
+      .string({ required_error: 'Address is required' })
+      .min(1, 'Address is required'),
     email: z
       .string({
         required_error: 'Email is required'

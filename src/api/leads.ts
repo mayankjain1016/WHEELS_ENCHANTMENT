@@ -3,9 +3,16 @@ import apiClient from './client';
 export interface Lead {
   _id: string;
   studentName: string;
-  parentName: string;
+  dateOfBirth: string;
+  school: string;
+  fatherName: string;
+  fatherMobile: string;
+  motherName: string;
+  motherMobile: string;
+  address: string;
   email: string;
-  phone: string;
+  photo?: string;
+  aadharCard?: string;
   age?: number;
   location?: string;
   preferredLocation?: string;
@@ -33,9 +40,14 @@ export interface Lead {
 
 export interface CreateLeadData {
   studentName: string;
-  parentName: string;
+  dateOfBirth: string;
+  school: string;
+  fatherName: string;
+  fatherMobile: string;
+  motherName: string;
+  motherMobile: string;
+  address: string;
   email: string;
-  phone: string;
   age?: number;
   location?: string;
   preferredLocation?: string;
@@ -45,8 +57,10 @@ export interface CreateLeadData {
 
 export const leadsApi = {
   // Submit lead form (public)
-  submit: async (data: CreateLeadData) => {
-    const response = await apiClient.post('/leads', data);
+  submit: async (data: FormData) => {
+    const response = await apiClient.post('/leads', data, {
+      headers: { 'Content-Type': 'multipart/form-data' }
+    });
     return response.data.data.lead;
   },
 
