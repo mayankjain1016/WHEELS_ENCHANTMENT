@@ -5,7 +5,6 @@ import { validate, validateParams } from '../../../middleware/validate.middlewar
 import { leadLimiter } from '../../../middleware/rateLimit.middleware';
 import { uploadFields, handleMulterError } from '../../../middleware/upload.middleware';
 import {
-  createLeadSchema,
   updateLeadSchema,
   updateLeadStatusSchema,
   assignLeadSchema,

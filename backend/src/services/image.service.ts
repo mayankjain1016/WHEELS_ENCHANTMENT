@@ -145,13 +145,15 @@ class ImageProcessor {
    */
   async deleteImage(filename: string, entity: string): Promise<void> {
     try {
-      // Extract year and month from filename timestamp
-      const timestampMatch = filename.match(/-(\d+)$/);
-      if (!timestampMatch) {
-        throw new Error('Invalid filename format');
+      // Extract timestamp from filename (format: entity-uuid-timestamp)
+      const parts = filename.split('-');
+      const timestamp = parseInt(parts[parts.length - 1], 10);
+      
+      if (isNaN(timestamp)) {
+        logger.warn(`Invalid filename format, cannot extract timestamp: ${filename}`);
+        return;
       }
 
-      const timestamp = parseInt(timestampMatch[1], 10);
       const date = new Date(timestamp);
       const year = date.getFullYear();
       const month = String(date.getMonth() + 1).padStart(2, '0');
@@ -165,7 +167,6 @@ class ImageProcessor {
         try {
           await fs.unlink(filePath);
         } catch (error) {
-          // File might not exist, continue
           logger.warn(`Failed to delete ${filePath}`);
         }
       }
@@ -173,7 +174,7 @@ class ImageProcessor {
       logger.info(`Image deleted successfully: ${filename}`);
     } catch (error) {
       logger.error('Image deletion error:', error);
-      throw new Error('Failed to delete image');
+      // Don't throw - allow deletion to continue even if image files are missing
     }
   }
 
