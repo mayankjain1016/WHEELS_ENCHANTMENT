@@ -18,7 +18,7 @@ const Products = () => {
   const [categories, setCategories] = useState([]);
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [selectedCategory, setSelectedCategory] = useState(null);
+  const [selectedCategory, setSelectedCategory] = useState('all');
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
   const [totalProducts, setTotalProducts] = useState(0);
@@ -29,9 +29,6 @@ const Products = () => {
         const response = await categoriesApi.getAll({ isActive: true });
         const categoriesData = Array.isArray(response) ? response : (response?.data || []);
         setCategories(categoriesData);
-        if (categoriesData.length > 0 && !selectedCategory) {
-          setSelectedCategory(categoriesData[0]._id);
-        }
       } catch (error) {
         console.error('Failed to fetch categories:', error);
         setCategories([]);
@@ -41,17 +38,20 @@ const Products = () => {
   }, []);
 
   useEffect(() => {
-    if (!selectedCategory) return;
-    
     const fetchProducts = async () => {
       try {
         setLoading(true);
-        const response = await productsApi.getAll({
+        const params = {
           page,
           limit: 12,
-          category: selectedCategory,
           isActive: true
-        });
+        };
+        
+        if (selectedCategory !== 'all') {
+          params.categoryId = selectedCategory;
+        }
+        
+        const response = await productsApi.getAll(params);
         
         const productsData = response?.data?.data || response?.data || [];
         const paginationData = response?.data?.pagination || response?.pagination || {};
@@ -163,6 +163,30 @@ const Products = () => {
                 minWidth: { xs: 'max-content', md: 'auto' },
               }}
             >
+              <Chip
+                label="All"
+                onClick={() => handleCategoryChange('all')}
+                sx={{ 
+                  cursor: 'pointer',
+                  px: { xs: 1.25, md: 2 },
+                  py: { xs: 0.5, md: 0.75 },
+                  height: { xs: '30px', md: 'auto' },
+                  fontSize: { xs: '0.7rem', md: '0.8125rem' },
+                  fontWeight: 600,
+                  borderRadius: { xs: '12px', md: '16px' },
+                  transition: '0.3s',
+                  bgcolor: selectedCategory === 'all' ? 'primary.main' : 'transparent',
+                  color: selectedCategory === 'all' ? 'white' : 'text.primary',
+                  border: `1px solid ${selectedCategory === 'all' ? 'primary.main' : alpha(theme.palette.divider, 0.2)}`,
+                  flexShrink: 0,
+                  whiteSpace: 'nowrap',
+                  '& .MuiChip-label': {
+                    px: { xs: 0.75, md: 1 },
+                    py: 0,
+                  },
+                  '&:hover': { bgcolor: selectedCategory === 'all' ? 'primary.dark' : alpha(theme.palette.primary.main, 0.05) }
+                }}
+              />
               {categories.map((cat) => (
                 <Chip
                   key={cat._id}

@@ -14,7 +14,7 @@ import { Link } from "react-router-dom";
 import { useState, useEffect, useRef } from "react";
 import { coachesApi } from '../api/coaches';
 import { getImageUrl } from '../utils/imageUrl';
-import { ArrowRight, Quote, Target, Eye, MapPin, Users, Trophy, Shield, Lightbulb } from 'lucide-react';
+import { ArrowRight, Quote, Target, Eye, MapPin, Users, Trophy, Shield, Lightbulb, Star } from 'lucide-react';
 import backgroundImg2 from "../assets/Background_imgs/backgroundimg2.jpeg";
 import backgroundImg3 from "../assets/Background_imgs/backgroundimg3.jpeg";
 import backgroundImg6 from "../assets/Background_imgs/backgroundimg6.jpeg";

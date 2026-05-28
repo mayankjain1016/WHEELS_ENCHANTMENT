@@ -17,8 +17,12 @@ const app: Application = express();
 app.set('trust proxy', 1);
 
   // CORS - Must be before other middleware
+const allowedOrigins = env.NODE_ENV === 'production' 
+  ? ['https://www.wheelsenchntment.com', 'https://wheelsenchntment.com']
+  : ['http://localhost:5173', 'http://localhost:5174', 'http://localhost:3000'];
+
 app.use(cors({
-  origin: ['https://www.wheelsenchntment.com', 'https://wheelsenchntment.com'],
+  origin: allowedOrigins,
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
@@ -27,7 +31,10 @@ app.use(cors({
 
 // Additional CORS headers for all requests including static files
 app.use((_req, res, next) => {
-  res.setHeader('Access-Control-Allow-Origin', 'https://www.wheelsenchntment.com');
+  const origin = env.NODE_ENV === 'production' 
+    ? 'https://www.wheelsenchntment.com'
+    : 'http://localhost:5173';
+  res.setHeader('Access-Control-Allow-Origin', origin);
   res.setHeader('Access-Control-Allow-Credentials', 'true');
   res.setHeader('Cross-Origin-Resource-Policy', 'cross-origin');
   next();
@@ -63,13 +70,22 @@ app.use(requestLogger);
 app.use('/api/', apiLimiter);
 
 // Static files - serve uploads with CORS
+const uploadOrigins = env.NODE_ENV === 'production'
+  ? ['https://www.wheelsenchntment.com', 'https://wheelsenchntment.com']
+  : ['http://localhost:5173', 'http://localhost:5174', 'http://localhost:3000'];
+
 app.use('/uploads', cors({
-  origin: ['https://www.wheelsenchntment.com', 'https://wheelsenchntment.com'],
+  origin: uploadOrigins,
   credentials: true
 }), express.static(path.join(__dirname, '../uploads'), {
   maxAge: '1y',
   etag: true,
   lastModified: true
+}));
+
+// Serve frontend assets as fallback (for development)
+app.use('/src/assets', express.static(path.join(__dirname, '../../src/assets'), {
+  maxAge: '1d'
 }));
 
 // Health check
@@ -83,7 +99,9 @@ app.get('/health', (_req, res) => {
 
 // API routes
 import routes from './routes';
+import v1Routes from './routes/api/v1';
 app.use('/api', routes);
+app.use('/api', v1Routes); // Direct v1 routes for backward compatibility
 
 // 404 handler
 app.use(notFound);
