@@ -30,11 +30,11 @@ app.use(cors({
 }));
 
 // Additional CORS headers for all requests including static files
-app.use((_req, res, next) => {
-  const origin = env.NODE_ENV === 'production' 
-    ? 'https://www.wheelsenchntment.com'
-    : 'http://localhost:5173';
-  res.setHeader('Access-Control-Allow-Origin', origin);
+app.use((req, res, next) => {
+  const origin = req.headers.origin;
+  if (origin && allowedOrigins.includes(origin)) {
+    res.setHeader('Access-Control-Allow-Origin', origin);
+  }
   res.setHeader('Access-Control-Allow-Credentials', 'true');
   res.setHeader('Cross-Origin-Resource-Policy', 'cross-origin');
   next();
