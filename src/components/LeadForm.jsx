@@ -108,7 +108,6 @@ const LeadForm = ({ open, onClose }) => {
             fullWidth
             label="Student Name"
             name="studentName"
-            required
             value={formData.studentName}
             onChange={handleChange}
             sx={{ mb: 2 }}
@@ -117,7 +116,6 @@ const LeadForm = ({ open, onClose }) => {
             fullWidth
             label="Parent Name"
             name="parentName"
-            required
             value={formData.parentName}
             onChange={handleChange}
             sx={{ mb: 2 }}
@@ -134,12 +132,11 @@ const LeadForm = ({ open, onClose }) => {
           />
           <TextField
             fullWidth
-            label="Phone Number (10 digits)"
+            label="Phone Number"
             name="phone"
-            required
             value={formData.phone}
             onChange={handleChange}
-            inputProps={{ maxLength: 10, pattern: '[0-9]{10}' }}
+            inputProps={{ maxLength: 10 }}
             sx={{ mb: 2 }}
           />
           <TextField

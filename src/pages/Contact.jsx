@@ -127,7 +127,6 @@ const Contact = () => {
                     fullWidth
                     label="Student Name"
                     name="studentName"
-                    required
                     value={formData.studentName}
                     onChange={handleChange}
                     sx={{ mb: 2 }}
@@ -137,7 +136,6 @@ const Contact = () => {
                     label="Date of Birth"
                     name="dateOfBirth"
                     type="date"
-                    required
                     value={formData.dateOfBirth}
                     onChange={handleChange}
                     InputLabelProps={{ shrink: true }}
@@ -147,7 +145,6 @@ const Contact = () => {
                     fullWidth
                     label="School"
                     name="school"
-                    required
                     value={formData.school}
                     onChange={handleChange}
                     sx={{ mb: 2 }}
@@ -156,45 +153,40 @@ const Contact = () => {
                     fullWidth
                     label="Father Name"
                     name="fatherName"
-                    required
                     value={formData.fatherName}
                     onChange={handleChange}
                     sx={{ mb: 2 }}
                   />
                   <TextField
                     fullWidth
-                    label="Father Mobile Number (10 digits)"
+                    label="Father Mobile"
                     name="fatherMobile"
-                    required
                     value={formData.fatherMobile}
                     onChange={handleChange}
-                    inputProps={{ maxLength: 10, pattern: '[0-9]{10}' }}
+                    inputProps={{ maxLength: 10 }}
                     sx={{ mb: 2 }}
                   />
                   <TextField
                     fullWidth
                     label="Mother Name"
                     name="motherName"
-                    required
                     value={formData.motherName}
                     onChange={handleChange}
                     sx={{ mb: 2 }}
                   />
                   <TextField
                     fullWidth
-                    label="Mother Mobile Number (10 digits)"
+                    label="Mother Mobile"
                     name="motherMobile"
-                    required
                     value={formData.motherMobile}
                     onChange={handleChange}
-                    inputProps={{ maxLength: 10, pattern: '[0-9]{10}' }}
+                    inputProps={{ maxLength: 10 }}
                     sx={{ mb: 2 }}
                   />
                   <TextField
                     fullWidth
                     label="Address"
                     name="address"
-                    required
                     multiline
                     rows={2}
                     value={formData.address}
@@ -213,7 +205,7 @@ const Contact = () => {
                   />
                   <Box sx={{ mb: 2 }}>
                     <Typography variant="body2" sx={{ mb: 1, fontWeight: 500 }}>
-                      Passport Size Photo *
+                      Passport Size Photo
                     </Typography>
                     <Button
                       variant="outlined"
