@@ -56,6 +56,18 @@ export const errorHandler = (
   let error = { ...err };
   error.message = err.message;
 
+  // Enhanced error logging for debugging
+  console.error('=== ERROR HANDLER DEBUG ===');
+  console.error('Error Name:', err.name);
+  console.error('Error Message:', err.message);
+  console.error('Error Code:', err.code);
+  console.error('Status Code:', err.statusCode);
+  console.error('Request URL:', req.originalUrl);
+  console.error('Request Method:', req.method);
+  console.error('Request Headers:', JSON.stringify(req.headers, null, 2));
+  console.error('Stack:', err.stack);
+  console.error('=== ERROR HANDLER DEBUG END ===');
+
   // Log error
   logger.error('Error:', {
     message: err.message,

@@ -17,6 +17,20 @@ import {
 
 const router = Router();
 
+// Debug middleware for leads route
+router.use((req, res, next) => {
+  if (req.path === '/' && req.method === 'POST') {
+    console.log('=== LEADS ROUTE DEBUG ===');
+    console.log('Timestamp:', new Date().toISOString());
+    console.log('Method:', req.method);
+    console.log('Path:', req.path);
+    console.log('Origin:', req.headers.origin);
+    console.log('Content-Type:', req.headers['content-type']);
+    console.log('User-Agent:', req.headers['user-agent']);
+  }
+  next();
+});
+
 // Public route - Form submission with file uploads
 router.post('/', leadLimiter, uploadFields, handleMulterError, parseFormData, validate(createLeadSchema), leadController.createLead);
 

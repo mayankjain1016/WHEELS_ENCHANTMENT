@@ -12,11 +12,22 @@ import { paginate, getPaginationParams } from '../utils/pagination';
  * @access  Public
  */
 export const createLead = asyncHandler(async (req: Request, res: Response) => {
+  console.log('=== LEAD SUBMISSION DEBUG START ===');
+  console.log('Request Method:', req.method);
+  console.log('Request URL:', req.url);
+  console.log('Request Headers:', JSON.stringify(req.headers, null, 2));
+  console.log('Request Body:', JSON.stringify(req.body, null, 2));
+  console.log('Content-Type:', req.headers['content-type']);
+  
   const files = req.files as { [fieldname: string]: Express.Multer.File[] };
+  console.log('Files received:', files ? Object.keys(files) : 'No files');
+  
   const leadData = { ...req.body };
+  console.log('Lead Data before processing:', JSON.stringify(leadData, null, 2));
 
   // Handle photo upload
   if (files?.photo?.[0]) {
+    console.log('Processing photo upload...');
     const imageService = (await import('../services/image.service')).default;
     const processed = await imageService.processImage(files.photo[0].buffer, 'leads', {
       maxWidth: 800,
@@ -25,10 +36,12 @@ export const createLead = asyncHandler(async (req: Request, res: Response) => {
       quality: 85
     });
     leadData.photo = processed.optimized.url;
+    console.log('Photo processed:', leadData.photo);
   }
 
   // Handle aadhar card upload
   if (files?.aadharCard?.[0]) {
+    console.log('Processing aadhar card upload...');
     const imageService = (await import('../services/image.service')).default;
     const processed = await imageService.processImage(files.aadharCard[0].buffer, 'leads', {
       maxWidth: 1200,
@@ -37,17 +50,22 @@ export const createLead = asyncHandler(async (req: Request, res: Response) => {
       quality: 90
     });
     leadData.aadharCard = processed.optimized.url;
+    console.log('Aadhar card processed:', leadData.aadharCard);
   }
 
   // Convert dateOfBirth string to Date
   if (leadData.dateOfBirth) {
     leadData.dateOfBirth = new Date(leadData.dateOfBirth);
+    console.log('Date of birth converted:', leadData.dateOfBirth);
   }
 
+  console.log('Creating lead in database...');
   const lead = await Lead.create(leadData);
+  console.log('Lead created successfully:', lead._id);
 
   // Send notification emails
   try {
+    console.log('Sending notification emails...');
     await emailService.sendLeadNotification({
       studentName: lead.studentName,
       parentName: lead.fatherName,
@@ -57,11 +75,13 @@ export const createLead = asyncHandler(async (req: Request, res: Response) => {
     });
 
     await emailService.sendWelcomeEmail(lead.email, lead.studentName);
+    console.log('Emails sent successfully');
   } catch (error) {
     // Don't fail the request if email fails
     console.error('Email sending failed:', error);
   }
 
+  console.log('=== LEAD SUBMISSION DEBUG END ===');
   ApiResponse.created(res, { lead }, 'Your inquiry has been submitted successfully. We will contact you soon!');
 });
 

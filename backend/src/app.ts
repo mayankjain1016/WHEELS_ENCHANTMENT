@@ -21,14 +21,24 @@ const allowedOrigins = env.NODE_ENV === 'production'
   ? ['https://www.wheelsenchntment.com', 'https://wheelsenchntment.com']
   : ['http://localhost:5173', 'http://localhost:5174', 'http://localhost:3000'];
 
+console.log('CORS Configuration:');
+console.log('- NODE_ENV:', env.NODE_ENV);
+console.log('- Allowed Origins:', allowedOrigins);
+
 app.use(cors({
   origin: (origin, callback) => {
+    console.log('CORS Check - Origin:', origin);
     // Allow requests with no origin (like mobile apps, Postman, or same-origin)
-    if (!origin) return callback(null, true);
+    if (!origin) {
+      console.log('CORS: No origin header, allowing request');
+      return callback(null, true);
+    }
     
     if (allowedOrigins.includes(origin)) {
+      console.log('CORS: Origin allowed:', origin);
       callback(null, true);
     } else {
+      console.log('CORS: Origin blocked:', origin);
       callback(new Error('Not allowed by CORS'));
     }
   },

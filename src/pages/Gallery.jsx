@@ -1,4 +1,4 @@
-import { Box, Container, Grid, Card, CardMedia, Dialog, IconButton, Typography, alpha, useTheme, CircularProgress } from '@mui/material';
+import { Box, Container, Grid, Card, CardMedia, Dialog, IconButton, Typography, alpha, useTheme, CircularProgress, Pagination } from '@mui/material';
 import { useState, useEffect } from 'react';
 import { X } from 'lucide-react';
 import { galleryApi } from '../api/gallery';
@@ -12,26 +12,21 @@ const Gallery = () => {
   const [images, setImages] = useState([]);
   const [loading, setLoading] = useState(true);
   const [page, setPage] = useState(1);
-  const [hasMore, setHasMore] = useState(true);
-  const [totalImages, setTotalImages] = useState(0);
+  const [totalPages, setTotalPages] = useState(0);
+  const imagesPerPage = 12;
 
   useEffect(() => {
     const fetchImages = async () => {
+      setLoading(true);
       try {
         const response = await galleryApi.getAll({
           page,
-          limit: 12,
+          limit: imagesPerPage,
           isActive: true
         });
         
-        if (page === 1) {
-          setImages(response.data);
-        } else {
-          setImages(prev => [...prev, ...response.data]);
-        }
-        
-        setHasMore(response.pagination.hasNextPage);
-        setTotalImages(response.pagination.total);
+        setImages(response.data);
+        setTotalPages(response.pagination.totalPages);
       } catch (error) {
         console.error('Failed to fetch gallery:', error);
       } finally {
@@ -42,8 +37,9 @@ const Gallery = () => {
     fetchImages();
   }, [page]);
 
-  const handleSeeMore = () => {
-    setPage(prev => prev + 1);
+  const handlePageChange = (event, value) => {
+    setPage(value);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const handleImageClick = (index) => {
@@ -99,88 +95,77 @@ const Gallery = () => {
       </Box>
 
       <Container maxWidth="lg" sx={{ mt: 6, position: 'relative', zIndex: 10, pb: 10 }}>
-        {loading && page === 1 && (
+        {loading ? (
           <Box sx={{ display: 'flex', justifyContent: 'center', py: 10 }}>
             <CircularProgress size={60} />
           </Box>
-        )}
-
-        {!loading || page > 1 ? (
-          <Grid container spacing={3}>
-            {images.map((image, index) => (
-              <Grid item xs={6} md={4} key={image._id}>
-                <Card 
-                  sx={{ 
-                    overflow: 'hidden',
-                    borderRadius: 3,
-                    boxShadow: '0 4px 12px rgba(0,0,0,0.08)',
-                    cursor: 'pointer',
-                    position: 'relative',
-                    transition: 'all 0.3s ease',
-                    '&:hover': {
-                      transform: 'translateY(-8px)',
-                      boxShadow: '0 12px 30px rgba(0,0,0,0.15)',
-                    },
-                    '&:hover img': {
-                      transform: 'scale(1.1)',
-                    }
-                  }}
-                  onClick={() => handleImageClick(index)}
-                >
-                  <CardMedia
-                    component="img"
-                    image={getGalleryImageUrl(image)}
-                    alt={image.title || image.category}
-                    sx={{ 
-                      objectFit: 'cover',
-                      transition: 'transform 0.5s ease',
-                      height: { xs: 220, sm: 260, md: 280 },
-                    }}
-                  />
-                </Card>
-              </Grid>
-            ))}
-          </Grid>
-        ) : null}
-
-        {!loading && images.length === 0 && (
+        ) : images.length === 0 ? (
           <Box sx={{ textAlign: 'center', py: 10 }}>
             <Typography variant="h5" color="text.secondary">No images found.</Typography>
           </Box>
-        )}
+        ) : (
+          <>
+            <Grid container spacing={3}>
+              {images.map((image, index) => (
+                <Grid item xs={6} md={4} key={image._id}>
+                  <Card 
+                    sx={{ 
+                      overflow: 'hidden',
+                      borderRadius: 3,
+                      boxShadow: '0 4px 12px rgba(0,0,0,0.08)',
+                      cursor: 'pointer',
+                      position: 'relative',
+                      transition: 'all 0.3s ease',
+                      '&:hover': {
+                        transform: 'translateY(-8px)',
+                        boxShadow: '0 12px 30px rgba(0,0,0,0.15)',
+                      },
+                      '&:hover img': {
+                        transform: 'scale(1.1)',
+                      }
+                    }}
+                    onClick={() => handleImageClick(index)}
+                  >
+                    <CardMedia
+                      component="img"
+                      image={getGalleryImageUrl(image)}
+                      alt={image.title || image.category}
+                      sx={{ 
+                        objectFit: 'cover',
+                        transition: 'transform 0.5s ease',
+                        height: { xs: 220, sm: 260, md: 280 },
+                      }}
+                    />
+                  </Card>
+                </Grid>
+              ))}
+            </Grid>
 
-        {hasMore && images.length > 0 && (
-          <Box sx={{ textAlign: 'center', mt: 8 }}>
-            <Box
-              onClick={handleSeeMore}
-              sx={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: 1,
-                px: 5,
-                py: 1.5,
-                borderRadius: '50px',
-                bgcolor: 'secondary.main',
-                color: 'white',
-                fontWeight: 700,
-                fontSize: '1rem',
-                letterSpacing: 1,
-                cursor: 'pointer',
-                transition: 'all 0.3s ease',
-                boxShadow: '0 4px 15px rgba(233, 30, 99, 0.3)',
-                '&:hover': {
-                  bgcolor: 'secondary.dark',
-                  transform: 'translateY(-2px)',
-                  boxShadow: '0 6px 20px rgba(233, 30, 99, 0.4)',
-                }
-              }}
-            >
-              {loading && page > 1 ? <CircularProgress size={20} color="inherit" /> : 'See More'}
-            </Box>
-            <Typography variant="body2" sx={{ mt: 2, color: 'text.secondary', fontWeight: 500 }}>
-              Showing {images.length} of {totalImages} images
-            </Typography>
-          </Box>
+            {totalPages > 1 && (
+              <Box sx={{ display: 'flex', justifyContent: 'center', mt: 6 }}>
+                <Pagination 
+                  count={totalPages} 
+                  page={page} 
+                  onChange={handlePageChange}
+                  color="secondary"
+                  size="large"
+                  sx={{
+                    '& .MuiPaginationItem-root': {
+                      fontWeight: 600,
+                      fontSize: '1rem',
+                    },
+                    '& .Mui-selected': {
+                      bgcolor: 'secondary.main',
+                      color: 'white',
+                      '&:hover': {
+                        bgcolor: 'secondary.dark',
+                      }
+                    }
+                  }}
+                />
+              </Box>
+            )}
+          </>
         )}
       </Container>
 
