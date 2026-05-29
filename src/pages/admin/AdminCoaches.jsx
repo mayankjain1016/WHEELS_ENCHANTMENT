@@ -16,7 +16,6 @@ import {
   PointerSensor,
   useSensor,
   useSensors,
-  DragEndEvent,
 } from '@dnd-kit/core';
 import {
   arrayMove,
@@ -210,7 +209,7 @@ const AdminCoaches = () => {
     return getImageUrl(coach?.image?.url);
   };
 
-  const handleDragEnd = async (event: DragEndEvent) => {
+  const handleDragEnd = async (event) => {
     const { active, over } = event;
 
     if (over && active.id !== over.id) {
