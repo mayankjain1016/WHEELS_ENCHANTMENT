@@ -15,7 +15,7 @@ const Gallery = () => {
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
   const [totalImages, setTotalImages] = useState(0);
-  const ITEMS_PER_PAGE = 12;
+  const ITEMS_PER_PAGE = 50; // Increased to show more images per page
 
   // Fetch gallery images from API
   useEffect(() => {
@@ -36,6 +36,8 @@ const Gallery = () => {
         const imagesData = response?.data?.data || response?.data || [];
         const paginationData = response?.data?.pagination || response?.pagination || {};
         
+        console.log('Gallery API Response:', { imagesData: imagesData.length, paginationData, page });
+        
         if (page === 1) {
           setImages(Array.isArray(imagesData) ? imagesData : []);
         } else {
@@ -43,7 +45,13 @@ const Gallery = () => {
         }
         
         setHasMore(paginationData?.hasNextPage || false);
-        setTotalImages(paginationData?.total || 0);
+        setTotalImages(paginationData?.total || imagesData.length);
+        
+        console.log('Pagination state:', { 
+          hasMore: paginationData?.hasNextPage, 
+          total: paginationData?.total,
+          currentImages: page === 1 ? imagesData.length : images.length + imagesData.length
+        });
       } catch (error) {
         console.error('Failed to fetch gallery:', error);
         if (page === 1) {
@@ -179,38 +187,45 @@ const Gallery = () => {
         )}
 
         {/* See More Button */}
-        {hasMore && images.length > 0 && (
+        {!loading && (
           <Box sx={{ textAlign: 'center', mt: 8 }}>
-            <Box
-              onClick={handleSeeMore}
-              disabled={loadingMore}
-              sx={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: 1,
-                px: 5,
-                py: 1.5,
-                borderRadius: '50px',
-                bgcolor: loadingMore ? 'grey.400' : 'secondary.main',
-                color: 'white',
-                fontWeight: 700,
-                fontSize: '1rem',
-                letterSpacing: 1,
-                cursor: loadingMore ? 'not-allowed' : 'pointer',
-                transition: 'all 0.3s ease',
-                boxShadow: '0 4px 15px rgba(233, 30, 99, 0.3)',
-                '&:hover': {
-                  bgcolor: loadingMore ? 'grey.400' : 'secondary.dark',
-                  transform: loadingMore ? 'none' : 'translateY(-2px)',
-                  boxShadow: loadingMore ? '0 4px 15px rgba(233, 30, 99, 0.3)' : '0 6px 20px rgba(233, 30, 99, 0.4)',
-                }
-              }}
-            >
-              {loadingMore ? <CircularProgress size={20} color="inherit" /> : 'See More'}
-            </Box>
-            <Typography variant="body2" sx={{ mt: 2, color: 'text.secondary', fontWeight: 500 }}>
-              Showing {images.length} of {totalImages} images
-            </Typography>
+            {hasMore && images.length > 0 ? (
+              <>
+                <Box
+                  onClick={handleSeeMore}
+                  sx={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: 1,
+                    px: 5,
+                    py: 1.5,
+                    borderRadius: '50px',
+                    bgcolor: loadingMore ? 'grey.400' : 'secondary.main',
+                    color: 'white',
+                    fontWeight: 700,
+                    fontSize: '1rem',
+                    letterSpacing: 1,
+                    cursor: loadingMore ? 'not-allowed' : 'pointer',
+                    transition: 'all 0.3s ease',
+                    boxShadow: '0 4px 15px rgba(233, 30, 99, 0.3)',
+                    '&:hover': {
+                      bgcolor: loadingMore ? 'grey.400' : 'secondary.dark',
+                      transform: loadingMore ? 'none' : 'translateY(-2px)',
+                      boxShadow: loadingMore ? '0 4px 15px rgba(233, 30, 99, 0.3)' : '0 6px 20px rgba(233, 30, 99, 0.4)',
+                    }
+                  }}
+                >
+                  {loadingMore ? <CircularProgress size={20} color="inherit" /> : 'See More'}
+                </Box>
+                <Typography variant="body2" sx={{ mt: 2, color: 'text.secondary', fontWeight: 500 }}>
+                  Showing {images.length} of {totalImages} images
+                </Typography>
+              </>
+            ) : images.length > 0 && totalImages > 0 ? (
+              <Typography variant="body2" sx={{ color: 'text.secondary', fontWeight: 500 }}>
+                Showing all {images.length} images
+              </Typography>
+            ) : null}
           </Box>
         )}
       </Container>
