@@ -100,19 +100,16 @@ class EmailService {
   async sendWelcomeEmail(to: string, studentName?: string): Promise<void> {
     const name = studentName || 'Student';
     const html = `
-      <h2>Welcome to Wheels Enchntment
-!</h2>
+      <h2>Welcome to Wheels Enchntment!</h2>
       <p>Dear Parent/Guardian,</p>
-      <p>Thank you for your interest in enrolling ${name} at Wheels Enchntment
-.</p>
+      <p>Thank you for your interest in enrolling ${name} at Wheels Enchntment.</p>
       <p>We have received your inquiry and our team will contact you shortly to discuss the next steps.</p>
       <p>In the meantime, feel free to reach out to us at:</p>
       <ul>
         <li>Email: Wheelsenchntment27@gmail.com</li>
         <li>Phone: +91 9674242870</li>
       </ul>
-      <p>Best regards,<br>Wheels Enchntment
- Team</p>
+      <p>Best regards,<br>Wheels Enchntment Team</p>
     `;
 
     await this.sendEmail({
@@ -139,8 +136,7 @@ class EmailService {
 
     await this.sendEmail({
       to,
-      subject: 'Password Reset - Wheels Enchntment
-',
+      subject: 'Password Reset - Wheels Enchntment',
       html
     });
   }
@@ -161,8 +157,7 @@ class EmailService {
         message = 'We have reviewed your application and will be in touch soon.';
         break;
       case 'Enrolled':
-        message = 'Congratulations! Your enrollment has been confirmed. Welcome to Wheels Enchntment
-        !';
+        message = 'Congratulations! Your enrollment has been confirmed. Welcome to Wheels Enchntment!';
         break;
       case 'Rejected':
         message = 'Unfortunately, we are unable to proceed with your application at this time.';
@@ -177,8 +172,7 @@ class EmailService {
       <p>This is to inform you that the status of ${name}'s application has been updated to: <strong>${status}</strong></p>
       <p>${message}</p>
       <p>If you have any questions, please contact us.</p>
-      <p>Best regards,<br>Wheels Enchntment
- Team</p>
+      <p>Best regards,<br>Wheels Enchntment Team</p>
     `;
 
     await this.sendEmail({
