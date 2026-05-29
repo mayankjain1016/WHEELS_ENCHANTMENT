@@ -1,12 +1,10 @@
 import path from 'path';
 import fs from 'fs/promises';
 import sharp from 'sharp';
-import { v4 as uuidv4 } from 'uuid';
 import database from '../config/database';
 import Gallery from '../models/Gallery';
 import imageProcessor from '../services/image.service';
 import logger from '../utils/logger';
-import { env } from '../config/env';
 
 interface BackendFileData {
   filename: string;
@@ -207,7 +205,7 @@ const seedBackendFiles = async () => {
         if (fileData.filename.toLowerCase().endsWith('.heic')) {
           logger.info(`🔄 Converting HEIC to JPEG: ${fileData.filename}`);
           try {
-            fileBuffer = await convertHeicToJpeg(fileBuffer);
+            fileBuffer = Buffer.from(await convertHeicToJpeg(fileBuffer));
           } catch (error) {
             logger.error(`❌ Failed to convert HEIC: ${fileData.filename}`, error);
             failedCount++;
