@@ -13,7 +13,8 @@ console.log('🔄 Initializing server...');
  */
 const startServer = async () => {
   console.log('='.repeat(50));
-  console.log('🚀 STARTING WHEELS ENCHANTMENT BACKEND');
+  console.log('🚀 STARTING Wheels Enchntment
+ BACKEND');
   console.log('='.repeat(50));
   
   try {

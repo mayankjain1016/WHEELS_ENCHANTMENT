@@ -1,4 +1,4 @@
-import { Box, Container, Grid, Card, CardMedia, Dialog, IconButton, Typography, alpha, useTheme, CircularProgress } from '@mui/material';
+import { Box, Container, Grid, Card, CardMedia, Dialog, IconButton, Typography, alpha, useTheme, CircularProgress, Skeleton } from '@mui/material';
 import { useState, useEffect } from 'react';
 import { X } from 'lucide-react';
 import { galleryApi } from '../api/gallery';
@@ -11,17 +11,25 @@ const Gallery = () => {
   const [open, setOpen] = useState(false);
   const [images, setImages] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [loadingMore, setLoadingMore] = useState(false);
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
   const [totalImages, setTotalImages] = useState(0);
+  const ITEMS_PER_PAGE = 12;
 
   // Fetch gallery images from API
   useEffect(() => {
     const fetchImages = async () => {
+      if (page === 1) {
+        setLoading(true);
+      } else {
+        setLoadingMore(true);
+      }
+      
       try {
         const response = await galleryApi.getAll({
           page,
-          limit: 12,
+          limit: ITEMS_PER_PAGE,
           isActive: true
         });
         
@@ -34,13 +42,16 @@ const Gallery = () => {
           setImages(prev => [...prev, ...(Array.isArray(imagesData) ? imagesData : [])]);
         }
         
-        setHasMore(paginationData.hasNextPage || false);
-        setTotalImages(paginationData.total || 0);
+        setHasMore(paginationData?.hasNextPage || false);
+        setTotalImages(paginationData?.total || 0);
       } catch (error) {
         console.error('Failed to fetch gallery:', error);
-        setImages([]);
+        if (page === 1) {
+          setImages([]);
+        }
       } finally {
         setLoading(false);
+        setLoadingMore(false);
       }
     };
 
@@ -48,7 +59,9 @@ const Gallery = () => {
   }, [page]);
 
   const handleSeeMore = () => {
-    setPage(prev => prev + 1);
+    if (hasMore) {
+      setPage(prev => prev + 1);
+    }
   };
 
   const handleImageClick = (index) => {
@@ -99,23 +112,30 @@ const Gallery = () => {
             Gallery
           </Typography>
           <Typography variant="body1" sx={{ opacity: 0.9, maxWidth: 600, mx: 'auto', fontSize: '1.1rem' }}>
-            Capturing moments of growth, learning, and joy at Wheels Enchantment
+            Capturing moments of growth, learning, and joy at Wheels Enchntment
           </Typography>
         </Container>
       </Box>
 
       <Container maxWidth="lg" sx={{ mt: 6, position: 'relative', zIndex: 10, pb: 10 }}>
-        {/* Loading State */}
-        {loading && page === 1 && (
-          <Box sx={{ display: 'flex', justifyContent: 'center', py: 10 }}>
-            <CircularProgress size={60} />
-          </Box>
-        )}
-
         {/* Gallery Grid */}
-        {!loading || page > 1 ? (
-          <Grid container spacing={3}>
-            {images.map((image, index) => (
+        <Grid container spacing={3}>
+          {loading && page === 1 ? (
+            // Skeleton Loading
+            Array.from({ length: ITEMS_PER_PAGE }).map((_, index) => (
+              <Grid item xs={6} md={4} key={`skeleton-${index}`}>
+                <Skeleton 
+                  variant="rectangular" 
+                  sx={{ 
+                    borderRadius: 3,
+                    height: { xs: 220, sm: 260, md: 280 },
+                  }} 
+                />
+              </Grid>
+            ))
+          ) : (
+            // Actual Images
+            images.map((image, index) => (
               <Grid item xs={6} md={4} key={image._id}>
                 <Card 
                   sx={{ 
@@ -138,7 +158,7 @@ const Gallery = () => {
                   <CardMedia
                     component="img"
                     image={getGalleryImageUrl(image)}
-                    alt={image.title || image.category}
+                    alt={image.title || image.category || 'Gallery image'}
                     sx={{ 
                       objectFit: 'cover',
                       transition: 'transform 0.5s ease',
@@ -147,9 +167,9 @@ const Gallery = () => {
                   />
                 </Card>
               </Grid>
-            ))}
-          </Grid>
-        ) : null}
+            ))
+          )}
+        </Grid>
 
         {/* Empty State */}
         {!loading && images.length === 0 && (
@@ -163,6 +183,7 @@ const Gallery = () => {
           <Box sx={{ textAlign: 'center', mt: 8 }}>
             <Box
               onClick={handleSeeMore}
+              disabled={loadingMore}
               sx={{
                 display: 'inline-flex',
                 alignItems: 'center',
@@ -170,22 +191,22 @@ const Gallery = () => {
                 px: 5,
                 py: 1.5,
                 borderRadius: '50px',
-                bgcolor: 'secondary.main',
+                bgcolor: loadingMore ? 'grey.400' : 'secondary.main',
                 color: 'white',
                 fontWeight: 700,
                 fontSize: '1rem',
                 letterSpacing: 1,
-                cursor: 'pointer',
+                cursor: loadingMore ? 'not-allowed' : 'pointer',
                 transition: 'all 0.3s ease',
                 boxShadow: '0 4px 15px rgba(233, 30, 99, 0.3)',
                 '&:hover': {
-                  bgcolor: 'secondary.dark',
-                  transform: 'translateY(-2px)',
-                  boxShadow: '0 6px 20px rgba(233, 30, 99, 0.4)',
+                  bgcolor: loadingMore ? 'grey.400' : 'secondary.dark',
+                  transform: loadingMore ? 'none' : 'translateY(-2px)',
+                  boxShadow: loadingMore ? '0 4px 15px rgba(233, 30, 99, 0.3)' : '0 6px 20px rgba(233, 30, 99, 0.4)',
                 }
               }}
             >
-              {loading && page > 1 ? <CircularProgress size={20} color="inherit" /> : 'See More'}
+              {loadingMore ? <CircularProgress size={20} color="inherit" /> : 'See More'}
             </Box>
             <Typography variant="body2" sx={{ mt: 2, color: 'text.secondary', fontWeight: 500 }}>
               Showing {images.length} of {totalImages} images

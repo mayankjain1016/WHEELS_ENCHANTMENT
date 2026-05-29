@@ -39,7 +39,8 @@ const AdminLogin = () => {
               Admin Login
             </Typography>
             <Typography variant="body2" color="text.secondary" sx={{ mb: 4, textAlign: 'center' }}>
-              Wheels Enchantment Admin Panel
+              Wheels Enchntment
+ Admin Panel
             </Typography>
 
             {error && <Alert severity="error" sx={{ mb: 3 }}>{error}</Alert>}

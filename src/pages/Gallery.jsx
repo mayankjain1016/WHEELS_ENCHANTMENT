@@ -89,7 +89,8 @@ const Gallery = () => {
             Gallery
           </Typography>
           <Typography variant="body1" sx={{ opacity: 0.9, maxWidth: 600, mx: 'auto', fontSize: '1.1rem' }}>
-            Capturing moments of growth, learning, and joy at Wheels Enchantment
+            Capturing moments of growth, learning, and joy at Wheels Enchntment
+
           </Typography>
         </Container>
       </Box>

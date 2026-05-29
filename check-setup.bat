@@ -1,6 +1,7 @@
 @echo off
 echo ========================================
-echo Wheels Enchantment - Admin Panel Check
+echo Wheels Enchntment
+ - Admin Panel Check
 echo ========================================
 echo.
 

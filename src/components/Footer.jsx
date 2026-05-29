@@ -25,6 +25,7 @@ const Footer = () => {
               <MuiLink component={Link} to="/products" sx={{ color: 'rgba(255,255,255,0.8)', textDecoration: 'none', '&:hover': { color: 'secondary.main' } }}>Products</MuiLink>
               <MuiLink component={Link} to="/gallery" sx={{ color: 'rgba(255,255,255,0.8)', textDecoration: 'none', '&:hover': { color: 'secondary.main' } }}>Gallery</MuiLink>
               <MuiLink component={Link} to="/about" sx={{ color: 'rgba(255,255,255,0.8)', textDecoration: 'none', '&:hover': { color: 'secondary.main' } }}>About</MuiLink>
+              <MuiLink component={Link} to="/contact" sx={{ color: 'rgba(255,255,255,0.8)', textDecoration: 'none', '&:hover': { color: 'secondary.main' } }}>Contact Us</MuiLink>
             </Box>
           </Grid>
 
