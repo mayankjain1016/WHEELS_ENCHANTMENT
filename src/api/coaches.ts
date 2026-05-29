@@ -66,4 +66,9 @@ export const coachesApi = {
     const response = await apiClient.patch(`/coaches/${id}/toggle-featured`);
     return response.data.data.coach;
   },
+
+  // Reorder coaches
+  reorder: async (coaches: { id: string; displayOrder: number }[]) => {
+    await apiClient.post('/coaches/reorder', { coaches });
+  },
 };

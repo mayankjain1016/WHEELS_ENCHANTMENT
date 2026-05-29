@@ -121,7 +121,8 @@ const About = () => {
     const fetchCoaches = async () => {
       try {
         const data = await coachesApi.getAll({ isActive: true });
-        setCoaches(data);
+        const sortedCoaches = data.sort((a, b) => a.displayOrder - b.displayOrder);
+        setCoaches(sortedCoaches);
       } catch (error) {
         console.error('Failed to fetch coaches:', error);
       } finally {

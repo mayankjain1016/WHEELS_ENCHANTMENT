@@ -2,13 +2,30 @@ import { useState, useEffect } from 'react';
 import { 
   Box, Container, Typography, Button, Grid, Card, CardContent, CardMedia,
   Dialog, DialogTitle, DialogContent, DialogActions, TextField,
-  CircularProgress, Alert, Chip, Avatar, FormControlLabel, Switch
+  CircularProgress, Alert, Chip, Avatar, FormControlLabel, Switch, IconButton
 } from '@mui/material';
-import { Add, Edit, Delete, CloudUpload, Star } from '@mui/icons-material';
+import { Add, Edit, Delete, CloudUpload, Star, DragIndicator } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
 import { coachesApi } from '../../api/coaches';
 import AdminLayout from '../../components/AdminLayout';
 import { getImageUrl } from '../../utils/imageUrl';
+import {
+  DndContext,
+  closestCenter,
+  KeyboardSensor,
+  PointerSensor,
+  useSensor,
+  useSensors,
+  DragEndEvent,
+} from '@dnd-kit/core';
+import {
+  arrayMove,
+  SortableContext,
+  sortableKeyboardCoordinates,
+  useSortable,
+  verticalListSortingStrategy,
+} from '@dnd-kit/sortable';
+import { CSS } from '@dnd-kit/utilities';
 
 const AdminCoaches = () => {
   const navigate = useNavigate();
@@ -31,6 +48,13 @@ const AdminCoaches = () => {
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
 
+  const sensors = useSensors(
+    useSensor(PointerSensor),
+    useSensor(KeyboardSensor, {
+      coordinateGetter: sortableKeyboardCoordinates,
+    })
+  );
+
   useEffect(() => {
     fetchCoaches();
   }, [navigate]);
@@ -39,7 +63,10 @@ const AdminCoaches = () => {
     try {
       setLoading(true);
       const response = await coachesApi.getAll();
-      setCoaches(Array.isArray(response) ? response : []);
+      const sortedCoaches = Array.isArray(response) 
+        ? response.sort((a, b) => a.displayOrder - b.displayOrder)
+        : [];
+      setCoaches(sortedCoaches);
     } catch (error) {
       setError('Failed to fetch coaches');
       setCoaches([]);
@@ -183,6 +210,34 @@ const AdminCoaches = () => {
     return getImageUrl(coach?.image?.url);
   };
 
+  const handleDragEnd = async (event: DragEndEvent) => {
+    const { active, over } = event;
+
+    if (over && active.id !== over.id) {
+      const oldIndex = coaches.findIndex((c) => c._id === active.id);
+      const newIndex = coaches.findIndex((c) => c._id === over.id);
+
+      const newCoaches = arrayMove(coaches, oldIndex, newIndex);
+      const reorderedCoaches = newCoaches.map((coach, index) => ({
+        ...coach,
+        displayOrder: index,
+      }));
+
+      setCoaches(reorderedCoaches);
+
+      try {
+        await coachesApi.reorder(
+          reorderedCoaches.map((c) => ({ id: c._id, displayOrder: c.displayOrder }))
+        );
+        setSuccess('Coaches reordered successfully');
+        setTimeout(() => setSuccess(''), 3000);
+      } catch (error) {
+        setError('Failed to reorder coaches');
+        fetchCoaches();
+      }
+    }
+  };
+
   if (loading) {
     return (
       <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '100vh' }}>
@@ -190,6 +245,126 @@ const AdminCoaches = () => {
       </Box>
     );
   }
+
+  const SortableCoachCard = ({ coach }) => {
+    const {
+      attributes,
+      listeners,
+      setNodeRef,
+      transform,
+      transition,
+      isDragging,
+    } = useSortable({ id: coach._id });
+
+    const style = {
+      transform: CSS.Transform.toString(transform),
+      transition,
+      opacity: isDragging ? 0.5 : 1,
+    };
+
+    return (
+      <Grid item xs={12} sm={6} md={4} ref={setNodeRef} style={style}>
+        <Card sx={{ 
+          height: '100%',
+          display: 'flex',
+          flexDirection: 'column',
+          transition: 'all 0.3s',
+          '&:hover': { transform: isDragging ? 'none' : 'translateY(-4px)', boxShadow: 4 },
+          cursor: isDragging ? 'grabbing' : 'grab',
+        }}>
+          <Box sx={{ position: 'relative' }}>
+            <IconButton
+              {...attributes}
+              {...listeners}
+              sx={{
+                position: 'absolute',
+                top: 8,
+                left: 8,
+                bgcolor: 'rgba(255,255,255,0.9)',
+                zIndex: 1,
+                '&:hover': { bgcolor: 'white' },
+              }}
+            >
+              <DragIndicator />
+            </IconButton>
+            {coach.image?.url ? (
+              <CardMedia
+                component="img"
+                height="240"
+                image={getCoachImageUrl(coach)}
+                alt={coach.name}
+                sx={{ objectFit: 'cover' }}
+              />
+            ) : (
+              <Box sx={{ 
+                height: 240, 
+                bgcolor: 'primary.main', 
+                display: 'flex', 
+                alignItems: 'center', 
+                justifyContent: 'center' 
+              }}>
+                <Avatar sx={{ width: 100, height: 100, fontSize: '3rem' }}>
+                  {coach.name.charAt(0)}
+                </Avatar>
+              </Box>
+            )}
+          </Box>
+          <CardContent sx={{ flexGrow: 1 }}>
+            <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'start', mb: 1 }}>
+              <Typography variant="h6" sx={{ fontWeight: 700 }}>
+                {coach.name}
+              </Typography>
+              <Box sx={{ display: 'flex', gap: 0.5 }}>
+                {coach.isFeatured && (
+                  <Chip icon={<Star />} label="Featured" size="small" color="warning" />
+                )}
+                <Chip 
+                  label={coach.isActive ? 'Active' : 'Inactive'} 
+                  size="small"
+                  color={coach.isActive ? 'success' : 'default'}
+                />
+              </Box>
+            </Box>
+            <Typography variant="body2" color="secondary" sx={{ mb: 1, fontWeight: 600 }}>
+              {coach.role}
+            </Typography>
+            <Typography variant="body2" color="text.secondary" sx={{ mb: 1 }}>
+              {coach.bio?.substring(0, 100)}{coach.bio?.length > 100 ? '...' : ''}
+            </Typography>
+            <Box sx={{ display: 'flex', gap: 1, mb: 2, flexWrap: 'wrap' }}>
+              {coach.specialty && (
+                <Chip label={coach.specialty} size="small" />
+              )}
+              {coach.experience && (
+                <Chip label={coach.experience} size="small" variant="outlined" />
+              )}
+            </Box>
+            <Box sx={{ display: 'flex', gap: 1 }}>
+              <Button 
+                size="small" 
+                variant="outlined" 
+                startIcon={<Edit />}
+                onClick={() => handleOpenDialog(coach)}
+                fullWidth
+              >
+                Edit
+              </Button>
+              <Button 
+                size="small" 
+                variant="outlined" 
+                color="error"
+                startIcon={<Delete />}
+                onClick={() => handleDelete(coach._id)}
+                fullWidth
+              >
+                Delete
+              </Button>
+            </Box>
+          </CardContent>
+        </Card>
+      </Grid>
+    );
+  };
 
   return (
     <AdminLayout>
@@ -215,103 +390,30 @@ const AdminCoaches = () => {
         {success && <Alert severity="success" sx={{ mb: 3 }} onClose={() => setSuccess('')}>{success}</Alert>}
         {error && <Alert severity="error" sx={{ mb: 3 }} onClose={() => setError('')}>{error}</Alert>}
 
-        <Grid container spacing={3}>
-          {!coaches || coaches.length === 0 ? (
-            <Grid item xs={12}>
-              <Card sx={{ textAlign: 'center', py: 8 }}>
-                <Typography variant="h6" color="text.secondary">
-                  No coaches found. Add your first coach!
-                </Typography>
-              </Card>
-            </Grid>
-          ) : (
-            coaches.map((coach) => (
-              <Grid item xs={12} sm={6} md={4} key={coach._id}>
-                <Card sx={{ 
-                  height: '100%',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  transition: 'all 0.3s',
-                  '&:hover': { transform: 'translateY(-4px)', boxShadow: 4 }
-                }}>
-                  {coach.image?.url ? (
-                    <CardMedia
-                      component="img"
-                      height="240"
-                      image={getCoachImageUrl(coach)}
-                      alt={coach.name}
-                      sx={{ objectFit: 'cover' }}
-                    />
-                  ) : (
-                    <Box sx={{ 
-                      height: 240, 
-                      bgcolor: 'primary.main', 
-                      display: 'flex', 
-                      alignItems: 'center', 
-                      justifyContent: 'center' 
-                    }}>
-                      <Avatar sx={{ width: 100, height: 100, fontSize: '3rem' }}>
-                        {coach.name.charAt(0)}
-                      </Avatar>
-                    </Box>
-                  )}
-                  <CardContent sx={{ flexGrow: 1 }}>
-                    <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'start', mb: 1 }}>
-                      <Typography variant="h6" sx={{ fontWeight: 700 }}>
-                        {coach.name}
-                      </Typography>
-                      <Box sx={{ display: 'flex', gap: 0.5 }}>
-                        {coach.isFeatured && (
-                          <Chip icon={<Star />} label="Featured" size="small" color="warning" />
-                        )}
-                        <Chip 
-                          label={coach.isActive ? 'Active' : 'Inactive'} 
-                          size="small"
-                          color={coach.isActive ? 'success' : 'default'}
-                        />
-                      </Box>
-                    </Box>
-                    <Typography variant="body2" color="secondary" sx={{ mb: 1, fontWeight: 600 }}>
-                      {coach.role}
-                    </Typography>
-                    <Typography variant="body2" color="text.secondary" sx={{ mb: 1 }}>
-                      {coach.bio?.substring(0, 100)}{coach.bio?.length > 100 ? '...' : ''}
-                    </Typography>
-                    <Box sx={{ display: 'flex', gap: 1, mb: 2, flexWrap: 'wrap' }}>
-                      {coach.specialty && (
-                        <Chip label={coach.specialty} size="small" />
-                      )}
-                      {coach.experience && (
-                        <Chip label={coach.experience} size="small" variant="outlined" />
-                      )}
-                    </Box>
-                    <Box sx={{ display: 'flex', gap: 1 }}>
-                      <Button 
-                        size="small" 
-                        variant="outlined" 
-                        startIcon={<Edit />}
-                        onClick={() => handleOpenDialog(coach)}
-                        fullWidth
-                      >
-                        Edit
-                      </Button>
-                      <Button 
-                        size="small" 
-                        variant="outlined" 
-                        color="error"
-                        startIcon={<Delete />}
-                        onClick={() => handleDelete(coach._id)}
-                        fullWidth
-                      >
-                        Delete
-                      </Button>
-                    </Box>
-                  </CardContent>
-                </Card>
+        {!coaches || coaches.length === 0 ? (
+          <Card sx={{ textAlign: 'center', py: 8 }}>
+            <Typography variant="h6" color="text.secondary">
+              No coaches found. Add your first coach!
+            </Typography>
+          </Card>
+        ) : (
+          <DndContext
+            sensors={sensors}
+            collisionDetection={closestCenter}
+            onDragEnd={handleDragEnd}
+          >
+            <SortableContext
+              items={coaches.map((c) => c._id)}
+              strategy={verticalListSortingStrategy}
+            >
+              <Grid container spacing={3}>
+                {coaches.map((coach) => (
+                  <SortableCoachCard key={coach._id} coach={coach} />
+                ))}
               </Grid>
-            ))
-          )}
-        </Grid>
+            </SortableContext>
+          </DndContext>
+        )}
       </Container>
 
       {/* Add/Edit Dialog */}

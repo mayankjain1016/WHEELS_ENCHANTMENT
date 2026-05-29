@@ -216,3 +216,27 @@ export const toggleCoachFeatured = asyncHandler(async (req: Request, res: Respon
 
   ApiResponse.success(res, { coach }, 'Coach featured status updated successfully');
 });
+
+/**
+ * @route   POST /api/v1/coaches/reorder
+ * @desc    Bulk update coach display order
+ * @access  Private (Admin)
+ */
+export const reorderCoaches = asyncHandler(async (req: Request, res: Response) => {
+  const { coaches } = req.body;
+
+  if (!Array.isArray(coaches) || coaches.length === 0) {
+    throw ApiError.badRequest('Coaches array is required');
+  }
+
+  const bulkOps = coaches.map((coach: { id: string; displayOrder: number }) => ({
+    updateOne: {
+      filter: { _id: coach.id },
+      update: { displayOrder: coach.displayOrder }
+    }
+  }));
+
+  await Coach.bulkWrite(bulkOps);
+
+  ApiResponse.success(res, null, 'Coaches reordered successfully');
+});

@@ -44,5 +44,6 @@ router.delete('/:id', validateParams(coachIdSchema), coachController.deleteCoach
 router.patch('/:id/order', validateParams(coachIdSchema), coachController.updateCoachOrder);
 router.patch('/:id/toggle-active', validateParams(coachIdSchema), coachController.toggleCoachActive);
 router.patch('/:id/toggle-featured', validateParams(coachIdSchema), coachController.toggleCoachFeatured);
+router.post('/reorder', coachController.reorderCoaches);
 
 export default router;

@@ -71,18 +71,18 @@ class EmailService {
    * Send lead notification email
    */
   async sendLeadNotification(leadData: {
-    studentName: string;
-    parentName: string;
+    studentName?: string;
+    parentName?: string;
     email: string;
-    phone: string;
+    phone?: string;
     message?: string;
   }): Promise<void> {
     const html = `
       <h2>New Admission Inquiry</h2>
-      <p><strong>Student Name:</strong> ${leadData.studentName}</p>
-      <p><strong>Parent Name:</strong> ${leadData.parentName}</p>
+      ${leadData.studentName ? `<p><strong>Student Name:</strong> ${leadData.studentName}</p>` : ''}
+      ${leadData.parentName ? `<p><strong>Parent Name:</strong> ${leadData.parentName}</p>` : ''}
       <p><strong>Email:</strong> ${leadData.email}</p>
-      <p><strong>Phone:</strong> ${leadData.phone}</p>
+      ${leadData.phone ? `<p><strong>Phone:</strong> ${leadData.phone}</p>` : ''}
       ${leadData.message ? `<p><strong>Message:</strong> ${leadData.message}</p>` : ''}
       <p>Please follow up with this inquiry as soon as possible.</p>
     `;
@@ -97,11 +97,12 @@ class EmailService {
   /**
    * Send welcome email to lead
    */
-  async sendWelcomeEmail(to: string, studentName: string): Promise<void> {
+  async sendWelcomeEmail(to: string, studentName?: string): Promise<void> {
+    const name = studentName || 'Student';
     const html = `
       <h2>Welcome to Wheels Enchantment!</h2>
       <p>Dear Parent/Guardian,</p>
-      <p>Thank you for your interest in enrolling ${studentName} at Wheels Enchantment.</p>
+      <p>Thank you for your interest in enrolling ${name} at Wheels Enchantment.</p>
       <p>We have received your inquiry and our team will contact you shortly to discuss the next steps.</p>
       <p>In the meantime, feel free to reach out to us at:</p>
       <ul>
@@ -145,9 +146,10 @@ class EmailService {
    */
   async sendLeadStatusUpdate(
     to: string,
-    studentName: string,
+    studentName: string | undefined,
     status: string
   ): Promise<void> {
+    const name = studentName || 'the student';
     let message = '';
 
     switch (status) {
@@ -167,7 +169,7 @@ class EmailService {
     const html = `
       <h2>Application Status Update</h2>
       <p>Dear Parent/Guardian,</p>
-      <p>This is to inform you that the status of ${studentName}'s application has been updated to: <strong>${status}</strong></p>
+      <p>This is to inform you that the status of ${name}'s application has been updated to: <strong>${status}</strong></p>
       <p>${message}</p>
       <p>If you have any questions, please contact us.</p>
       <p>Best regards,<br>Wheels Enchantment Team</p>
