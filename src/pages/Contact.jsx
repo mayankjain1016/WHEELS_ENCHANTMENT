@@ -330,7 +330,7 @@ const Contact = () => {
                       Phone
                     </Typography>
                     <Typography color="text.secondary">
-                      +91 9674242870
+                      +91 96742 42870
                     </Typography>
                     <Typography color="text.secondary">
                       Mon-Sat: 9AM - 7PM IST
@@ -347,9 +347,9 @@ const Contact = () => {
                       Location
                     </Typography>
                     <Typography color="text.secondary">
-                      123 Skate Street<br />
-                      Los Angeles, CA 90001<br />
-                      United States
+                      329 Netaji Subhas Road<br />
+                      Near Kali Babu Bazar, 3rd Floor<br />
+                      Howrah - 711101
                     </Typography>
                   </Box>
                 </CardContent>

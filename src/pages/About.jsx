@@ -1186,10 +1186,8 @@ const About = () => {
               Become part of the Wheels Enchntment family. Experience world-class coaching, a supportive community, and a transformative skating journey.
             </Typography>
             <Button
-              component="a"
-              href="https://docs.google.com/forms/d/e/1FAIpQLSewHxoYAZXBgkeWcz8mE4oIT5aNmKQ-olxzRG8uDJYSOoDvkw/viewform"
-              target="_blank"
-              rel="noopener noreferrer"
+              component={Link}
+              to="/contact"
               variant="contained"
               color="secondary"
               size="large"

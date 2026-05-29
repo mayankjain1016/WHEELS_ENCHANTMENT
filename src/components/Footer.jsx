@@ -80,7 +80,7 @@ const Footer = () => {
             </Box>
             <Typography variant="body2" sx={{ color: 'rgba(255,255,255,0.8)', mt: 2 }}>
               Email: Wheelsenchntment27@gmail.com<br />
-              Phone: +91 9674242870
+              Phone: +91 96742 42870
             </Typography>
           </Grid>
         </Grid>
