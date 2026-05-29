@@ -5,6 +5,18 @@ import { v4 as uuidv4 } from 'uuid';
 import { env } from '../config/env';
 import logger from '../utils/logger';
 
+interface MulterFile {
+  fieldname: string;
+  originalname: string;
+  encoding: string;
+  mimetype: string;
+  size: number;
+  buffer: Buffer;
+  destination?: string;
+  filename?: string;
+  path?: string;
+}
+
 export interface ImageVariant {
   url: string;
   width: number;
@@ -126,7 +138,7 @@ class ImageProcessor {
    * Process multiple images
    */
   async processMultipleImages(
-    files: Express.Multer.File[],
+    files: MulterFile[],
     entity: string,
     options?: Parameters<typeof this.processImage>[2]
   ): Promise<ProcessedImage[]> {
@@ -225,7 +237,7 @@ class ImageProcessor {
   /**
    * Validate image file
    */
-  validateImage(file: Express.Multer.File): { valid: boolean; error?: string } {
+  validateImage(file: MulterFile): { valid: boolean; error?: string } {
     const allowedMimeTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'];
     const maxSize = env.MAX_FILE_SIZE;
 
