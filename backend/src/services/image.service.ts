@@ -206,13 +206,8 @@ class ImageProcessor {
     // Normalize all backslashes to forward slashes
     const normalizedPath = absolutePath.replace(/\\/g, '/');
     
-    // Log for debugging
-    logger.info('Processing path:', normalizedPath);
-    logger.info('Upload path:', this.uploadPath);
-    
     // Get the resolved absolute upload path
     const resolvedUploadPath = path.resolve(this.uploadPath).replace(/\\/g, '/');
-    logger.info('Resolved upload path:', resolvedUploadPath);
     
     // Remove the upload path to get relative path
     let relativePath = normalizedPath.replace(resolvedUploadPath, '');
@@ -222,11 +217,9 @@ class ImageProcessor {
       relativePath = '/' + relativePath;
     }
     
-    // Return with /uploads prefix
-    const finalUrl = `/uploads${relativePath}`;
-    logger.info('Final URL:', finalUrl);
-    
-    return finalUrl;
+    // The upload path is './uploads', so when we remove it, we get '/entity/year/month/variant/file'
+    // We need to add '/uploads' prefix since express.static serves from '/uploads'
+    return `/uploads${relativePath}`;
   }
 
   /**

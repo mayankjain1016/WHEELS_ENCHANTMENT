@@ -7,22 +7,28 @@ const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || 'http://localhost:5000';
  * @returns Full URL to the image
  */
 export const getImageUrl = (imagePath: string | undefined | null): string => {
-  if (!imagePath) return '';
+  if (!imagePath) return '/placeholder.jpg';
   
   // If already a full URL, return as is
   if (imagePath.startsWith('http://') || imagePath.startsWith('https://')) {
     return imagePath;
   }
   
-  // Fix duplicate /uploads/ if present
+  // Fix duplicate /uploads/ - handle multiple cases
   let cleanPath = imagePath;
-  if (cleanPath.includes('/uploads/uploads/')) {
+  
+  // Remove all instances of duplicate uploads
+  while (cleanPath.includes('/uploads/uploads/')) {
     cleanPath = cleanPath.replace('/uploads/uploads/', '/uploads/');
   }
   
-  // Ensure path starts with /
-  if (!cleanPath.startsWith('/')) {
-    cleanPath = '/' + cleanPath;
+  // If path doesn't start with /uploads, add it
+  if (!cleanPath.startsWith('/uploads')) {
+    // Remove leading slash if present
+    if (cleanPath.startsWith('/')) {
+      cleanPath = cleanPath.substring(1);
+    }
+    cleanPath = `/uploads/${cleanPath}`;
   }
   
   // Construct full URL using backend URL
