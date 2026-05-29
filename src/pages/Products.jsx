@@ -229,29 +229,94 @@ const Products = () => {
           </Box>
         )}
 
-        {/* --- PAGINATION --- */}
+        {/* --- PERFECT PAGINATION SYSTEM --- */}
         {!loading && totalPages > 1 && (
-          <Box sx={{ display: 'flex', justifyContent: 'center', mt: 8 }}>
-            <Pagination 
-              count={totalPages} 
-              page={page} 
-              onChange={handlePageChange}
-              color="secondary"
-              size="large"
-              sx={{
-                '& .MuiPaginationItem-root': {
+          <Box sx={{ mt: 10 }}>
+            {/* Pagination Info */}
+            <Box sx={{ 
+              display: 'flex', 
+              justifyContent: 'space-between', 
+              alignItems: 'center',
+              mb: 3,
+              p: { xs: 1.5, md: 2 },
+              borderRadius: 2,
+              bgcolor: alpha(theme.palette.primary.main, 0.05),
+              border: `1px solid ${alpha(theme.palette.primary.main, 0.1)}`,
+              flexWrap: 'wrap',
+              gap: 2
+            }}>
+              <Typography 
+                variant="body2" 
+                sx={{ 
                   fontWeight: 600,
-                  fontSize: '1rem',
-                },
-                '& .Mui-selected': {
-                  bgcolor: 'secondary.main',
-                  color: 'white',
-                  '&:hover': {
-                    bgcolor: 'secondary.dark',
+                  color: 'text.secondary',
+                  fontSize: { xs: '0.85rem', md: '0.95rem' }
+                }}
+              >
+                Showing {((page - 1) * ITEMS_PER_PAGE) + 1} to {Math.min(page * ITEMS_PER_PAGE, totalProducts)} of {totalProducts} products
+              </Typography>
+              <Typography 
+                variant="body2" 
+                sx={{ 
+                  fontWeight: 600,
+                  color: 'primary.main',
+                  fontSize: { xs: '0.85rem', md: '0.95rem' }
+                }}
+              >
+                Page {page} of {totalPages}
+              </Typography>
+            </Box>
+
+            {/* Pagination Controls */}
+            <Box sx={{ 
+              display: 'flex', 
+              justifyContent: 'center', 
+              gap: 1,
+              flexWrap: 'wrap'
+            }}>
+              <Pagination 
+                count={totalPages} 
+                page={page} 
+                onChange={handlePageChange}
+                color="secondary"
+                size="large"
+                shape="rounded"
+                showFirstButton
+                showLastButton
+                sx={{
+                  '& .MuiPaginationItem-root': {
+                    fontWeight: 600,
+                    fontSize: { xs: '0.9rem', md: '1rem' },
+                    minWidth: { xs: '36px', md: '40px' },
+                    height: { xs: '36px', md: '40px' },
+                    border: `2px solid ${alpha(theme.palette.divider, 0.3)}`,
+                    transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+                    '&:hover': {
+                      transform: 'translateY(-2px)',
+                      boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
+                      borderColor: theme.palette.secondary.main,
+                    }
+                  },
+                  '& .Mui-selected': {
+                    bgcolor: 'secondary.main',
+                    color: 'white',
+                    fontWeight: 700,
+                    border: `2px solid ${theme.palette.secondary.main}`,
+                    boxShadow: '0 4px 12px rgba(0,0,0,0.15)',
+                    '&:hover': {
+                      bgcolor: 'secondary.dark',
+                      borderColor: 'secondary.dark',
+                      transform: 'translateY(-2px)',
+                      boxShadow: '0 6px 16px rgba(0,0,0,0.2)',
+                    }
+                  },
+                  '& .MuiButtonBase-root.Mui-disabled': {
+                    opacity: 0.4,
+                    cursor: 'not-allowed',
                   }
-                }
-              }}
-            />
+                }}
+              />
+            </Box>
           </Box>
         )}
       </Container>
