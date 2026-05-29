@@ -8,11 +8,17 @@ import ApiError from '../utils/ApiError';
 export const validate = (schema: AnyZodObject) => {
   return async (req: Request, _res: Response, next: NextFunction) => {
     try {
+      console.log('=== VALIDATION DEBUG ===');
+      console.log('Request Body:', JSON.stringify(req.body, null, 2));
+      console.log('Request Query:', JSON.stringify(req.query, null, 2));
+      console.log('Request Params:', JSON.stringify(req.params, null, 2));
+      
       await schema.parseAsync({
         body: req.body,
         query: req.query,
         params: req.params
       });
+      console.log('Validation passed');
       next();
     } catch (error) {
       if (error instanceof ZodError) {
@@ -20,6 +26,10 @@ export const validate = (schema: AnyZodObject) => {
           field: err.path.join('.'),
           message: err.message
         }));
+
+        console.error('=== VALIDATION ERRORS ===');
+        console.error(JSON.stringify(errors, null, 2));
+        console.error('=== VALIDATION ERRORS END ===');
 
         return next(
           ApiError.unprocessableEntity('Validation failed', errors)
