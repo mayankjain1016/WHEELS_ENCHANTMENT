@@ -1,6 +1,6 @@
 import { 
   Box, Container, Grid, Chip, useTheme, 
-  Typography, alpha, Stack, CircularProgress, Skeleton 
+  Typography, alpha, Stack, CircularProgress, Skeleton, Pagination 
 } from '@mui/material';
 import { useState, useEffect } from 'react';
 import ProductCard from '../components/ProductCard';
@@ -18,7 +18,7 @@ const Products = () => {
   const [loadingMore, setLoadingMore] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [page, setPage] = useState(1);
-  const [hasMore, setHasMore] = useState(true);
+  const [totalPages, setTotalPages] = useState(0);
   const [totalProducts, setTotalProducts] = useState(0);
   const ITEMS_PER_PAGE = 50;
 
@@ -38,11 +38,7 @@ const Products = () => {
 
   useEffect(() => {
     const fetchProducts = async () => {
-      if (page === 1) {
-        setLoading(true);
-      } else {
-        setLoadingMore(true);
-      }
+      setLoading(true);
       
       try {
         const params = {
@@ -60,22 +56,14 @@ const Products = () => {
         const productsData = response?.data?.data || response?.data || [];
         const paginationData = response?.data?.pagination || response?.pagination || {};
         
-        if (page === 1) {
-          setProducts(Array.isArray(productsData) ? productsData : []);
-        } else {
-          setProducts(prev => [...prev, ...(Array.isArray(productsData) ? productsData : [])]);
-        }
-        
-        setHasMore(paginationData?.hasNextPage || false);
+        setProducts(Array.isArray(productsData) ? productsData : []);
+        setTotalPages(paginationData?.totalPages || 0);
         setTotalProducts(paginationData?.total || productsData.length);
       } catch (error) {
         console.error('Failed to fetch products:', error);
-        if (page === 1) {
-          setProducts([]);
-        }
+        setProducts([]);
       } finally {
         setLoading(false);
-        setLoadingMore(false);
       }
     };
 
@@ -85,13 +73,11 @@ const Products = () => {
   const handleCategoryChange = (categoryId) => {
     setSelectedCategory(categoryId);
     setPage(1);
-    setProducts([]);
   };
 
-  const handleSeeMore = () => {
-    if (hasMore) {
-      setPage(prev => prev + 1);
-    }
+  const handlePageChange = (event, value) => {
+    setPage(value);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const getProductImageUrl = (product) => {
@@ -209,10 +195,9 @@ const Products = () => {
         </Box>
 
         {/* --- PRODUCTS GRID --- */}
-        <Grid container spacing={3}>
-          {loading && page === 1 ? (
-            // Skeleton Loading
-            Array.from({ length: ITEMS_PER_PAGE }).map((_, index) => (
+        {loading ? (
+          <Grid container spacing={3}>
+            {Array.from({ length: 12 }).map((_, index) => (
               <Grid item xs={6} sm={6} md={4} key={`skeleton-${index}`}>
                 <Skeleton 
                   variant="rectangular" 
@@ -222,19 +207,20 @@ const Products = () => {
                   }} 
                 />
               </Grid>
-            ))
-          ) : (
-            // Actual Products
-            products.map((product) => (
+            ))}
+          </Grid>
+        ) : (
+          <Grid container spacing={3}>
+            {products.map((product) => (
               <Grid item xs={6} sm={6} md={4} key={product._id}>
                 <ProductCard product={{
                   ...product,
                   image: getProductImageUrl(product)
                 }} />
               </Grid>
-            ))
-          )}
-        </Grid>
+            ))}
+          </Grid>
+        )}
 
         {/* --- EMPTY STATE --- */}
         {!loading && products.length === 0 && (
@@ -243,46 +229,29 @@ const Products = () => {
           </Box>
         )}
 
-        {/* --- SEE MORE BUTTON --- */}
-        {!loading && (
-          <Box sx={{ textAlign: 'center', mt: 8 }}>
-            {hasMore && products.length > 0 ? (
-              <>
-                <Box
-                  onClick={handleSeeMore}
-                  sx={{
-                    display: 'inline-flex',
-                    alignItems: 'center',
-                    gap: 1,
-                    px: 5,
-                    py: 1.5,
-                    borderRadius: '50px',
-                    bgcolor: loadingMore ? 'grey.400' : 'secondary.main',
-                    color: 'white',
-                    fontWeight: 700,
-                    fontSize: '1rem',
-                    letterSpacing: 1,
-                    cursor: loadingMore ? 'not-allowed' : 'pointer',
-                    transition: 'all 0.3s ease',
-                    boxShadow: '0 4px 15px rgba(233, 30, 99, 0.3)',
-                    '&:hover': {
-                      bgcolor: loadingMore ? 'grey.400' : 'secondary.dark',
-                      transform: loadingMore ? 'none' : 'translateY(-2px)',
-                      boxShadow: loadingMore ? '0 4px 15px rgba(233, 30, 99, 0.3)' : '0 6px 20px rgba(233, 30, 99, 0.4)',
-                    }
-                  }}
-                >
-                  {loadingMore ? <CircularProgress size={20} color="inherit" /> : 'See More'}
-                </Box>
-                <Typography variant="body2" sx={{ mt: 2, color: 'text.secondary', fontWeight: 500 }}>
-                  Showing {products.length} of {totalProducts} products
-                </Typography>
-              </>
-            ) : products.length > 0 && totalProducts > 0 ? (
-              <Typography variant="body2" sx={{ color: 'text.secondary', fontWeight: 500 }}>
-                Showing all {products.length} products
-              </Typography>
-            ) : null}
+        {/* --- PAGINATION --- */}
+        {!loading && totalPages > 1 && (
+          <Box sx={{ display: 'flex', justifyContent: 'center', mt: 8 }}>
+            <Pagination 
+              count={totalPages} 
+              page={page} 
+              onChange={handlePageChange}
+              color="secondary"
+              size="large"
+              sx={{
+                '& .MuiPaginationItem-root': {
+                  fontWeight: 600,
+                  fontSize: '1rem',
+                },
+                '& .Mui-selected': {
+                  bgcolor: 'secondary.main',
+                  color: 'white',
+                  '&:hover': {
+                    bgcolor: 'secondary.dark',
+                  }
+                }
+              }}
+            />
           </Box>
         )}
       </Container>

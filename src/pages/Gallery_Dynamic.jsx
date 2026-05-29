@@ -1,4 +1,4 @@
-import { Box, Container, Grid, Card, CardMedia, Dialog, IconButton, Typography, alpha, useTheme, CircularProgress, Skeleton } from '@mui/material';
+import { Box, Container, Grid, Card, CardMedia, Dialog, IconButton, Typography, alpha, useTheme, CircularProgress, Skeleton, Pagination, Chip, Stack } from '@mui/material';
 import { useState, useEffect } from 'react';
 import { X } from 'lucide-react';
 import { galleryApi } from '../api/gallery';
@@ -11,65 +11,70 @@ const Gallery = () => {
   const [open, setOpen] = useState(false);
   const [images, setImages] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [loadingMore, setLoadingMore] = useState(false);
   const [page, setPage] = useState(1);
-  const [hasMore, setHasMore] = useState(true);
+  const [totalPages, setTotalPages] = useState(0);
   const [totalImages, setTotalImages] = useState(0);
-  const ITEMS_PER_PAGE = 50; // Increased to show more images per page
+  const [selectedCategory, setSelectedCategory] = useState('all');
+  const [categories, setCategories] = useState([]);
+  const ITEMS_PER_PAGE = 50;
+
+  // Fetch categories
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const response = await galleryApi.getCategories();
+        setCategories(Array.isArray(response) ? response : []);
+      } catch (error) {
+        console.error('Failed to fetch categories:', error);
+        setCategories([]);
+      }
+    };
+    fetchCategories();
+  }, []);
 
   // Fetch gallery images from API
   useEffect(() => {
     const fetchImages = async () => {
-      if (page === 1) {
-        setLoading(true);
-      } else {
-        setLoadingMore(true);
-      }
+      setLoading(true);
       
       try {
-        const response = await galleryApi.getAll({
+        const params = {
           page,
           limit: ITEMS_PER_PAGE,
           isActive: true
-        });
+        };
+        
+        if (selectedCategory !== 'all') {
+          params.category = selectedCategory;
+        }
+        
+        const response = await galleryApi.getAll(params);
         
         const imagesData = response?.data?.data || response?.data || [];
         const paginationData = response?.data?.pagination || response?.pagination || {};
         
-        console.log('Gallery API Response:', { imagesData: imagesData.length, paginationData, page });
-        
-        if (page === 1) {
-          setImages(Array.isArray(imagesData) ? imagesData : []);
-        } else {
-          setImages(prev => [...prev, ...(Array.isArray(imagesData) ? imagesData : [])]);
-        }
-        
-        setHasMore(paginationData?.hasNextPage || false);
+        setImages(Array.isArray(imagesData) ? imagesData : []);
+        setTotalPages(paginationData?.totalPages || 0);
         setTotalImages(paginationData?.total || imagesData.length);
-        
-        console.log('Pagination state:', { 
-          hasMore: paginationData?.hasNextPage, 
-          total: paginationData?.total,
-          currentImages: page === 1 ? imagesData.length : images.length + imagesData.length
-        });
       } catch (error) {
         console.error('Failed to fetch gallery:', error);
-        if (page === 1) {
-          setImages([]);
-        }
+        setImages([]);
       } finally {
         setLoading(false);
-        setLoadingMore(false);
       }
     };
 
     fetchImages();
-  }, [page]);
+  }, [page, selectedCategory]);
 
-  const handleSeeMore = () => {
-    if (hasMore) {
-      setPage(prev => prev + 1);
-    }
+  const handlePageChange = (event, value) => {
+    setPage(value);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const handleCategoryChange = (category) => {
+    setSelectedCategory(category);
+    setPage(1);
   };
 
   const handleImageClick = (index) => {
@@ -125,12 +130,87 @@ const Gallery = () => {
         </Container>
       </Box>
 
-      <Container maxWidth="lg" sx={{ mt: 6, position: 'relative', zIndex: 10, pb: 10 }}>
-        {/* Gallery Grid */}
-        <Grid container spacing={3}>
+      <Container maxWidth="lg" sx={{ mt: -5, position: 'relative', zIndex: 10, pb: 10 }}>
+        
+        {/* Category Filter Bar */}
+        <Box sx={{ 
+          p: { xs: 2, md: 2.5 }, 
+          borderRadius: { xs: '12px', md: '16px' }, 
+          bgcolor: alpha(theme.palette.background.paper, 0.9),
+          backdropFilter: 'blur(10px)',
+          boxShadow: '0 10px 40px rgba(0,0,0,0.1)',
+          mb: 6,
+          border: `1px solid ${alpha(theme.palette.divider, 0.1)}`,
+        }}>
           {loading && page === 1 ? (
-            // Skeleton Loading
-            Array.from({ length: ITEMS_PER_PAGE }).map((_, index) => (
+            <Box sx={{ display: 'flex', justifyContent: 'center', py: 2 }}>
+              <CircularProgress size={30} />
+            </Box>
+          ) : (
+            <Stack 
+              direction="row" 
+              spacing={1}
+              sx={{ 
+                flexWrap: 'wrap',
+                justifyContent: { xs: 'center', md: 'center' },
+                rowGap: 1,
+              }}
+            >
+              <Chip
+                label="All"
+                onClick={() => handleCategoryChange('all')}
+                sx={{ 
+                  cursor: 'pointer',
+                  px: { xs: 1.5, md: 2 },
+                  py: { xs: 0.5, md: 0.75 },
+                  height: { xs: '32px', md: '36px' },
+                  fontSize: { xs: '0.75rem', md: '0.875rem' },
+                  fontWeight: 600,
+                  borderRadius: '20px',
+                  transition: 'all 0.3s ease',
+                  bgcolor: selectedCategory === 'all' ? 'primary.main' : 'transparent',
+                  color: selectedCategory === 'all' ? 'white' : 'text.primary',
+                  border: `1px solid ${selectedCategory === 'all' ? 'primary.main' : alpha(theme.palette.divider, 0.2)}`,
+                  '&:hover': { 
+                    bgcolor: selectedCategory === 'all' ? 'primary.dark' : alpha(theme.palette.primary.main, 0.08),
+                    transform: 'translateY(-2px)',
+                    boxShadow: '0 4px 12px rgba(0,0,0,0.1)'
+                  }
+                }}
+              />
+              {categories.map((cat) => (
+                <Chip
+                  key={cat}
+                  label={cat}
+                  onClick={() => handleCategoryChange(cat)}
+                  sx={{ 
+                    cursor: 'pointer',
+                    px: { xs: 1.5, md: 2 },
+                    py: { xs: 0.5, md: 0.75 },
+                    height: { xs: '32px', md: '36px' },
+                    fontSize: { xs: '0.75rem', md: '0.875rem' },
+                    fontWeight: 600,
+                    borderRadius: '20px',
+                    transition: 'all 0.3s ease',
+                    bgcolor: selectedCategory === cat ? 'primary.main' : 'transparent',
+                    color: selectedCategory === cat ? 'white' : 'text.primary',
+                    border: `1px solid ${selectedCategory === cat ? 'primary.main' : alpha(theme.palette.divider, 0.2)}`,
+                    '&:hover': { 
+                      bgcolor: selectedCategory === cat ? 'primary.dark' : alpha(theme.palette.primary.main, 0.08),
+                      transform: 'translateY(-2px)',
+                      boxShadow: '0 4px 12px rgba(0,0,0,0.1)'
+                    }
+                  }}
+                />
+              ))}
+            </Stack>
+          )}
+        </Box>
+
+        {/* Gallery Grid */}
+        {loading ? (
+          <Grid container spacing={3}>
+            {Array.from({ length: 12 }).map((_, index) => (
               <Grid item xs={6} md={4} key={`skeleton-${index}`}>
                 <Skeleton 
                   variant="rectangular" 
@@ -140,10 +220,11 @@ const Gallery = () => {
                   }} 
                 />
               </Grid>
-            ))
-          ) : (
-            // Actual Images
-            images.map((image, index) => (
+            ))}
+          </Grid>
+        ) : (
+          <Grid container spacing={3}>
+            {images.map((image, index) => (
               <Grid item xs={6} md={4} key={image._id}>
                 <Card 
                   sx={{ 
@@ -175,9 +256,9 @@ const Gallery = () => {
                   />
                 </Card>
               </Grid>
-            ))
-          )}
-        </Grid>
+            ))}
+          </Grid>
+        )}
 
         {/* Empty State */}
         {!loading && images.length === 0 && (
@@ -186,46 +267,29 @@ const Gallery = () => {
           </Box>
         )}
 
-        {/* See More Button */}
-        {!loading && (
-          <Box sx={{ textAlign: 'center', mt: 8 }}>
-            {hasMore && images.length > 0 ? (
-              <>
-                <Box
-                  onClick={handleSeeMore}
-                  sx={{
-                    display: 'inline-flex',
-                    alignItems: 'center',
-                    gap: 1,
-                    px: 5,
-                    py: 1.5,
-                    borderRadius: '50px',
-                    bgcolor: loadingMore ? 'grey.400' : 'secondary.main',
-                    color: 'white',
-                    fontWeight: 700,
-                    fontSize: '1rem',
-                    letterSpacing: 1,
-                    cursor: loadingMore ? 'not-allowed' : 'pointer',
-                    transition: 'all 0.3s ease',
-                    boxShadow: '0 4px 15px rgba(233, 30, 99, 0.3)',
-                    '&:hover': {
-                      bgcolor: loadingMore ? 'grey.400' : 'secondary.dark',
-                      transform: loadingMore ? 'none' : 'translateY(-2px)',
-                      boxShadow: loadingMore ? '0 4px 15px rgba(233, 30, 99, 0.3)' : '0 6px 20px rgba(233, 30, 99, 0.4)',
-                    }
-                  }}
-                >
-                  {loadingMore ? <CircularProgress size={20} color="inherit" /> : 'See More'}
-                </Box>
-                <Typography variant="body2" sx={{ mt: 2, color: 'text.secondary', fontWeight: 500 }}>
-                  Showing {images.length} of {totalImages} images
-                </Typography>
-              </>
-            ) : images.length > 0 && totalImages > 0 ? (
-              <Typography variant="body2" sx={{ color: 'text.secondary', fontWeight: 500 }}>
-                Showing all {images.length} images
-              </Typography>
-            ) : null}
+        {/* Pagination */}
+        {!loading && totalPages > 1 && (
+          <Box sx={{ display: 'flex', justifyContent: 'center', mt: 8 }}>
+            <Pagination 
+              count={totalPages} 
+              page={page} 
+              onChange={handlePageChange}
+              color="secondary"
+              size="large"
+              sx={{
+                '& .MuiPaginationItem-root': {
+                  fontWeight: 600,
+                  fontSize: '1rem',
+                },
+                '& .Mui-selected': {
+                  bgcolor: 'secondary.main',
+                  color: 'white',
+                  '&:hover': {
+                    bgcolor: 'secondary.dark',
+                  }
+                }
+              }}
+            />
           </Box>
         )}
       </Container>
