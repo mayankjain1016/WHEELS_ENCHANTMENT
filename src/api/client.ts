@@ -8,7 +8,7 @@ const apiClient = axios.create({
     'Content-Type': 'application/json',
   },
   withCredentials: true,
-  timeout: 10000, // 10 second timeout
+  timeout: 60000, // 60 second timeout for file uploads
 });
 
 // Response interceptor to handle token refresh

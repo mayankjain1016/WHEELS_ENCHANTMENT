@@ -50,47 +50,47 @@ const Contact = () => {
     try {
       const formDataToSend = new FormData();
       
-      // Append all text fields
+      // Append all text fields (only non-empty values)
       Object.keys(formData).forEach(key => {
-        if (formData[key]) {
+        if (formData[key] && formData[key].toString().trim() !== '') {
           formDataToSend.append(key, formData[key]);
         }
       });
-
-      // Append age as number if provided
-      if (formData.age) {
-        formDataToSend.append('age', formData.age);
-      }
 
       // Append files
       if (photo) formDataToSend.append('photo', photo);
       if (aadharCard) formDataToSend.append('aadharCard', aadharCard);
 
+      console.log('Submitting form data...');
       await leadsApi.submit(formDataToSend);
+      
       setSubmitted(true);
-      setTimeout(() => {
-        setSubmitted(false);
-        setFormData({
-          studentName: '',
-          dateOfBirth: '',
-          school: '',
-          fatherName: '',
-          fatherMobile: '',
-          motherName: '',
-          motherMobile: '',
-          address: '',
-          email: '',
-          age: '',
-          location: '',
-          preferredLocation: '',
-          experienceLevel: 'Beginner',
-          message: ''
-        });
-        setPhoto(null);
-        setAadharCard(null);
-      }, 3000);
+      // Reset form
+      setFormData({
+        studentName: '',
+        dateOfBirth: '',
+        school: '',
+        fatherName: '',
+        fatherMobile: '',
+        motherName: '',
+        motherMobile: '',
+        address: '',
+        email: '',
+        age: '',
+        location: '',
+        preferredLocation: '',
+        experienceLevel: 'Beginner',
+        message: ''
+      });
+      setPhoto(null);
+      setAadharCard(null);
+      
+      // Clear success message after 5 seconds
+      setTimeout(() => setSubmitted(false), 5000);
     } catch (err) {
-      setError(err.response?.data?.message || 'Failed to submit form. Please try again.');
+      console.error('Form submission error:', err);
+      const errorMessage = err.response?.data?.message || err.message || 'Failed to submit form. Please try again.';
+      setError(errorMessage);
     } finally {
       setLoading(false);
     }

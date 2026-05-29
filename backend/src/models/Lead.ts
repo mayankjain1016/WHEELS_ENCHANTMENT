@@ -37,47 +37,37 @@ const leadSchema = new Schema<ILead>(
   {
     studentName: {
       type: String,
-      required: [true, 'Student name is required'],
       trim: true,
       maxlength: [100, 'Name cannot exceed 100 characters']
     },
     dateOfBirth: {
-      type: Date,
-      required: [true, 'Date of birth is required']
+      type: Date
     },
     school: {
       type: String,
-      required: [true, 'School name is required'],
       trim: true,
       maxlength: [200, 'School name cannot exceed 200 characters']
     },
     fatherName: {
       type: String,
-      required: [true, 'Father name is required'],
       trim: true,
       maxlength: [100, 'Name cannot exceed 100 characters']
     },
     fatherMobile: {
       type: String,
-      required: [true, 'Father mobile number is required'],
-      trim: true,
-      match: [/^[0-9]{10}$/, 'Please provide a valid 10-digit phone number']
+      trim: true
     },
     motherName: {
       type: String,
-      required: [true, 'Mother name is required'],
       trim: true,
       maxlength: [100, 'Name cannot exceed 100 characters']
     },
     motherMobile: {
       type: String,
-      required: [true, 'Mother mobile number is required'],
-      trim: true,
-      match: [/^[0-9]{10}$/, 'Please provide a valid 10-digit phone number']
+      trim: true
     },
     address: {
       type: String,
-      required: [true, 'Address is required'],
       trim: true,
       maxlength: [500, 'Address cannot exceed 500 characters']
     },

@@ -3,9 +3,7 @@ import { z } from 'zod';
 export const createLeadSchema = z.object({
   body: z.object({
     studentName: z
-      .string({
-        required_error: 'Student name is required'
-      })
+      .string()
       .min(1, 'Student name is required')
       .trim()
       .optional(),
@@ -20,17 +18,13 @@ export const createLeadSchema = z.object({
       .optional(),
     fatherMobile: z
       .string()
-      .regex(/^[0-9]{10}$/, 'Invalid phone number')
-      .optional()
-      .or(z.literal('')),
+      .optional(),
     motherName: z
       .string()
       .optional(),
     motherMobile: z
       .string()
-      .regex(/^[0-9]{10}$/, 'Invalid phone number')
-      .optional()
-      .or(z.literal('')),
+      .optional(),
     address: z
       .string()
       .optional(),
