@@ -5,6 +5,9 @@ import { Request, Response, NextFunction } from 'express';
  * Converts string values from FormData to numbers and booleans
  */
 export const parseFormData = (req: Request, _res: Response, next: NextFunction) => {
+  console.log('=== PARSE FORM DATA DEBUG ===');
+  console.log('Body before parsing:', JSON.stringify(req.body, null, 2));
+  
   if (req.body) {
     // Parse numeric fields
     const numericFields = ['price', 'compareAtPrice', 'stock', 'displayOrder', 'age'];
@@ -12,6 +15,8 @@ export const parseFormData = (req: Request, _res: Response, next: NextFunction) 
       if (req.body[field] !== undefined && req.body[field] !== '') {
         const parsed = parseFloat(req.body[field]);
         req.body[field] = isNaN(parsed) ? undefined : parsed;
+      } else if (req.body[field] === '') {
+        delete req.body[field];
       }
     });
 
@@ -23,13 +28,16 @@ export const parseFormData = (req: Request, _res: Response, next: NextFunction) 
       }
     });
 
-    // Remove empty strings
+    // Remove empty strings and convert to undefined
     Object.keys(req.body).forEach(key => {
-      if (req.body[key] === '') {
+      if (req.body[key] === '' || req.body[key] === null) {
         delete req.body[key];
       }
     });
   }
 
+  console.log('Body after parsing:', JSON.stringify(req.body, null, 2));
+  console.log('=== PARSE FORM DATA DEBUG END ===');
+  
   next();
 };
