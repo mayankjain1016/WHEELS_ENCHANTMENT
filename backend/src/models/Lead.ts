@@ -8,22 +8,22 @@ interface Note {
 }
 
 export interface ILead extends Document {
-  studentName: string;
-  dateOfBirth: Date;
-  school: string;
-  fatherName: string;
-  fatherMobile: string;
-  motherName: string;
-  motherMobile: string;
-  address: string;
+  studentName?: string;
+  dateOfBirth?: Date;
+  school?: string;
+  fatherName?: string;
+  fatherMobile?: string;
+  motherName?: string;
+  motherMobile?: string;
+  address?: string;
   email: string;
   photo?: string;
   aadharCard?: string;
   age?: number;
-  location: string;
-  preferredLocation: string;
+  location?: string;
+  preferredLocation?: string;
   experienceLevel: ExperienceLevel;
-  message: string;
+  message?: string;
   status: LeadStatus;
   source: LeadSource;
   assignedTo?: Types.ObjectId;
