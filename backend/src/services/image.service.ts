@@ -2,7 +2,6 @@ import sharp from 'sharp';
 import path from 'path';
 import fs from 'fs/promises';
 import { v4 as uuidv4 } from 'uuid';
-import type { File } from 'multer';
 import { env } from '../config/env';
 import logger from '../utils/logger';
 
@@ -127,7 +126,7 @@ class ImageProcessor {
    * Process multiple images
    */
   async processMultipleImages(
-    files: File[],
+    files: Express.Multer.File[],
     entity: string,
     options?: Parameters<typeof this.processImage>[2]
   ): Promise<ProcessedImage[]> {
@@ -226,7 +225,7 @@ class ImageProcessor {
   /**
    * Validate image file
    */
-  validateImage(file: File): { valid: boolean; error?: string } {
+  validateImage(file: Express.Multer.File): { valid: boolean; error?: string } {
     const allowedMimeTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'];
     const maxSize = env.MAX_FILE_SIZE;
 
