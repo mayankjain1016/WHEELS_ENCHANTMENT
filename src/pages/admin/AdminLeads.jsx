@@ -199,7 +199,7 @@ const AdminLeads = () => {
                   <Typography variant="caption" color="text.secondary">Photo</Typography>
                   <Box 
                     component="img" 
-                    src={`${import.meta.env.VITE_BACKEND_URL}${selectedLead.photo}`}
+                    src={selectedLead.photo.startsWith('http') ? selectedLead.photo : `${import.meta.env.VITE_BACKEND_URL}${selectedLead.photo.startsWith('/') ? selectedLead.photo : '/' + selectedLead.photo}`}
                     alt="Student" 
                     sx={{ 
                       width: 150, 
@@ -225,7 +225,7 @@ const AdminLeads = () => {
                   <Typography variant="caption" color="text.secondary">Aadhar Card</Typography>
                   <Box 
                     component="img" 
-                    src={`${import.meta.env.VITE_BACKEND_URL}${selectedLead.aadharCard}`}
+                    src={selectedLead.aadharCard.startsWith('http') ? selectedLead.aadharCard : `${import.meta.env.VITE_BACKEND_URL}${selectedLead.aadharCard.startsWith('/') ? selectedLead.aadharCard : '/' + selectedLead.aadharCard}`}
                     alt="Aadhar" 
                     sx={{ 
                       width: '100%', 

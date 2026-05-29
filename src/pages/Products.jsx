@@ -1,9 +1,8 @@
 import { 
-  Box, Container, Grid, Chip, Button, useMediaQuery, useTheme, 
-  Typography, alpha, Stack, Fade, CircularProgress 
+  Box, Container, Grid, Chip, useTheme, 
+  Typography, alpha, Stack, CircularProgress, Skeleton 
 } from '@mui/material';
 import { useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
 import ProductCard from '../components/ProductCard';
 import { productsApi } from '../api/products';
 import { categoriesApi } from '../api/categories';
@@ -12,16 +11,16 @@ import backgroundImg7 from '../assets/Background_imgs/backgroundimg7.jpeg';
 
 const Products = () => {
   const theme = useTheme();
-  const isSmallScreen = useMediaQuery(theme.breakpoints.down('md'));
-  const location = useLocation();
   
   const [categories, setCategories] = useState([]);
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [loadingMore, setLoadingMore] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
   const [totalProducts, setTotalProducts] = useState(0);
+  const ITEMS_PER_PAGE = 50;
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -39,11 +38,16 @@ const Products = () => {
 
   useEffect(() => {
     const fetchProducts = async () => {
-      try {
+      if (page === 1) {
         setLoading(true);
+      } else {
+        setLoadingMore(true);
+      }
+      
+      try {
         const params = {
           page,
-          limit: 12,
+          limit: ITEMS_PER_PAGE,
           isActive: true
         };
         
@@ -62,13 +66,16 @@ const Products = () => {
           setProducts(prev => [...prev, ...(Array.isArray(productsData) ? productsData : [])]);
         }
         
-        setHasMore(paginationData.hasNextPage || false);
-        setTotalProducts(paginationData.total || 0);
+        setHasMore(paginationData?.hasNextPage || false);
+        setTotalProducts(paginationData?.total || productsData.length);
       } catch (error) {
         console.error('Failed to fetch products:', error);
-        setProducts([]);
+        if (page === 1) {
+          setProducts([]);
+        }
       } finally {
         setLoading(false);
+        setLoadingMore(false);
       }
     };
 
@@ -81,8 +88,10 @@ const Products = () => {
     setProducts([]);
   };
 
-  const handleViewMore = () => {
-    setPage(prev => prev + 1);
+  const handleSeeMore = () => {
+    if (hasMore) {
+      setPage(prev => prev + 1);
+    }
   };
 
   const getProductImageUrl = (product) => {
@@ -126,27 +135,13 @@ const Products = () => {
         
         {/* --- REFINED FILTER BAR (Glassmorphism) --- */}
         <Box sx={{ 
-          p: { xs: 1.5, md: 2 }, 
-          borderRadius: '16px', 
+          p: { xs: 2, md: 2.5 }, 
+          borderRadius: { xs: '12px', md: '16px' }, 
           bgcolor: alpha(theme.palette.background.paper, 0.9),
           backdropFilter: 'blur(10px)',
           boxShadow: '0 10px 40px rgba(0,0,0,0.1)',
-          display: 'flex', 
-          mb: 6, 
-          justifyContent: 'center', 
-          alignItems: 'center',
+          mb: 6,
           border: `1px solid ${alpha(theme.palette.divider, 0.1)}`,
-          overflowX: { xs: 'auto', md: 'visible' },
-          '&::-webkit-scrollbar': {
-            height: '4px',
-          },
-          '&::-webkit-scrollbar-track': {
-            background: 'transparent',
-          },
-          '&::-webkit-scrollbar-thumb': {
-            background: alpha(theme.palette.primary.main, 0.3),
-            borderRadius: '4px',
-          },
         }}>
           {loading && page === 1 ? (
             <Box sx={{ display: 'flex', justifyContent: 'center', py: 2 }}>
@@ -155,12 +150,11 @@ const Products = () => {
           ) : (
             <Stack 
               direction="row" 
-              spacing={{ xs: 1, md: 1 }} 
+              spacing={1}
               sx={{ 
-                py: { xs: 0.5, md: 1 }, 
-                flexWrap: 'nowrap',
-                justifyContent: { xs: 'flex-start', md: 'center' },
-                minWidth: { xs: 'max-content', md: 'auto' },
+                flexWrap: 'wrap',
+                justifyContent: { xs: 'center', md: 'center' },
+                rowGap: 1,
               }}
             >
               <Chip
@@ -168,23 +162,21 @@ const Products = () => {
                 onClick={() => handleCategoryChange('all')}
                 sx={{ 
                   cursor: 'pointer',
-                  px: { xs: 1.25, md: 2 },
+                  px: { xs: 1.5, md: 2 },
                   py: { xs: 0.5, md: 0.75 },
-                  height: { xs: '30px', md: 'auto' },
-                  fontSize: { xs: '0.7rem', md: '0.8125rem' },
+                  height: { xs: '32px', md: '36px' },
+                  fontSize: { xs: '0.75rem', md: '0.875rem' },
                   fontWeight: 600,
-                  borderRadius: { xs: '12px', md: '16px' },
-                  transition: '0.3s',
+                  borderRadius: '20px',
+                  transition: 'all 0.3s ease',
                   bgcolor: selectedCategory === 'all' ? 'primary.main' : 'transparent',
                   color: selectedCategory === 'all' ? 'white' : 'text.primary',
                   border: `1px solid ${selectedCategory === 'all' ? 'primary.main' : alpha(theme.palette.divider, 0.2)}`,
-                  flexShrink: 0,
-                  whiteSpace: 'nowrap',
-                  '& .MuiChip-label': {
-                    px: { xs: 0.75, md: 1 },
-                    py: 0,
-                  },
-                  '&:hover': { bgcolor: selectedCategory === 'all' ? 'primary.dark' : alpha(theme.palette.primary.main, 0.05) }
+                  '&:hover': { 
+                    bgcolor: selectedCategory === 'all' ? 'primary.dark' : alpha(theme.palette.primary.main, 0.08),
+                    transform: 'translateY(-2px)',
+                    boxShadow: '0 4px 12px rgba(0,0,0,0.1)'
+                  }
                 }}
               />
               {categories.map((cat) => (
@@ -194,23 +186,21 @@ const Products = () => {
                   onClick={() => handleCategoryChange(cat._id)}
                   sx={{ 
                     cursor: 'pointer',
-                    px: { xs: 1.25, md: 2 },
+                    px: { xs: 1.5, md: 2 },
                     py: { xs: 0.5, md: 0.75 },
-                    height: { xs: '30px', md: 'auto' },
-                    fontSize: { xs: '0.7rem', md: '0.8125rem' },
+                    height: { xs: '32px', md: '36px' },
+                    fontSize: { xs: '0.75rem', md: '0.875rem' },
                     fontWeight: 600,
-                    borderRadius: { xs: '12px', md: '16px' },
-                    transition: '0.3s',
+                    borderRadius: '20px',
+                    transition: 'all 0.3s ease',
                     bgcolor: selectedCategory === cat._id ? 'primary.main' : 'transparent',
                     color: selectedCategory === cat._id ? 'white' : 'text.primary',
                     border: `1px solid ${selectedCategory === cat._id ? 'primary.main' : alpha(theme.palette.divider, 0.2)}`,
-                    flexShrink: 0,
-                    whiteSpace: 'nowrap',
-                    '& .MuiChip-label': {
-                      px: { xs: 0.75, md: 1 },
-                      py: 0,
-                    },
-                    '&:hover': { bgcolor: selectedCategory === cat._id ? 'primary.dark' : alpha(theme.palette.primary.main, 0.05) }
+                    '&:hover': { 
+                      bgcolor: selectedCategory === cat._id ? 'primary.dark' : alpha(theme.palette.primary.main, 0.08),
+                      transform: 'translateY(-2px)',
+                      boxShadow: '0 4px 12px rgba(0,0,0,0.1)'
+                    }
                   }}
                 />
               ))}
@@ -219,60 +209,80 @@ const Products = () => {
         </Box>
 
         {/* --- PRODUCTS GRID --- */}
-        {loading && page === 1 ? (
-          <Box sx={{ display: 'flex', justifyContent: 'center', py: 10 }}>
-            <CircularProgress size={60} />
-          </Box>
-        ) : (
-          <>
-            <Grid container spacing={4}>
-              {products.map((product, index) => (
-                <Grid item xs={12} sm={6} md={4} key={product._id} sx={{ display: 'flex' }}>
-                  <Fade in={true} timeout={index * 200} style={{ width: '100%' }}>
-                    <Box sx={{ width: '100%' }}>
-                      <ProductCard product={{
-                        ...product,
-                        image: getProductImageUrl(product)
-                      }} />
-                    </Box>
-                  </Fade>
-                </Grid>
-              ))}
-            </Grid>
+        <Grid container spacing={3}>
+          {loading && page === 1 ? (
+            // Skeleton Loading
+            Array.from({ length: ITEMS_PER_PAGE }).map((_, index) => (
+              <Grid item xs={6} sm={6} md={4} key={`skeleton-${index}`}>
+                <Skeleton 
+                  variant="rectangular" 
+                  sx={{ 
+                    borderRadius: 3,
+                    height: { xs: 280, sm: 320, md: 360 },
+                  }} 
+                />
+              </Grid>
+            ))
+          ) : (
+            // Actual Products
+            products.map((product) => (
+              <Grid item xs={6} sm={6} md={4} key={product._id}>
+                <ProductCard product={{
+                  ...product,
+                  image: getProductImageUrl(product)
+                }} />
+              </Grid>
+            ))
+          )}
+        </Grid>
 
-            {/* --- EMPTY STATE --- */}
-            {products.length === 0 && (
-              <Box sx={{ textAlign: 'center', py: 10 }}>
-                <Typography variant="h5" color="text.secondary">No products found in this category.</Typography>
-              </Box>
-            )}
-          </>
+        {/* --- EMPTY STATE --- */}
+        {!loading && products.length === 0 && (
+          <Box sx={{ textAlign: 'center', py: 10 }}>
+            <Typography variant="h5" color="text.secondary">No products found in this category.</Typography>
+          </Box>
         )}
 
-        {/* --- LUXURY VIEW MORE --- */}
-        {hasMore && products.length > 0 && (
-          <Box sx={{ textAlign: 'center', mt: 10 }}>
-            <Button 
-              variant="outlined" 
-              color="primary" 
-              size="large" 
-              onClick={handleViewMore}
-              disabled={loading}
-              sx={{ 
-                px: 8, 
-                py: 1.5, 
-                borderRadius: '50px', 
-                borderWidth: 2,
-                fontWeight: 800,
-                letterSpacing: 1,
-                '&:hover': { borderWidth: 2, bgcolor: alpha(theme.palette.primary.main, 0.05) }
-              }}
-            >
-              {loading && page > 1 ? <CircularProgress size={20} /> : 'Discover More'}
-            </Button>
-            <Typography variant="body2" sx={{ mt: 2, color: 'text.secondary', fontWeight: 500 }}>
-              Showing {products.length} of {totalProducts} Products
-            </Typography>
+        {/* --- SEE MORE BUTTON --- */}
+        {!loading && (
+          <Box sx={{ textAlign: 'center', mt: 8 }}>
+            {hasMore && products.length > 0 ? (
+              <>
+                <Box
+                  onClick={handleSeeMore}
+                  sx={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: 1,
+                    px: 5,
+                    py: 1.5,
+                    borderRadius: '50px',
+                    bgcolor: loadingMore ? 'grey.400' : 'secondary.main',
+                    color: 'white',
+                    fontWeight: 700,
+                    fontSize: '1rem',
+                    letterSpacing: 1,
+                    cursor: loadingMore ? 'not-allowed' : 'pointer',
+                    transition: 'all 0.3s ease',
+                    boxShadow: '0 4px 15px rgba(233, 30, 99, 0.3)',
+                    '&:hover': {
+                      bgcolor: loadingMore ? 'grey.400' : 'secondary.dark',
+                      transform: loadingMore ? 'none' : 'translateY(-2px)',
+                      boxShadow: loadingMore ? '0 4px 15px rgba(233, 30, 99, 0.3)' : '0 6px 20px rgba(233, 30, 99, 0.4)',
+                    }
+                  }}
+                >
+                  {loadingMore ? <CircularProgress size={20} color="inherit" /> : 'See More'}
+                </Box>
+                <Typography variant="body2" sx={{ mt: 2, color: 'text.secondary', fontWeight: 500 }}>
+                  Showing {products.length} of {totalProducts} products
+                </Typography>
+              </>
+            ) : products.length > 0 && totalProducts > 0 ? (
+              <Typography variant="body2" sx={{ color: 'text.secondary', fontWeight: 500 }}>
+                Showing all {products.length} products
+              </Typography>
+            ) : null}
           </Box>
         )}
       </Container>
