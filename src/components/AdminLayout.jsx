@@ -32,7 +32,7 @@ const AdminLayout = ({ children }) => {
     <Box>
       <Box sx={{ p: 3, bgcolor: 'primary.main', color: 'white' }}>
         <Typography variant="h6" sx={{ fontWeight: 700 }}>
-          Wheels Enchantment
+          Wheels Enchntment
         </Typography>
         <Typography variant="caption">Admin Panel</Typography>
       </Box>
