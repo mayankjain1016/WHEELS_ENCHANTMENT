@@ -562,18 +562,29 @@ const Contact = () => {
               </Card>
 
               {/* Map Placeholder */}
+              {/* Map removed - contact us for location details */}
               <Card>
-                <Box sx={{ 
-                  height: { xs: 180, sm: 200 }, 
-                  bgcolor: 'background.paper', 
-                  display: 'flex', 
-                  alignItems: 'center', 
-                  justifyContent: 'center' 
-                }}>
-                  <Typography color="text.secondary">
-                    Map Placeholder
-                  </Typography>
-                </Box>
+                <CardContent sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+                  <LocationOnIcon sx={{ color: 'secondary.main', fontSize: 32 }} />
+                  <Box>
+                    <Typography variant="h6" sx={{ fontWeight: 600, mb: 1 }}>
+                      Get Directions
+                    </Typography>
+                    <Typography color="text.secondary">
+                      329 Netaji Subhas Road<br />
+                      Near Kali Babu Bazar, 3rd Floor<br />
+                      Howrah - 711101
+                    </Typography>
+                    <Button
+                      variant="text"
+                      size="small"
+                      sx={{ mt: 1 }}
+                      onClick={() => window.open('https://maps.google.com/?q=329+Netaji+Subhas+Road+Howrah', '_blank')}
+                    >
+                      Open in Google Maps
+                    </Button>
+                  </Box>
+                </CardContent>
               </Card>
             </Box>
           </Grid>
