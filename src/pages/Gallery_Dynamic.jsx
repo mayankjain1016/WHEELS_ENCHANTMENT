@@ -1,4 +1,4 @@
-import { Box, Container, Grid, Card, CardMedia, Dialog, IconButton, Typography, alpha, useTheme, CircularProgress, Skeleton, Pagination, Chip, Stack } from '@mui/material';
+import { Box, Container, Grid, Card, CardMedia, Dialog, IconButton, Typography, alpha, useTheme, CircularProgress, Skeleton, Pagination, Chip, Stack, MenuItem, TextField } from '@mui/material';
 import { useState, useEffect } from 'react';
 import { X } from 'lucide-react';
 import { galleryApi } from '../api/gallery';
@@ -16,7 +16,7 @@ const Gallery = () => {
   const [totalImages, setTotalImages] = useState(0);
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [categories, setCategories] = useState([]);
-  const ITEMS_PER_PAGE = 50;
+  const [itemsPerPage, setItemsPerPage] = useState(12);
 
   // Fetch categories
   useEffect(() => {
@@ -40,7 +40,7 @@ const Gallery = () => {
       try {
         const params = {
           page,
-          limit: ITEMS_PER_PAGE,
+          limit: itemsPerPage,
           isActive: true
         };
         
@@ -50,11 +50,11 @@ const Gallery = () => {
         
         const response = await galleryApi.getAll(params);
         
-        const imagesData = response?.data?.data || response?.data || [];
-        const paginationData = response?.data?.pagination || response?.pagination || {};
+        const imagesData = response?.data || [];
+        const paginationData = response?.meta || {};
         
         setImages(Array.isArray(imagesData) ? imagesData : []);
-        setTotalPages(paginationData?.totalPages || 0);
+        setTotalPages(paginationData?.totalPages || 1);
         setTotalImages(paginationData?.total || imagesData.length);
       } catch (error) {
         console.error('Failed to fetch gallery:', error);
@@ -65,7 +65,7 @@ const Gallery = () => {
     };
 
     fetchImages();
-  }, [page, selectedCategory]);
+  }, [page, selectedCategory, itemsPerPage]);
 
   const handlePageChange = (event, value) => {
     setPage(value);
@@ -268,7 +268,7 @@ const Gallery = () => {
         )}
 
         {/* Perfect Pagination System */}
-        {!loading && totalPages > 1 && (
+        {!loading && (
           <Box sx={{ mt: 10 }}>
             {/* Pagination Info */}
             <Box sx={{ 
@@ -283,16 +283,39 @@ const Gallery = () => {
               flexWrap: 'wrap',
               gap: 2
             }}>
-              <Typography 
-                variant="body2" 
-                sx={{ 
-                  fontWeight: 600,
-                  color: 'text.secondary',
-                  fontSize: { xs: '0.85rem', md: '0.95rem' }
-                }}
-              >
-                Showing {((page - 1) * ITEMS_PER_PAGE) + 1} to {Math.min(page * ITEMS_PER_PAGE, totalImages)} of {totalImages} images
-              </Typography>
+              <Box sx={{ display: 'flex', gap: 2, alignItems: 'center', flexWrap: 'wrap' }}>
+                <Typography 
+                  variant="body2" 
+                  sx={{ 
+                    fontWeight: 600,
+                    color: 'text.secondary',
+                    fontSize: { xs: '0.85rem', md: '0.95rem' }
+                  }}
+                >
+                  Showing {((page - 1) * itemsPerPage) + 1} to {Math.min(page * itemsPerPage, totalImages)} of {totalImages} images
+                </Typography>
+                <TextField
+                  select
+                  size="small"
+                  value={itemsPerPage}
+                  onChange={(e) => {
+                    setItemsPerPage(Number(e.target.value));
+                    setPage(1);
+                  }}
+                  sx={{
+                    minWidth: '100px',
+                    '& .MuiOutlinedInput-root': {
+                      fontSize: { xs: '0.8rem', md: '0.875rem' },
+                      fontWeight: 600
+                    }
+                  }}
+                >
+                  <MenuItem value={6}>6 per page</MenuItem>
+                  <MenuItem value={12}>12 per page</MenuItem>
+                  <MenuItem value={24}>24 per page</MenuItem>
+                  <MenuItem value={50}>50 per page</MenuItem>
+                </TextField>
+              </Box>
               <Typography 
                 variant="body2" 
                 sx={{ 
@@ -306,6 +329,7 @@ const Gallery = () => {
             </Box>
 
             {/* Pagination Controls */}
+            {totalPages > 1 && (
             <Box sx={{ 
               display: 'flex', 
               justifyContent: 'center', 
@@ -355,6 +379,7 @@ const Gallery = () => {
                 }}
               />
             </Box>
+            )}
           </Box>
         )}
       </Container>

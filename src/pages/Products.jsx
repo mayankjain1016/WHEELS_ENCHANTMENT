@@ -1,6 +1,6 @@
 import { 
   Box, Container, Grid, Chip, useTheme, 
-  Typography, alpha, Stack, CircularProgress, Skeleton, Pagination 
+  Typography, alpha, Stack, CircularProgress, Skeleton, Pagination, MenuItem, TextField
 } from '@mui/material';
 import { useState, useEffect } from 'react';
 import ProductCard from '../components/ProductCard';
@@ -20,7 +20,7 @@ const Products = () => {
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
   const [totalProducts, setTotalProducts] = useState(0);
-  const ITEMS_PER_PAGE = 50;
+  const [itemsPerPage, setItemsPerPage] = useState(12);
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -43,7 +43,7 @@ const Products = () => {
       try {
         const params = {
           page,
-          limit: ITEMS_PER_PAGE,
+          limit: itemsPerPage,
           isActive: true
         };
         
@@ -53,11 +53,11 @@ const Products = () => {
         
         const response = await productsApi.getAll(params);
         
-        const productsData = response?.data?.data || response?.data || [];
-        const paginationData = response?.data?.pagination || response?.pagination || {};
+        const productsData = response?.data || [];
+        const paginationData = response?.meta || {};
         
         setProducts(Array.isArray(productsData) ? productsData : []);
-        setTotalPages(paginationData?.totalPages || 0);
+        setTotalPages(paginationData?.totalPages || 1);
         setTotalProducts(paginationData?.total || productsData.length);
       } catch (error) {
         console.error('Failed to fetch products:', error);
@@ -68,7 +68,7 @@ const Products = () => {
     };
 
     fetchProducts();
-  }, [selectedCategory, page]);
+  }, [selectedCategory, page, itemsPerPage]);
 
   const handleCategoryChange = (categoryId) => {
     setSelectedCategory(categoryId);
@@ -230,7 +230,7 @@ const Products = () => {
         )}
 
         {/* --- PERFECT PAGINATION SYSTEM --- */}
-        {!loading && totalPages > 1 && (
+        {!loading && (
           <Box sx={{ mt: 10 }}>
             {/* Pagination Info */}
             <Box sx={{ 
@@ -245,16 +245,39 @@ const Products = () => {
               flexWrap: 'wrap',
               gap: 2
             }}>
-              <Typography 
-                variant="body2" 
-                sx={{ 
-                  fontWeight: 600,
-                  color: 'text.secondary',
-                  fontSize: { xs: '0.85rem', md: '0.95rem' }
-                }}
-              >
-                Showing {((page - 1) * ITEMS_PER_PAGE) + 1} to {Math.min(page * ITEMS_PER_PAGE, totalProducts)} of {totalProducts} products
-              </Typography>
+              <Box sx={{ display: 'flex', gap: 2, alignItems: 'center', flexWrap: 'wrap' }}>
+                <Typography 
+                  variant="body2" 
+                  sx={{ 
+                    fontWeight: 600,
+                    color: 'text.secondary',
+                    fontSize: { xs: '0.85rem', md: '0.95rem' }
+                  }}
+                >
+                  Showing {((page - 1) * itemsPerPage) + 1} to {Math.min(page * itemsPerPage, totalProducts)} of {totalProducts} products
+                </Typography>
+                <TextField
+                  select
+                  size="small"
+                  value={itemsPerPage}
+                  onChange={(e) => {
+                    setItemsPerPage(Number(e.target.value));
+                    setPage(1);
+                  }}
+                  sx={{
+                    minWidth: '100px',
+                    '& .MuiOutlinedInput-root': {
+                      fontSize: { xs: '0.8rem', md: '0.875rem' },
+                      fontWeight: 600
+                    }
+                  }}
+                >
+                  <MenuItem value={6}>6 per page</MenuItem>
+                  <MenuItem value={12}>12 per page</MenuItem>
+                  <MenuItem value={24}>24 per page</MenuItem>
+                  <MenuItem value={50}>50 per page</MenuItem>
+                </TextField>
+              </Box>
               <Typography 
                 variant="body2" 
                 sx={{ 
@@ -268,6 +291,7 @@ const Products = () => {
             </Box>
 
             {/* Pagination Controls */}
+            {totalPages > 1 && (
             <Box sx={{ 
               display: 'flex', 
               justifyContent: 'center', 
@@ -317,6 +341,7 @@ const Products = () => {
                 }}
               />
             </Box>
+            )}
           </Box>
         )}
       </Container>
