@@ -18,7 +18,7 @@ import {
 const router = Router();
 
 // Debug middleware for leads route
-router.use((req, res, next) => {
+router.use((req, _res, next) => {
   if (req.path === '/' && req.method === 'POST') {
     console.log('=== LEADS ROUTE DEBUG ===');
     console.log('Timestamp:', new Date().toISOString());
