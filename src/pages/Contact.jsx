@@ -3,6 +3,8 @@ import { Box, Container, Grid, Card, CardContent, Typography, TextField, Button,
 import EmailIcon from '@mui/icons-material/Email';
 import PhoneIcon from '@mui/icons-material/Phone';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
+import CloudUploadIcon from '@mui/icons-material/CloudUpload';
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import SectionHeader from '../components/SectionHeader';
 
 import { leadsApi } from '../api/leads';
@@ -25,27 +27,113 @@ const Contact = () => {
     message: ''
   });
   const [photo, setPhoto] = useState(null);
+  const [photoPreview, setPhotoPreview] = useState(null);
   const [aadharCard, setAadharCard] = useState(null);
+  const [aadharPreview, setAadharPreview] = useState(null);
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState('');
+  const [validationErrors, setValidationErrors] = useState({});
 
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+    // Clear validation error for this field
+    if (validationErrors[name]) {
+      setValidationErrors({ ...validationErrors, [name]: '' });
+    }
+  };
+
+  const validateFile = (file, type) => {
+    const maxSize = 5 * 1024 * 1024; // 5MB
+    const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'];
+
+    if (!file) return null;
+
+    if (!allowedTypes.includes(file.type)) {
+      return `${type} must be an image (JPEG, PNG, or WebP)`;
+    }
+
+    if (file.size > maxSize) {
+      return `${type} size must be less than 5MB`;
+    }
+
+    return null;
   };
 
   const handleFileChange = (e, type) => {
     const file = e.target.files[0];
-    if (file) {
-      if (type === 'photo') setPhoto(file);
-      if (type === 'aadhar') setAadharCard(file);
+    
+    if (!file) return;
+
+    const error = validateFile(file, type === 'photo' ? 'Photo' : 'Aadhar Card');
+    
+    if (error) {
+      setValidationErrors({ ...validationErrors, [type]: error });
+      e.target.value = '';
+      return;
     }
+
+    // Clear error
+    setValidationErrors({ ...validationErrors, [type]: '' });
+
+    // Set file and preview
+    if (type === 'photo') {
+      setPhoto(file);
+      setPhotoPreview(URL.createObjectURL(file));
+    } else {
+      setAadharCard(file);
+      setAadharPreview(URL.createObjectURL(file));
+    }
+  };
+
+  const removeFile = (type) => {
+    if (type === 'photo') {
+      setPhoto(null);
+      if (photoPreview) URL.revokeObjectURL(photoPreview);
+      setPhotoPreview(null);
+    } else {
+      setAadharCard(null);
+      if (aadharPreview) URL.revokeObjectURL(aadharPreview);
+      setAadharPreview(null);
+    }
+  };
+
+  const validateForm = () => {
+    const errors = {};
+
+    if (!formData.email || !formData.email.trim()) {
+      errors.email = 'Email is required';
+    } else if (!/^\S+@\S+\.\S+$/.test(formData.email)) {
+      errors.email = 'Invalid email format';
+    }
+
+    if (formData.fatherMobile && !/^[0-9]{10}$/.test(formData.fatherMobile)) {
+      errors.fatherMobile = 'Must be 10 digits';
+    }
+
+    if (formData.motherMobile && !/^[0-9]{10}$/.test(formData.motherMobile)) {
+      errors.motherMobile = 'Must be 10 digits';
+    }
+
+    if (formData.age && (formData.age < 3 || formData.age > 100)) {
+      errors.age = 'Age must be between 3 and 100';
+    }
+
+    setValidationErrors(errors);
+    return Object.keys(errors).length === 0;
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true);
     setError('');
+
+    if (!validateForm()) {
+      setError('Please fix the errors below');
+      return;
+    }
+
+    setLoading(true);
 
     try {
       const formDataToSend = new FormData();
@@ -65,6 +153,7 @@ const Contact = () => {
       await leadsApi.submit(formDataToSend);
       
       setSubmitted(true);
+      
       // Reset form
       setFormData({
         studentName: '',
@@ -82,15 +171,28 @@ const Contact = () => {
         experienceLevel: 'Beginner',
         message: ''
       });
-      setPhoto(null);
-      setAadharCard(null);
+      removeFile('photo');
+      removeFile('aadhar');
+      setValidationErrors({});
       
       // Clear success message after 5 seconds
       setTimeout(() => setSubmitted(false), 5000);
     } catch (err) {
       console.error('Form submission error:', err);
-      const errorMessage = err.response?.data?.message || err.message || 'Failed to submit form. Please try again.';
-      setError(errorMessage);
+      
+      // Handle validation errors from backend
+      if (err.response?.status === 422 && err.response?.data?.errors) {
+        const backendErrors = {};
+        err.response.data.errors.forEach(error => {
+          const field = error.field.replace('body.', '');
+          backendErrors[field] = error.message;
+        });
+        setValidationErrors(backendErrors);
+        setError('Please fix the validation errors');
+      } else {
+        const errorMessage = err.response?.data?.message || err.message || 'Failed to submit form. Please try again.';
+        setError(errorMessage);
+      }
     } finally {
       setLoading(false);
     }
@@ -129,6 +231,8 @@ const Contact = () => {
                     name="studentName"
                     value={formData.studentName}
                     onChange={handleChange}
+                    error={!!validationErrors.studentName}
+                    helperText={validationErrors.studentName}
                     sx={{ mb: 2 }}
                   />
                   <TextField
@@ -138,6 +242,8 @@ const Contact = () => {
                     type="date"
                     value={formData.dateOfBirth}
                     onChange={handleChange}
+                    error={!!validationErrors.dateOfBirth}
+                    helperText={validationErrors.dateOfBirth}
                     InputLabelProps={{ shrink: true }}
                     sx={{ mb: 2 }}
                   />
@@ -147,6 +253,8 @@ const Contact = () => {
                     name="school"
                     value={formData.school}
                     onChange={handleChange}
+                    error={!!validationErrors.school}
+                    helperText={validationErrors.school}
                     sx={{ mb: 2 }}
                   />
                   <TextField
@@ -155,6 +263,8 @@ const Contact = () => {
                     name="fatherName"
                     value={formData.fatherName}
                     onChange={handleChange}
+                    error={!!validationErrors.fatherName}
+                    helperText={validationErrors.fatherName}
                     sx={{ mb: 2 }}
                   />
                   <TextField
@@ -163,6 +273,8 @@ const Contact = () => {
                     name="fatherMobile"
                     value={formData.fatherMobile}
                     onChange={handleChange}
+                    error={!!validationErrors.fatherMobile}
+                    helperText={validationErrors.fatherMobile || '10 digit mobile number'}
                     inputProps={{ maxLength: 10 }}
                     sx={{ mb: 2 }}
                   />
@@ -172,6 +284,8 @@ const Contact = () => {
                     name="motherName"
                     value={formData.motherName}
                     onChange={handleChange}
+                    error={!!validationErrors.motherName}
+                    helperText={validationErrors.motherName}
                     sx={{ mb: 2 }}
                   />
                   <TextField
@@ -180,6 +294,8 @@ const Contact = () => {
                     name="motherMobile"
                     value={formData.motherMobile}
                     onChange={handleChange}
+                    error={!!validationErrors.motherMobile}
+                    helperText={validationErrors.motherMobile || '10 digit mobile number'}
                     inputProps={{ maxLength: 10 }}
                     sx={{ mb: 2 }}
                   />
@@ -191,6 +307,8 @@ const Contact = () => {
                     rows={2}
                     value={formData.address}
                     onChange={handleChange}
+                    error={!!validationErrors.address}
+                    helperText={validationErrors.address}
                     sx={{ mb: 2 }}
                   />
                   <TextField
@@ -201,46 +319,125 @@ const Contact = () => {
                     required
                     value={formData.email}
                     onChange={handleChange}
+                    error={!!validationErrors.email}
+                    helperText={validationErrors.email || 'Required'}
                     sx={{ mb: 2 }}
                   />
+                  
+                  {/* Photo Upload */}
                   <Box sx={{ mb: 2 }}>
                     <Typography variant="body2" sx={{ mb: 1, fontWeight: 500 }}>
                       Passport Size Photo
                     </Typography>
-                    <Button
-                      variant="outlined"
-                      component="label"
-                      fullWidth
-                      sx={{ justifyContent: 'flex-start', textTransform: 'none' }}
-                    >
-                      {photo ? photo.name : 'Choose Photo'}
-                      <input
-                        type="file"
-                        hidden
-                        accept="image/*"
-                        onChange={(e) => handleFileChange(e, 'photo')}
-                      />
-                    </Button>
+                    {photoPreview ? (
+                      <Box sx={{ position: 'relative', display: 'inline-block' }}>
+                        <Box
+                          component="img"
+                          src={photoPreview}
+                          alt="Photo preview"
+                          sx={{
+                            width: 150,
+                            height: 150,
+                            objectFit: 'cover',
+                            borderRadius: 1,
+                            border: '2px solid',
+                            borderColor: 'primary.main'
+                          }}
+                        />
+                        <Button
+                          size="small"
+                          color="error"
+                          onClick={() => removeFile('photo')}
+                          sx={{ mt: 1, display: 'block' }}
+                        >
+                          Remove
+                        </Button>
+                      </Box>
+                    ) : (
+                      <Button
+                        variant="outlined"
+                        component="label"
+                        fullWidth
+                        startIcon={<CloudUploadIcon />}
+                        sx={{ 
+                          justifyContent: 'flex-start', 
+                          textTransform: 'none',
+                          borderColor: validationErrors.photo ? 'error.main' : undefined
+                        }}
+                      >
+                        Choose Photo (Max 5MB)
+                        <input
+                          type="file"
+                          hidden
+                          accept="image/jpeg,image/jpg,image/png,image/webp"
+                          onChange={(e) => handleFileChange(e, 'photo')}
+                        />
+                      </Button>
+                    )}
+                    {validationErrors.photo && (
+                      <Typography variant="caption" color="error" sx={{ mt: 0.5, display: 'block' }}>
+                        {validationErrors.photo}
+                      </Typography>
+                    )}
                   </Box>
+
+                  {/* Aadhar Upload */}
                   <Box sx={{ mb: 2 }}>
                     <Typography variant="body2" sx={{ mb: 1, fontWeight: 500 }}>
                       Aadhar Card (Optional)
                     </Typography>
-                    <Button
-                      variant="outlined"
-                      component="label"
-                      fullWidth
-                      sx={{ justifyContent: 'flex-start', textTransform: 'none' }}
-                    >
-                      {aadharCard ? aadharCard.name : 'Choose Aadhar Card'}
-                      <input
-                        type="file"
-                        hidden
-                        accept="image/*"
-                        onChange={(e) => handleFileChange(e, 'aadhar')}
-                      />
-                    </Button>
+                    {aadharPreview ? (
+                      <Box sx={{ position: 'relative', display: 'inline-block' }}>
+                        <Box
+                          component="img"
+                          src={aadharPreview}
+                          alt="Aadhar preview"
+                          sx={{
+                            width: '100%',
+                            maxWidth: 300,
+                            height: 'auto',
+                            borderRadius: 1,
+                            border: '2px solid',
+                            borderColor: 'primary.main'
+                          }}
+                        />
+                        <Button
+                          size="small"
+                          color="error"
+                          onClick={() => removeFile('aadhar')}
+                          sx={{ mt: 1, display: 'block' }}
+                        >
+                          Remove
+                        </Button>
+                      </Box>
+                    ) : (
+                      <Button
+                        variant="outlined"
+                        component="label"
+                        fullWidth
+                        startIcon={<CloudUploadIcon />}
+                        sx={{ 
+                          justifyContent: 'flex-start', 
+                          textTransform: 'none',
+                          borderColor: validationErrors.aadharCard ? 'error.main' : undefined
+                        }}
+                      >
+                        Choose Aadhar Card (Max 5MB)
+                        <input
+                          type="file"
+                          hidden
+                          accept="image/jpeg,image/jpg,image/png,image/webp"
+                          onChange={(e) => handleFileChange(e, 'aadhar')}
+                        />
+                      </Button>
+                    )}
+                    {validationErrors.aadharCard && (
+                      <Typography variant="caption" color="error" sx={{ mt: 0.5, display: 'block' }}>
+                        {validationErrors.aadharCard}
+                      </Typography>
+                    )}
                   </Box>
+
                   <TextField
                     fullWidth
                     label="Age"
@@ -248,6 +445,8 @@ const Contact = () => {
                     type="number"
                     value={formData.age}
                     onChange={handleChange}
+                    error={!!validationErrors.age}
+                    helperText={validationErrors.age}
                     inputProps={{ min: 3, max: 100 }}
                     sx={{ mb: 2 }}
                   />
@@ -257,6 +456,8 @@ const Contact = () => {
                     name="location"
                     value={formData.location}
                     onChange={handleChange}
+                    error={!!validationErrors.location}
+                    helperText={validationErrors.location}
                     sx={{ mb: 2 }}
                   />
                   <TextField
@@ -265,6 +466,8 @@ const Contact = () => {
                     name="preferredLocation"
                     value={formData.preferredLocation}
                     onChange={handleChange}
+                    error={!!validationErrors.preferredLocation}
+                    helperText={validationErrors.preferredLocation}
                     sx={{ mb: 2 }}
                   />
                   <TextField
@@ -288,6 +491,8 @@ const Contact = () => {
                     rows={3}
                     value={formData.message}
                     onChange={handleChange}
+                    error={!!validationErrors.message}
+                    helperText={validationErrors.message}
                     sx={{ mb: 3 }}
                   />
                   <Button
@@ -296,9 +501,10 @@ const Contact = () => {
                     color="secondary"
                     fullWidth
                     disabled={loading}
+                    startIcon={loading ? <CircularProgress size={20} color="inherit" /> : <CheckCircleIcon />}
                     sx={{ py: 1.5, fontWeight: 600 }}
                   >
-                    {loading ? <CircularProgress size={24} color="inherit" /> : 'Submit Application'}
+                    {loading ? 'Submitting...' : 'Submit Application'}
                   </Button>
                 </Box>
               </CardContent>

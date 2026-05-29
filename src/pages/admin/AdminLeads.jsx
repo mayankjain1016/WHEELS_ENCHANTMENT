@@ -197,13 +197,53 @@ const AdminLeads = () => {
               {selectedLead.photo && (
                 <Box>
                   <Typography variant="caption" color="text.secondary">Photo</Typography>
-                  <Box component="img" src={selectedLead.photo} alt="Student" sx={{ width: 150, height: 150, objectFit: 'cover', borderRadius: 1, mt: 1 }} />
+                  <Box 
+                    component="img" 
+                    src={`${import.meta.env.VITE_BACKEND_URL}${selectedLead.photo}`}
+                    alt="Student" 
+                    sx={{ 
+                      width: 150, 
+                      height: 150, 
+                      objectFit: 'cover', 
+                      borderRadius: 1, 
+                      mt: 1,
+                      border: '1px solid',
+                      borderColor: 'divider'
+                    }} 
+                    onError={(e) => {
+                      e.target.style.display = 'none';
+                      e.target.nextSibling.style.display = 'block';
+                    }}
+                  />
+                  <Typography variant="caption" color="error" sx={{ display: 'none', mt: 1 }}>
+                    Failed to load image
+                  </Typography>
                 </Box>
               )}
               {selectedLead.aadharCard && (
                 <Box>
                   <Typography variant="caption" color="text.secondary">Aadhar Card</Typography>
-                  <Box component="img" src={selectedLead.aadharCard} alt="Aadhar" sx={{ width: '100%', maxWidth: 300, height: 'auto', borderRadius: 1, mt: 1 }} />
+                  <Box 
+                    component="img" 
+                    src={`${import.meta.env.VITE_BACKEND_URL}${selectedLead.aadharCard}`}
+                    alt="Aadhar" 
+                    sx={{ 
+                      width: '100%', 
+                      maxWidth: 300, 
+                      height: 'auto', 
+                      borderRadius: 1, 
+                      mt: 1,
+                      border: '1px solid',
+                      borderColor: 'divider'
+                    }} 
+                    onError={(e) => {
+                      e.target.style.display = 'none';
+                      e.target.nextSibling.style.display = 'block';
+                    }}
+                  />
+                  <Typography variant="caption" color="error" sx={{ display: 'none', mt: 1 }}>
+                    Failed to load image
+                  </Typography>
                 </Box>
               )}
               <Box>

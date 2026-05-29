@@ -31,7 +31,7 @@ export const getCoaches = asyncHandler(async (req: Request, res: Response) => {
   }
 
   // Query with pagination
-  const query = Coach.find(filter);
+  const query = Coach.find(filter).sort({ displayOrder: 1 });
   const result = await paginate(query, { page, limit, sort });
 
   ApiResponse.paginated(
