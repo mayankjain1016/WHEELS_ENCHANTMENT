@@ -16,6 +16,7 @@ import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { ArrowRight, Award, Star, MapPin, School, Users, Calendar, Target, Zap, Shield } from 'lucide-react';
 import { coachesApi } from '../api/coaches';
+import { heroApi } from '../api/hero';
 import { getImageUrl } from '../utils/imageUrl';
 import coachImg1 from "../assets/Coachs/Coach1.jpeg";
 import coachImg2 from "../assets/Coachs/Coach2.jpeg";
@@ -41,8 +42,11 @@ const GOOGLE_FORM_LINK = "https://docs.google.com/forms/d/e/1FAIpQLSewHxoYAZXBgk
 const Home = () => {
   const theme = useTheme();
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [heroSlides, setHeroSlides] = useState([]);
+  const [loadingHero, setLoadingHero] = useState(true);
 
-  const heroImages = [
+  // Fallback images
+  const fallbackImages = [
     backgroundImg,
     backgroundImg_2,
     backgroundImg_3,
@@ -51,13 +55,39 @@ const Home = () => {
     backgroundImg_5,
   ];
 
+  // Fetch hero slides
+  useEffect(() => {
+    const fetchHeroSlides = async () => {
+      try {
+        const data = await heroApi.getAll({ isActive: true });
+        if (data && data.length > 0) {
+          setHeroSlides(data.sort((a, b) => a.displayOrder - b.displayOrder));
+        } else {
+          setHeroSlides([]);
+        }
+      } catch (error) {
+        console.error('Failed to fetch hero slides:', error);
+        setHeroSlides([]);
+      } finally {
+        setLoadingHero(false);
+      }
+    };
+    fetchHeroSlides();
+  }, []);
+
+  const displayImages = heroSlides.length > 0 
+    ? heroSlides.map(slide => getImageUrl(slide.image?.url))
+    : fallbackImages;
+
+  const currentSlide = heroSlides.length > 0 ? heroSlides[currentImageIndex] : null;
+
   useEffect(() => {
     const interval = setInterval(() => {
-      setCurrentImageIndex((prevIndex) => (prevIndex + 1) % heroImages.length);
+      setCurrentImageIndex((prevIndex) => (prevIndex + 1) % displayImages.length);
     }, 5000);
 
     return () => clearInterval(interval);
-  }, [heroImages.length]);
+  }, [displayImages.length]);
 
   const programs = [
     {
@@ -141,7 +171,7 @@ const Home = () => {
         }}
       >
         {/* Background Image Slider */}
-        {heroImages.map((image, index) => (
+        {displayImages.map((image, index) => (
           <Box
             key={index}
             sx={{
@@ -178,11 +208,15 @@ const Home = () => {
                   mb: { xs: 2, md: 3 },
                 }}
               >
-                Where Young Skaters Build{" "}
-                <Box component="span" sx={{ color: "secondary.main" }}>
-                  Confidence,
-                </Box>{" "}
-                Skill & Joy
+                {currentSlide?.title || (
+                  <>
+                    Where Young Skaters Build{" "}
+                    <Box component="span" sx={{ color: "secondary.main" }}>
+                      Confidence,
+                    </Box>{" "}
+                    Skill & Joy
+                  </>
+                )}
               </Typography>
 
               <Typography
@@ -196,9 +230,7 @@ const Home = () => {
                   fontSize: { xs: "0.9rem", sm: "1rem", md: "1.15rem" },
                 }}
               >
-                A premium skating academy where children learn with expert
-                coaching, safe training practices, and a motivating environment
-                designed for real growth.
+                {currentSlide?.subtitle || "A premium skating academy where children learn with expert coaching, safe training practices, and a motivating environment designed for real growth."}
               </Typography>
 
               <Stack
@@ -208,7 +240,7 @@ const Home = () => {
               >
                 <Button
                   component={Link}
-                  to="/contact"
+                  to={currentSlide?.ctaLink || "/contact"}
                   variant="contained"
                   color="secondary"
                   size="large"
@@ -234,7 +266,7 @@ const Home = () => {
                     },
                   }}
                 >
-                  Join the Academy
+                  {currentSlide?.ctaText || "Join the Academy"}
                 </Button>
               </Stack>
 
@@ -431,7 +463,7 @@ const Home = () => {
               <Box
                 sx={{
                   position: "absolute",
-                  bottom: { xs: -60, sm: -70, md: -35 },
+                  bottom: { xs: -150, sm: -130, md: -100 },
                   left: { xs: "50%", md: -35 },
                   transform: { xs: "translateX(-50%)", md: "none" },
                   display: "flex",

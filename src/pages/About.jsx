@@ -12,6 +12,7 @@ import {
 } from "@mui/material";
 import { Link } from "react-router-dom";
 import { useState, useEffect, useRef } from "react";
+import { reviewsApi } from '../api/reviews';
 import { coachesApi } from '../api/coaches';
 import { getImageUrl } from '../utils/imageUrl';
 import { ArrowRight, Quote, Target, Eye, MapPin, Users, Trophy, Shield, Lightbulb, Star } from 'lucide-react';
@@ -103,6 +104,11 @@ const About = () => {
   const theme = useTheme();
   const [coaches, setCoaches] = useState([]);
   const [loadingCoaches, setLoadingCoaches] = useState(true);
+  const [reviews, setReviews] = useState([]);
+  const [loadingReviews, setLoadingReviews] = useState(true);
+  const [showReviewForm, setShowReviewForm] = useState(false);
+  const [reviewForm, setReviewForm] = useState({ name: '', role: 'Parent', rating: 5, comment: '' });
+  const [submittingReview, setSubmittingReview] = useState(false);
 
   useEffect(() => {
     const hash = window.location.hash;
@@ -131,6 +137,37 @@ const About = () => {
     };
     fetchCoaches();
   }, []);
+
+  // Fetch reviews from API
+  useEffect(() => {
+    const fetchReviews = async () => {
+      try {
+        const data = await reviewsApi.getApproved();
+        setReviews(data);
+      } catch (error) {
+        console.error('Failed to fetch reviews:', error);
+      } finally {
+        setLoadingReviews(false);
+      }
+    };
+    fetchReviews();
+  }, []);
+
+  const handleReviewSubmit = async (e) => {
+    e.preventDefault();
+    setSubmittingReview(true);
+    try {
+      await reviewsApi.create(reviewForm);
+      setReviewForm({ name: '', role: 'Parent', rating: 5, comment: '' });
+      setShowReviewForm(false);
+      alert('Thank you! Your review has been submitted and will be visible after approval.');
+    } catch (error) {
+      console.error('Failed to submit review:', error);
+      alert('Failed to submit review. Please try again.');
+    } finally {
+      setSubmittingReview(false);
+    }
+  };
 
   const whyChooseUs = [
     {
@@ -237,6 +274,8 @@ const About = () => {
       role: "Parent",
     },
   ];
+
+  const displayReviews = reviews.length > 0 ? reviews : testimonials;
 
   return (
     <Box sx={{ bgcolor: "background.default" }}>
@@ -1079,63 +1118,190 @@ const About = () => {
             >
               What Parents Say
             </Typography>
+            <Button
+              variant="contained"
+              color="secondary"
+              onClick={() => setShowReviewForm(!showReviewForm)}
+              sx={{ mt: 3, borderRadius: '12px', px: 4, py: 1.5, fontWeight: 700 }}
+            >
+              {showReviewForm ? 'Cancel' : 'Write a Review'}
+            </Button>
           </Box>
 
-          <Grid container spacing={4}>
-            {testimonials.map((testimonial, index) => (
-              <Grid item xs={12} md={4} key={index}>
-                <Card
-                  elevation={0}
-                  sx={{
-                    height: "100%",
-                    p: 4,
-                    borderRadius: "20px",
-                    bgcolor: "white",
-                    border: `1px solid ${alpha(theme.palette.divider, 0.1)}`,
-                    boxShadow: "0 10px 30px rgba(0,0,0,0.08)",
-                  }}
-                >
-                  <Quote
-                    size={40}
-                    strokeWidth={1.5}
-                    style={{
-                      color: theme.palette.secondary.main,
-                      opacity: 0.3,
-                      marginBottom: 16,
+          {showReviewForm && (
+            <Box
+              component="form"
+              onSubmit={handleReviewSubmit}
+              sx={{
+                maxWidth: 600,
+                mx: 'auto',
+                mb: 6,
+                p: 4,
+                borderRadius: '20px',
+                bgcolor: 'white',
+                border: `1px solid ${alpha(theme.palette.divider, 0.1)}`,
+                boxShadow: '0 10px 30px rgba(0,0,0,0.08)',
+              }}
+            >
+              <Grid container spacing={3}>
+                <Grid item xs={12}>
+                  <Typography variant="body2" sx={{ mb: 1, fontWeight: 600 }}>Your Name *</Typography>
+                  <Box
+                    component="input"
+                    required
+                    value={reviewForm.name}
+                    onChange={(e) => setReviewForm({ ...reviewForm, name: e.target.value })}
+                    sx={{
+                      width: '100%',
+                      p: 1.5,
+                      borderRadius: '8px',
+                      border: '1px solid #ddd',
+                      fontSize: '1rem',
+                      '&:focus': { outline: 'none', borderColor: 'secondary.main' },
                     }}
                   />
-                  <Typography
-                    variant="body1"
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                  <Typography variant="body2" sx={{ mb: 1, fontWeight: 600 }}>Role</Typography>
+                  <Box
+                    component="select"
+                    value={reviewForm.role}
+                    onChange={(e) => setReviewForm({ ...reviewForm, role: e.target.value })}
                     sx={{
-                      color: "text.secondary",
-                      lineHeight: 1.8,
-                      mb: 3,
-                      fontStyle: "italic",
+                      width: '100%',
+                      p: 1.5,
+                      borderRadius: '8px',
+                      border: '1px solid #ddd',
+                      fontSize: '1rem',
+                      '&:focus': { outline: 'none', borderColor: 'secondary.main' },
                     }}
                   >
-                    "{testimonial.text}"
-                  </Typography>
-                  <Typography
-                    variant="subtitle1"
+                    <option value="Parent">Parent</option>
+                    <option value="Student">Student</option>
+                    <option value="Guardian">Guardian</option>
+                  </Box>
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                  <Typography variant="body2" sx={{ mb: 1, fontWeight: 600 }}>Rating *</Typography>
+                  <Box sx={{ display: 'flex', gap: 1 }}>
+                    {[1, 2, 3, 4, 5].map((star) => (
+                      <Star
+                        key={star}
+                        size={28}
+                        fill={star <= reviewForm.rating ? theme.palette.secondary.main : 'none'}
+                        color={star <= reviewForm.rating ? theme.palette.secondary.main : '#ddd'}
+                        style={{ cursor: 'pointer' }}
+                        onClick={() => setReviewForm({ ...reviewForm, rating: star })}
+                      />
+                    ))}
+                  </Box>
+                </Grid>
+                <Grid item xs={12}>
+                  <Typography variant="body2" sx={{ mb: 1, fontWeight: 600 }}>Your Review *</Typography>
+                  <Box
+                    component="textarea"
+                    required
+                    rows={4}
+                    value={reviewForm.comment}
+                    onChange={(e) => setReviewForm({ ...reviewForm, comment: e.target.value })}
                     sx={{
-                      fontWeight: 700,
-                      mb: 0.5,
+                      width: '100%',
+                      p: 1.5,
+                      borderRadius: '8px',
+                      border: '1px solid #ddd',
+                      fontSize: '1rem',
+                      fontFamily: 'inherit',
+                      resize: 'vertical',
+                      '&:focus': { outline: 'none', borderColor: 'secondary.main' },
                     }}
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <Button
+                    type="submit"
+                    variant="contained"
+                    color="secondary"
+                    fullWidth
+                    disabled={submittingReview}
+                    sx={{ py: 1.5, borderRadius: '12px', fontWeight: 700 }}
                   >
-                    {testimonial.author}
-                  </Typography>
-                  <Typography
-                    variant="body2"
-                    sx={{
-                      color: "text.secondary",
-                    }}
-                  >
-                    {testimonial.role}
-                  </Typography>
-                </Card>
+                    {submittingReview ? 'Submitting...' : 'Submit Review'}
+                  </Button>
+                </Grid>
               </Grid>
-            ))}
-          </Grid>
+            </Box>
+          )}
+
+          {loadingReviews ? (
+            <Box sx={{ textAlign: 'center', py: 8 }}>
+              <Typography variant="body1" color="text.secondary">
+                Loading reviews...
+              </Typography>
+            </Box>
+          ) : (
+            <Grid container spacing={4}>
+              {displayReviews.map((testimonial, index) => (
+                <Grid item xs={12} md={4} key={index}>
+                  <Card
+                    elevation={0}
+                    sx={{
+                      height: "100%",
+                      p: 4,
+                      borderRadius: "20px",
+                      bgcolor: "white",
+                      border: `1px solid ${alpha(theme.palette.divider, 0.1)}`,
+                      boxShadow: "0 10px 30px rgba(0,0,0,0.08)",
+                    }}
+                  >
+                    <Quote
+                      size={40}
+                      strokeWidth={1.5}
+                      style={{
+                        color: theme.palette.secondary.main,
+                        opacity: 0.3,
+                        marginBottom: 16,
+                      }}
+                    />
+                    {testimonial.rating && (
+                      <Box sx={{ display: 'flex', gap: 0.5, mb: 2 }}>
+                        {[...Array(testimonial.rating)].map((_, i) => (
+                          <Star key={i} size={16} fill={theme.palette.secondary.main} color={theme.palette.secondary.main} />
+                        ))}
+                      </Box>
+                    )}
+                    <Typography
+                      variant="body1"
+                      sx={{
+                        color: "text.secondary",
+                        lineHeight: 1.8,
+                        mb: 3,
+                        fontStyle: "italic",
+                      }}
+                    >
+                      "{testimonial.comment || testimonial.text}"
+                    </Typography>
+                    <Typography
+                      variant="subtitle1"
+                      sx={{
+                        fontWeight: 700,
+                        mb: 0.5,
+                      }}
+                    >
+                      {testimonial.name || testimonial.author}
+                    </Typography>
+                    <Typography
+                      variant="body2"
+                      sx={{
+                        color: "text.secondary",
+                      }}
+                    >
+                      {testimonial.role}
+                    </Typography>
+                  </Card>
+                </Grid>
+              ))}
+            </Grid>
+          )}
         </Container>
       </Box>
 

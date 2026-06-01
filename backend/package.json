@@ -14,6 +14,7 @@
     "seed:categories": "ts-node src/seeds/categories.seed.ts",
     "seed:locations": "ts-node src/seeds/locations.seed.ts",
     "seed:gallery": "ts-node src/seeds/gallery.seed.ts",
+    "seed:hero": "ts-node src/seeds/heroSlides.seed.ts",
     "seed:backend-files": "ts-node src/seeds/backend-files.seed.ts",
     "seed:complete": "ts-node src/seeds/complete.seed.ts",
     "seed:all": "npm run seed:admin && npm run seed:categories && npm run seed:locations && npm run seed:complete && npm run seed:backend-files"

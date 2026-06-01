@@ -18,6 +18,8 @@ import AdminCoaches from './pages/admin/AdminCoaches';
 import AdminProducts from './pages/admin/AdminProducts';
 import AdminGallery from './pages/admin/AdminGallery';
 import AdminCategories from './pages/admin/AdminCategories';
+import AdminHeroSlides from './pages/admin/AdminHeroSlides';
+import AdminReviews from './pages/admin/AdminReviews';
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -44,6 +46,8 @@ function App() {
           <Route path="/admin/products" element={<AdminProducts />} />
           <Route path="/admin/gallery" element={<AdminGallery />} />
           <Route path="/admin/categories" element={<AdminCategories />} />
+          <Route path="/admin/hero-slides" element={<AdminHeroSlides />} />
+          <Route path="/admin/reviews" element={<AdminReviews />} />
           
           {/* Public Routes (With Navbar/Footer) */}
           <Route path="/*" element={

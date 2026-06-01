@@ -1,5 +1,5 @@
 import { Box, Container, AppBar, Toolbar, Typography, IconButton, Drawer, List, ListItem, ListItemIcon, ListItemText, ListItemButton, useMediaQuery, useTheme } from '@mui/material';
-import { Menu, Dashboard, People, ShoppingBag, Image, ContactMail, Category, ExitToApp } from '@mui/icons-material';
+import { Menu, Dashboard, People, ShoppingBag, Image, ContactMail, Category, ExitToApp, ViewCarousel, Star } from '@mui/icons-material';
 import { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import apiClient from '../api/client';
@@ -15,10 +15,12 @@ const AdminLayout = ({ children }) => {
 
   const menuItems = [
     { title: 'Dashboard', icon: <Dashboard />, path: '/admin/dashboard' },
+    { title: 'Hero Slides', icon: <ViewCarousel />, path: '/admin/hero-slides' },
     { title: 'Coaches', icon: <People />, path: '/admin/coaches' },
     { title: 'Products', icon: <ShoppingBag />, path: '/admin/products' },
     { title: 'Gallery', icon: <Image />, path: '/admin/gallery' },
     { title: 'Leads', icon: <ContactMail />, path: '/admin/leads' },
+    { title: 'Reviews', icon: <Star />, path: '/admin/reviews' },
     { title: 'Categories', icon: <Category />, path: '/admin/categories' },
   ];
 

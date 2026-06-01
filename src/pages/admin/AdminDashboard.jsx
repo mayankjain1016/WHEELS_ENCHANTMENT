@@ -4,7 +4,7 @@ import {
   Paper, List, ListItem, ListItemText, Divider, CircularProgress
 } from '@mui/material';
 import { 
-  People, Image, ShoppingBag, ContactMail
+  People, Image, ShoppingBag, ContactMail, ViewCarousel
 } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
 import { leadsApi } from '../../api/leads';
@@ -53,6 +53,7 @@ const AdminDashboard = () => {
   };
 
   const quickActions = [
+    { title: 'Hero Slides', icon: <ViewCarousel />, path: '/admin/hero-slides', color: '#9C27B0' },
     { title: 'Coaches', icon: <People />, path: '/admin/coaches', color: '#E91E63' },
     { title: 'Products', icon: <ShoppingBag />, path: '/admin/products', color: '#2196F3' },
     { title: 'Gallery', icon: <Image />, path: '/admin/gallery', color: '#4CAF50' },
