@@ -1,4 +1,4 @@
-import { Request, Response, NextFunction } from 'express';
+import { Request, Response } from 'express';
 import HeroSlide from '../models/HeroSlide';
 import imageProcessor from '../services/image.service';
 import ApiError from '../utils/ApiError';

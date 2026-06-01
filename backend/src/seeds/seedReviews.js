@@ -119,7 +119,6 @@ const reviews = [
     isActive: true,
     displayOrder: 12,
   },
-  // Pending reviews (not approved yet)
   {
     name: 'Neha Verma',
     role: 'Parent',
@@ -144,19 +143,15 @@ const seedReviews = async () => {
   try {
     console.log('🌱 Starting review seeding...');
     
-    // Connect to MongoDB
     await mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/wheels_enchantment');
     console.log('✅ Connected to MongoDB');
 
-    // Clear existing reviews
     await Review.deleteMany({});
     console.log('🗑️  Cleared existing reviews');
 
-    // Insert new reviews
     const insertedReviews = await Review.insertMany(reviews);
     console.log(`✅ Inserted ${insertedReviews.length} reviews`);
 
-    // Summary
     const approvedCount = insertedReviews.filter(r => r.isApproved).length;
     const pendingCount = insertedReviews.filter(r => !r.isApproved).length;
     
