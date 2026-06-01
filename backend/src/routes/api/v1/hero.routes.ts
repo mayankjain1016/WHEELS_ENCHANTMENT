@@ -1,7 +1,7 @@
 import { Router } from 'express';
-import { heroController } from '../../controllers/hero.controller';
-import { authenticate, authorize } from '../../middleware/auth.middleware';
-import { uploadSingle } from '../../middleware/upload.middleware';
+import { heroController } from '../../../controllers/hero.controller';
+import { authenticate, authorize } from '../../../middleware/auth.middleware';
+import { uploadSingle } from '../../../middleware/upload.middleware';
 
 const router = Router();
 
