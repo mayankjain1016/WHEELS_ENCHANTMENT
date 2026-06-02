@@ -40,10 +40,12 @@ const AdminReviews = () => {
   const fetchReviews = async () => {
     try {
       setLoading(true);
-      const data = await reviewsApi.getAll();
-      setReviews(data.data || []);
+      const response = await reviewsApi.getAll();
+      // Backend returns paginated data: { success, message, data: [...], meta: {...} }
+      setReviews(response.data || []);
     } catch (err) {
-      setError('Failed to fetch reviews');
+      console.error('Failed to fetch reviews:', err);
+      setError(err.response?.data?.message || 'Failed to fetch reviews');
     } finally {
       setLoading(false);
     }

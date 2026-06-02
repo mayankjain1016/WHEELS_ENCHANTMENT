@@ -8,11 +8,12 @@ export const reviewsApi = {
 
   getApproved: async () => {
     const response = await client.get('/reviews/approved');
-    return response.data.reviews;
+    return response.data.data?.reviews || [];
   },
 
   getAll: async (params?: { isApproved?: boolean; isActive?: boolean; page?: number; limit?: number }) => {
     const response = await client.get('/reviews', { params });
+    // Backend returns paginated: { success, message, data: [...], meta: {...} }
     return response.data;
   },
 
