@@ -122,8 +122,10 @@ const Home = () => {
   useEffect(() => {
     const fetchCoaches = async () => {
       try {
-        const data = await coachesApi.getAll({ isActive: true });
-        const sortedCoaches = data.sort((a, b) => a.displayOrder - b.displayOrder);
+        const response = await coachesApi.getAll({ isActive: true });
+        // Extract data array from response: { success, message, data: [], meta: {} }
+        const coachesData = Array.isArray(response?.data) ? response.data : [];
+        const sortedCoaches = coachesData.sort((a, b) => a.displayOrder - b.displayOrder);
         setCoaches(sortedCoaches);
       } catch (error) {
         console.error('Failed to fetch coaches:', error);
@@ -165,7 +167,7 @@ const Home = () => {
             position: "absolute",
             inset: 0,
             background:
-              "linear-gradient(to right, rgba(7,16,33,0.82), rgba(7,16,33,0.48))",
+              "linear-gradient(90deg, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.2) 50%, transparent 100%)",
             zIndex: 2,
           },
         }}

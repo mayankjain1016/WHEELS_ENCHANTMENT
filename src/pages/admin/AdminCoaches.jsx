@@ -62,9 +62,9 @@ const AdminCoaches = () => {
     try {
       setLoading(true);
       const response = await coachesApi.getAll();
-      const sortedCoaches = Array.isArray(response) 
-        ? response.sort((a, b) => a.displayOrder - b.displayOrder)
-        : [];
+      // Extract data array from response: { success, message, data: [], meta: {} }
+      const coachesData = Array.isArray(response?.data) ? response.data : [];
+      const sortedCoaches = coachesData.sort((a, b) => a.displayOrder - b.displayOrder);
       setCoaches(sortedCoaches);
     } catch (error) {
       setError('Failed to fetch coaches');

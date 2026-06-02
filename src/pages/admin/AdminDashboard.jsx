@@ -38,15 +38,32 @@ const AdminDashboard = () => {
         coachesApi.getAll()
       ]);
 
+      // Extract stats from API responses
+      // API responses have structure: { success, message, data: [], meta: { page, limit, total, totalPages } }
+      const leadsTotal = leadsRes?.meta?.total || 0;
+      const productsTotal = productsRes?.meta?.total || 0;
+      const galleryTotal = galleryRes?.meta?.total || 0;
+      const coachesTotal = coachesRes?.meta?.total || 0;
+
       setStats({
-        leads: leadsRes?.data?.pagination?.total || (Array.isArray(leadsRes?.data) ? leadsRes.data.length : 0),
-        products: productsRes?.data?.pagination?.total || (Array.isArray(productsRes?.data) ? productsRes.data.length : 0),
-        gallery: galleryRes?.data?.pagination?.total || (Array.isArray(galleryRes?.data) ? galleryRes.data.length : 0),
-        coaches: Array.isArray(coachesRes) ? coachesRes.length : 0
+        leads: leadsTotal,
+        products: productsTotal,
+        gallery: galleryTotal,
+        coaches: coachesTotal
       });
-      setRecentLeads(Array.isArray(leadsRes?.data?.data) ? leadsRes.data.data : (Array.isArray(leadsRes?.data) ? leadsRes.data : []));
+
+      // Set recent leads - data is directly in the response, not nested
+      const recentLeadsData = Array.isArray(leadsRes?.data) ? leadsRes.data : [];
+      setRecentLeads(recentLeadsData);
     } catch (error) {
       console.error('Failed to fetch dashboard data:', error);
+      // Set empty stats on error
+      setStats({
+        leads: 0,
+        products: 0,
+        gallery: 0,
+        coaches: 0
+      });
     } finally {
       setLoading(false);
     }

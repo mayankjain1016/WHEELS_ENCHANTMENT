@@ -25,7 +25,9 @@ export const coachesApi = {
   // Get all coaches (public)
   getAll: async (params?: { isActive?: boolean; isFeatured?: boolean }) => {
     const response = await apiClient.get('/coaches', { params });
-    return response.data.data || [];
+    // Return full response object with data array and pagination meta
+    // Response structure: { success, message, data: [], meta: { page, limit, total, totalPages } }
+    return response.data;
   },
 
   // Get coach by ID

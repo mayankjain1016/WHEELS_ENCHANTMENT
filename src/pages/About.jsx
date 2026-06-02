@@ -126,8 +126,10 @@ const About = () => {
   useEffect(() => {
     const fetchCoaches = async () => {
       try {
-        const data = await coachesApi.getAll({ isActive: true });
-        const sortedCoaches = data.sort((a, b) => a.displayOrder - b.displayOrder);
+        const response = await coachesApi.getAll({ isActive: true });
+        // Extract data array from response: { success, message, data: [], meta: {} }
+        const coachesData = Array.isArray(response?.data) ? response.data : [];
+        const sortedCoaches = coachesData.sort((a, b) => a.displayOrder - b.displayOrder);
         setCoaches(sortedCoaches);
       } catch (error) {
         console.error('Failed to fetch coaches:', error);
