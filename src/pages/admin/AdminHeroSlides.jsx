@@ -8,6 +8,7 @@ import {
 import { Add, Edit, Delete, DragIndicator } from '@mui/icons-material';
 import { heroApi } from '../../api/hero';
 import { getImageUrl } from '../../utils/imageUrl';
+import AdminLayout from '../../components/AdminLayout';
 
 const AdminHeroSlides = () => {
   const [slides, setSlides] = useState([]);
@@ -139,185 +140,189 @@ const AdminHeroSlides = () => {
 
   if (loading) {
     return (
-      <Box display="flex" justifyContent="center" alignItems="center" minHeight="400px">
-        <CircularProgress />
-      </Box>
+      <AdminLayout>
+        <Box display="flex" justifyContent="center" alignItems="center" minHeight="400px">
+          <CircularProgress />
+        </Box>
+      </AdminLayout>
     );
   }
 
   return (
-    <Container maxWidth="lg" sx={{ py: 4 }}>
-      <Box display="flex" justifyContent="space-between" alignItems="center" mb={3}>
-        <Typography variant="h4" fontWeight={700}>Hero Slides</Typography>
-        <Button
-          variant="contained"
-          startIcon={<Add />}
-          onClick={() => handleOpenDialog()}
-        >
-          Add Hero Slide
-        </Button>
-      </Box>
-
-      {error && <Alert severity="error" sx={{ mb: 2 }} onClose={() => setError('')}>{error}</Alert>}
-      {success && <Alert severity="success" sx={{ mb: 2 }} onClose={() => setSuccess('')}>{success}</Alert>}
-
-      <TableContainer component={Paper}>
-        <Table>
-          <TableHead>
-            <TableRow>
-              <TableCell>Order</TableCell>
-              <TableCell>Image</TableCell>
-              <TableCell>Title</TableCell>
-              <TableCell>Subtitle</TableCell>
-              <TableCell>CTA</TableCell>
-              <TableCell>Status</TableCell>
-              <TableCell align="right">Actions</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {slides.map((slide) => (
-              <TableRow key={slide._id}>
-                <TableCell>
-                  <Box display="flex" alignItems="center">
-                    <DragIndicator sx={{ mr: 1, color: 'text.secondary' }} />
-                    {slide.displayOrder}
-                  </Box>
-                </TableCell>
-                <TableCell>
-                  <Avatar
-                    src={getImageUrl(slide.image?.thumbnail)}
-                    variant="rounded"
-                    sx={{ width: 80, height: 50 }}
-                  />
-                </TableCell>
-                <TableCell>{slide.title || '-'}</TableCell>
-                <TableCell sx={{ maxWidth: 300 }}>
-                  {slide.subtitle ? slide.subtitle.substring(0, 60) + '...' : '-'}
-                </TableCell>
-                <TableCell>{slide.ctaText || '-'}</TableCell>
-                <TableCell>
-                  <Box
-                    sx={{
-                      px: 1.5,
-                      py: 0.5,
-                      borderRadius: 1,
-                      bgcolor: slide.isActive ? 'success.light' : 'error.light',
-                      color: slide.isActive ? 'success.dark' : 'error.dark',
-                      display: 'inline-block',
-                      fontSize: '0.75rem',
-                      fontWeight: 600
-                    }}
-                  >
-                    {slide.isActive ? 'Active' : 'Inactive'}
-                  </Box>
-                </TableCell>
-                <TableCell align="right">
-                  <IconButton onClick={() => handleOpenDialog(slide)} color="primary">
-                    <Edit />
-                  </IconButton>
-                  <IconButton onClick={() => handleDelete(slide._id)} color="error">
-                    <Delete />
-                  </IconButton>
-                </TableCell>
-              </TableRow>
-            ))}
-            {slides.length === 0 && (
-              <TableRow>
-                <TableCell colSpan={7} align="center">
-                  <Typography color="text.secondary" py={4}>
-                    No hero slides found. Add your first slide!
-                  </Typography>
-                </TableCell>
-              </TableRow>
-            )}
-          </TableBody>
-        </Table>
-      </TableContainer>
-
-      <Dialog open={openDialog} onClose={handleCloseDialog} maxWidth="sm" fullWidth>
-        <DialogTitle>{editingSlide ? 'Edit Hero Slide' : 'Add Hero Slide'}</DialogTitle>
-        <DialogContent>
-          {error && <Alert severity="error" sx={{ mb: 2 }}>{error}</Alert>}
-          
-          <TextField
-            fullWidth
-            label="Title"
-            value={formData.title}
-            onChange={(e) => setFormData({ ...formData, title: e.target.value })}
-            margin="normal"
-          />
-
-          <TextField
-            fullWidth
-            label="Subtitle"
-            value={formData.subtitle}
-            onChange={(e) => setFormData({ ...formData, subtitle: e.target.value })}
-            margin="normal"
-            multiline
-            rows={3}
-          />
-
-          <TextField
-            fullWidth
-            label="CTA Button Text"
-            value={formData.ctaText}
-            onChange={(e) => setFormData({ ...formData, ctaText: e.target.value })}
-            margin="normal"
-          />
-
-          <TextField
-            fullWidth
-            label="CTA Link"
-            value={formData.ctaLink}
-            onChange={(e) => setFormData({ ...formData, ctaLink: e.target.value })}
-            margin="normal"
-            placeholder="/contact"
-          />
-
-          <TextField
-            fullWidth
-            label="Display Order"
-            type="number"
-            value={formData.displayOrder}
-            onChange={(e) => setFormData({ ...formData, displayOrder: parseInt(e.target.value) })}
-            margin="normal"
-          />
-
-          <FormControlLabel
-            control={
-              <Switch
-                checked={formData.isActive}
-                onChange={(e) => setFormData({ ...formData, isActive: e.target.checked })}
-              />
-            }
-            label="Active"
-            sx={{ mt: 2 }}
-          />
-
-          <Box mt={2}>
-            <Button variant="outlined" component="label" fullWidth>
-              {imageFile ? 'Change Image' : editingSlide ? 'Change Image' : 'Upload Image'}
-              <input type="file" hidden accept="image/*" onChange={handleImageChange} />
-            </Button>
-            {imagePreview && (
-              <Box mt={2} textAlign="center">
-                <img
-                  src={imagePreview}
-                  alt="Preview"
-                  style={{ maxWidth: '100%', maxHeight: 300, borderRadius: 8 }}
-                />
-              </Box>
-            )}
-          </Box>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleCloseDialog}>Cancel</Button>
-          <Button onClick={handleSubmit} variant="contained">
-            {editingSlide ? 'Update' : 'Create'}
+    <AdminLayout>
+      <Container maxWidth="xl" sx={{ py: 4 }}>
+        <Box display="flex" justifyContent="space-between" alignItems="center" mb={3}>
+          <Typography variant="h4" fontWeight={700}>Hero Slides</Typography>
+          <Button
+            variant="contained"
+            startIcon={<Add />}
+            onClick={() => handleOpenDialog()}
+          >
+            Add Hero Slide
           </Button>
-        </DialogActions>
-      </Dialog>
-    </Container>
+        </Box>
+
+        {error && <Alert severity="error" sx={{ mb: 2 }} onClose={() => setError('')}>{error}</Alert>}
+        {success && <Alert severity="success" sx={{ mb: 2 }} onClose={() => setSuccess('')}>{success}</Alert>}
+
+        <TableContainer component={Paper}>
+          <Table>
+            <TableHead>
+              <TableRow>
+                <TableCell>Order</TableCell>
+                <TableCell>Image</TableCell>
+                <TableCell>Title</TableCell>
+                <TableCell>Subtitle</TableCell>
+                <TableCell>CTA</TableCell>
+                <TableCell>Status</TableCell>
+                <TableCell align="right">Actions</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {slides.map((slide) => (
+                <TableRow key={slide._id}>
+                  <TableCell>
+                    <Box display="flex" alignItems="center">
+                      <DragIndicator sx={{ mr: 1, color: 'text.secondary' }} />
+                      {slide.displayOrder}
+                    </Box>
+                  </TableCell>
+                  <TableCell>
+                    <Avatar
+                      src={getImageUrl(slide.image?.thumbnail)}
+                      variant="rounded"
+                      sx={{ width: 80, height: 50 }}
+                    />
+                  </TableCell>
+                  <TableCell>{slide.title || '-'}</TableCell>
+                  <TableCell sx={{ maxWidth: 300 }}>
+                    {slide.subtitle ? slide.subtitle.substring(0, 60) + '...' : '-'}
+                  </TableCell>
+                  <TableCell>{slide.ctaText || '-'}</TableCell>
+                  <TableCell>
+                    <Box
+                      sx={{
+                        px: 1.5,
+                        py: 0.5,
+                        borderRadius: 1,
+                        bgcolor: slide.isActive ? 'success.light' : 'error.light',
+                        color: slide.isActive ? 'success.dark' : 'error.dark',
+                        display: 'inline-block',
+                        fontSize: '0.75rem',
+                        fontWeight: 600
+                      }}
+                    >
+                      {slide.isActive ? 'Active' : 'Inactive'}
+                    </Box>
+                  </TableCell>
+                  <TableCell align="right">
+                    <IconButton onClick={() => handleOpenDialog(slide)} color="primary">
+                      <Edit />
+                    </IconButton>
+                    <IconButton onClick={() => handleDelete(slide._id)} color="error">
+                      <Delete />
+                    </IconButton>
+                  </TableCell>
+                </TableRow>
+              ))}
+              {slides.length === 0 && (
+                <TableRow>
+                  <TableCell colSpan={7} align="center">
+                    <Typography color="text.secondary" py={4}>
+                      No hero slides found. Add your first slide!
+                    </Typography>
+                  </TableCell>
+                </TableRow>
+              )}
+            </TableBody>
+          </Table>
+        </TableContainer>
+
+        <Dialog open={openDialog} onClose={handleCloseDialog} maxWidth="sm" fullWidth>
+          <DialogTitle>{editingSlide ? 'Edit Hero Slide' : 'Add Hero Slide'}</DialogTitle>
+          <DialogContent>
+            {error && <Alert severity="error" sx={{ mb: 2 }}>{error}</Alert>}
+            
+            <TextField
+              fullWidth
+              label="Title"
+              value={formData.title}
+              onChange={(e) => setFormData({ ...formData, title: e.target.value })}
+              margin="normal"
+            />
+
+            <TextField
+              fullWidth
+              label="Subtitle"
+              value={formData.subtitle}
+              onChange={(e) => setFormData({ ...formData, subtitle: e.target.value })}
+              margin="normal"
+              multiline
+              rows={3}
+            />
+
+            <TextField
+              fullWidth
+              label="CTA Button Text"
+              value={formData.ctaText}
+              onChange={(e) => setFormData({ ...formData, ctaText: e.target.value })}
+              margin="normal"
+            />
+
+            <TextField
+              fullWidth
+              label="CTA Link"
+              value={formData.ctaLink}
+              onChange={(e) => setFormData({ ...formData, ctaLink: e.target.value })}
+              margin="normal"
+              placeholder="/contact"
+            />
+
+            <TextField
+              fullWidth
+              label="Display Order"
+              type="number"
+              value={formData.displayOrder}
+              onChange={(e) => setFormData({ ...formData, displayOrder: parseInt(e.target.value) })}
+              margin="normal"
+            />
+
+            <FormControlLabel
+              control={
+                <Switch
+                  checked={formData.isActive}
+                  onChange={(e) => setFormData({ ...formData, isActive: e.target.checked })}
+                />
+              }
+              label="Active"
+              sx={{ mt: 2 }}
+            />
+
+            <Box mt={2}>
+              <Button variant="outlined" component="label" fullWidth>
+                {imageFile ? 'Change Image' : editingSlide ? 'Change Image' : 'Upload Image'}
+                <input type="file" hidden accept="image/*" onChange={handleImageChange} />
+              </Button>
+              {imagePreview && (
+                <Box mt={2} textAlign="center">
+                  <img
+                    src={imagePreview}
+                    alt="Preview"
+                    style={{ maxWidth: '100%', maxHeight: 300, borderRadius: 8 }}
+                  />
+                </Box>
+              )}
+            </Box>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleCloseDialog}>Cancel</Button>
+            <Button onClick={handleSubmit} variant="contained">
+              {editingSlide ? 'Update' : 'Create'}
+            </Button>
+          </DialogActions>
+        </Dialog>
+      </Container>
+    </AdminLayout>
   );
 };
 

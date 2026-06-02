@@ -7,8 +7,8 @@ const router = Router();
 
 router.get('/hero-slides', heroController.getAll);
 router.get('/hero-slides/:id', heroController.getById);
-router.post('/hero-slides', authenticate, authorize('admin'), uploadSingle, heroController.create);
-router.put('/hero-slides/:id', authenticate, authorize('admin'), uploadSingle, heroController.update);
-router.delete('/hero-slides/:id', authenticate, authorize('admin'), heroController.delete);
+router.post('/hero-slides', authenticate, authorize('admin', 'super_admin'), uploadSingle, heroController.create);
+router.put('/hero-slides/:id', authenticate, authorize('admin', 'super_admin'), uploadSingle, heroController.update);
+router.delete('/hero-slides/:id', authenticate, authorize('admin', 'super_admin'), heroController.delete);
 
 export default router;

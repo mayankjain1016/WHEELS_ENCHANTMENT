@@ -6,15 +6,14 @@ import { authLimiter } from '../../../middleware/rateLimit.middleware';
 import {
   loginSchema,
   registerSchema,
-  changePasswordSchema,
-  refreshTokenSchema
+  changePasswordSchema
 } from '../../../validators/auth.validator';
 
 const router = Router();
 
 // Public routes
 router.post('/login', authLimiter, validate(loginSchema), authController.login);
-router.post('/refresh', validate(refreshTokenSchema), authController.refreshToken);
+router.post('/refresh', authController.refreshToken);
 
 // Protected routes
 router.use(authenticate);

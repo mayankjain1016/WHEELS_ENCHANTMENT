@@ -50,6 +50,7 @@ const AdminLogin = () => {
                 fullWidth
                 label="Email"
                 type="email"
+                autoComplete="email"
                 value={credentials.email}
                 onChange={(e) => setCredentials({ ...credentials, email: e.target.value })}
                 required
@@ -58,6 +59,7 @@ const AdminLogin = () => {
                 fullWidth
                 label="Password"
                 type="password"
+                autoComplete="current-password"
                 value={credentials.password}
                 onChange={(e) => setCredentials({ ...credentials, password: e.target.value })}
                 required
