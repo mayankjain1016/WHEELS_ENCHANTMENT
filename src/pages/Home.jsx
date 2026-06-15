@@ -5,7 +5,6 @@ import {
   Button,
   Grid,
   Card,
-  CardContent,
   Avatar,
   useTheme,
   alpha,
@@ -115,6 +114,7 @@ const Home = () => {
       icon: <Shield size={36} strokeWidth={2} />,
     },
   ];
+  
   const [coaches, setCoaches] = useState([]);
   const [loadingCoaches, setLoadingCoaches] = useState(true);
 
@@ -142,8 +142,6 @@ const Home = () => {
     fetchCoaches();
   }, []);
 
-  const highlights = [];
-
   const locationAreas = [
     "East Kolkata",
     "North Kolkata",
@@ -158,7 +156,9 @@ const Home = () => {
       <Box
         sx={{
           position: "relative",
-          minHeight: { xs: "60vh", sm: "65vh", md: "75vh" },
+          width: "100%",
+          aspectRatio: "16 / 9",
+          minHeight: { xs: "250px", sm: "400px", md: "600px" },
           display: "flex",
           alignItems: "center",
           overflow: "hidden",
@@ -178,13 +178,11 @@ const Home = () => {
             key={index}
             sx={{
               position: "absolute",
-              top: 0,
-              left: 0,
-              width: "100%",
-              height: "100%",
+              inset: 0,
               backgroundImage: `url(${image})`,
               backgroundSize: "cover",
               backgroundPosition: "center",
+              backgroundRepeat: "no-repeat",
               opacity: currentImageIndex === index ? 1 : 0,
               transition: "opacity 2s ease-in-out",
               zIndex: 1,
